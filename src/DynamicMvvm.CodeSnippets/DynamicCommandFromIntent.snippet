@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>DynamicCommand from Intent</Title>
+      <Author></Author>
+      <Description></Description>
+      <HelpUrl></HelpUrl>
+      <SnippetTypes />
+      <Keywords />
+      <Shortcut>dcmd</Shortcut>
+    </Header>
+    <Snippet>
+      <References />
+			<Imports>
+				<Import>
+					<Namespace>Chinook.DynamicMvvm</Namespace>
+				</Import>
+			</Imports>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>CommandName</ID>
+          <Default>CommandName</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Kind="" Delimiter="$"><![CDATA[public IDynamicCommand $CommandName$ => this.GetCommandFromIntent($end$);]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

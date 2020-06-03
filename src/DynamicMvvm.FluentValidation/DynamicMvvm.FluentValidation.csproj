@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0</TargetFrameworks>
+		<RootNamespace>Chinook.DynamicMvvm</RootNamespace>
+		<Authors>nventive</Authors>
+		<Company>nventive</Company>
+		<AssemblyName>Chinook.DynamicMvvm.FluentValidation</AssemblyName>
+		<PackageId>Chinook.DynamicMvvm.FluentValidation</PackageId>
+		<Description>Chinook.DynamicMvvm.FluentValidation</Description>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+    	<PackageReference Include="FluentValidation" Version="8.6.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\DynamicMvvm.Abstractions\DynamicMvvm.Abstractions.csproj" />
+	</ItemGroup>
+</Project>

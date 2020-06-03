@@ -1,0 +1,28 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
+  <PropertyGroup>
+		<!-- Change the TargetFrameworks depending on which platform you are building on. This avoids errors as it is impossible to build UAP on OSX (MacOS) -->
+		<TargetFrameworks Condition="'$([MSBuild]::IsOsPlatform(OSX))'">netstandard2.0;xamarinios10;</TargetFrameworks>
+		<TargetFrameworks Condition="'!$([MSBuild]::IsOsPlatform(OSX))'">netstandard2.0;xamarinios10;monoandroid90;uap10.0.17763</TargetFrameworks>
+    <!-- Ensures the .xr.xml files are generated in a proper layout folder -->
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
+    <RootNamespace>Chinook.DynamicMvvm</RootNamespace>
+		<Authors>nventive</Authors>
+		<Company>nventive</Company>
+		<AssemblyName>Chinook.DynamicMvvm.Uno</AssemblyName>
+		<PackageId>Chinook.DynamicMvvm.Uno</PackageId>
+		<Description>Chinook.DynamicMvvm.Uno</Description>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+    <DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='xamarinios10' or '$(TargetFramework)'=='monoandroid90' or '$(TargetFramework)'=='netstandard2.0'">
+    <PackageReference Include="Uno.UI" Version="2.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DynamicMvvm.Abstractions\DynamicMvvm.Abstractions.csproj" />
+  </ItemGroup>
+</Project>
