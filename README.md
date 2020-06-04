@@ -1,6 +1,6 @@
 ﻿# Project Title
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 {Project tag line}
@@ -49,6 +49,7 @@ If you want to learn more about creating good readme files then refer the follow
 <table>
   <tr>
     <td align="center"><a href="https://github.com/jeanplevesque"><img src="https://avatars3.githubusercontent.com/u/39710855?v=4" width="100px;" alt=""/><br /><sub><b>Jean-Philippe Lévesque</b></sub></a><br /><a href="https://github.com/nventive/Chinook.DynamicMvvm/commits?author=jeanplevesque" title="Code">💻</a> <a href="https://github.com/nventive/Chinook.DynamicMvvm/commits?author=jeanplevesque" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/jeremiethibeault"><img src="https://avatars3.githubusercontent.com/u/5444226?v=4" width="100px;" alt=""/><br /><sub><b>Jérémie Thibeault</b></sub></a><br /><a href="https://github.com/nventive/Chinook.DynamicMvvm/commits?author=jeremiethibeault" title="Tests">⚠️</a> <a href="https://github.com/nventive/Chinook.DynamicMvvm/commits?author=jeremiethibeault" title="Code">💻</a></td>
   </tr>
 </table>
 
