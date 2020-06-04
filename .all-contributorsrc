@@ -24,6 +24,15 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "MatFillion",
+      "name": "Mathieu Fillion",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/7029537?v=4",
+      "profile": "https://github.com/MatFillion",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
