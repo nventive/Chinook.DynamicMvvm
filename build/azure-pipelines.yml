@@ -17,6 +17,8 @@ variables:
   value: Packages
 - name: SolutionFileName # Example: MyApplication.sln
   value: DynamicMvvm.sln
+- name: IsReleaseBranch # Should this branch name use the release stage
+  value:  or(eq(variables['Build.SourceBranchName'], 'master'), startsWith(variables['Build.SourceBranchName'], 'feature/'), startsWith(variables['Build.SourceBranchName'], 'release/'))
 
 stages:
 - stage: Build
@@ -46,8 +48,8 @@ stages:
     - template: stage-build.yml
 
 - stage: Release
-  # Only release when the build is not for a Pull Request.
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  # Only release when the build is not for a Pull Request and branch name fits
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['IsReleaseBranch'], 'true'))
   jobs:
   - job: Publish_NuGet_Internal
 
