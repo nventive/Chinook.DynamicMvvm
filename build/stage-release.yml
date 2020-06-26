@@ -19,7 +19,7 @@
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/$(ArtifactName)/*.nupkg'
     nuGetFeedType: 'external'
-    publishVstsFeed: 'NuGet.org - nventive'
+    publishFeedCredentials: 'NuGet.org - nventive'
 
 - task: PostBuildCleanup@3
   displayName: 'Post-Build cleanup :  Cleanup files to keep build server clean!'
