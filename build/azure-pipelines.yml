@@ -1,4 +1,4 @@
-trigger:
+﻿trigger:
   branches:
     include:
     - master
@@ -18,7 +18,7 @@ variables:
 - name: SolutionFileName # Example: MyApplication.sln
   value: DynamicMvvm.sln
 - name: IsReleaseBranch # Should this branch name use the release stage
-  value:  or(eq(variables['Build.SourceBranchName'], 'master'), startsWith(variables['Build.SourceBranchName'], 'feature/'), startsWith(variables['Build.SourceBranchName'], 'release/'))
+  value: $[or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))]
 
 stages:
 - stage: Build
@@ -51,7 +51,7 @@ stages:
   # Only release when the build is not for a Pull Request and branch name fits
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['IsReleaseBranch'], 'true'))
   jobs:
-  - job: Publish_NuGet_Internal
+  - job: Publish_NuGet_External
 
     pool:
       name: Container
