@@ -33,6 +33,14 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "jcantin-nventive",
+      "name": "Julie Cantin",
+      "profile": "https://github.com/jcantin-nventive",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

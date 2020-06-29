@@ -93,7 +93,7 @@ public class MyViewModel : ViewModelBase
 
 There are multiple ways to create a `IDynamicProperty` from a `IViewModel`.
 
-[Refer to this documentation for more information on DynamicProperties]().
+[Refer to this documentation for more information on DynamicProperties](../Property/IDynamicProperty.md).
 
 ```csharp
 public class MyViewModel : ViewModelBase

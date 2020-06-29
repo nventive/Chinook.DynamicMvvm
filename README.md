@@ -1,22 +1,56 @@
-﻿# Project Title
+﻿# Chinook.DynamicMvvm
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-{Project tag line}
+The `Chinook.DynamicMvvm` library assists in MVVM (Model - View - ViewModel) development.
 
-{Small description of the purpose of the project}
+There are 3 main components to `Chinook.DynamicMvvm`:
+
+* [IViewModel](src/DynamicMvvm.Abstractions/ViewModel/IViewModel.md): `INotifyPropertyChanged` object which contains properties and commands
+* [IDynamicProperty](src/DynamicMvvm.Abstractions/Property/IDynamicProperty.md): a property that will notify its subscribers when its value changes.
+* [IDynamicCommand](src/DynamicMvvm.Abstractions/Command/IDynamicCommand.md): a `ICommand` that will notify its subscribers when it is executing.
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 ## Getting Started
 
-{Instructions to quickly get started using the project: pre-requisites, packages
-to install, sample code, etc.}
+Add the `Chinook.DynamicMvvm` nuget package and its dependencies to your project.
+
+If you want to use [Reactive Extensions](https://github.com/dotnet/reactive), we recommend installing `Chinook.DynamicMvvm.Reactive` to gain access to relevant `IDynamicProperty` and `IDynamicCommand` extension methods
+
+If you want to use [FluentValidations](https://fluentvalidation.net/), we recommend installing `DynamicMvvm.FluentValidation` to gain access to `IViewModel` extension methods.
+
+We also recommend installing these [code snippets](https://github.com/nventive/Chinook.DynamicMvvm/tree/master/src/DynamicMvvm.CodeSnippets).
 
 ## Features
 
-{More details/listing of features of the project}
+Please refer to the documentation for [IViewModel](src/DynamicMvvm.Abstractions/ViewModel/IViewModel.md#Features), [IDynamicProperty](src/DynamicMvvm.Abstractions/Property/IDynamicProperty.md#Features) and [IDynamicCommand](src/DynamicMvvm.Abstractions/Command/IDynamicCommand.md#Features) for a full list of the features! Here's a small code sample showing the interaction between `IViewModel`, `IDynamicProperty` and `IDynamicCommand`:
+
+```csharp
+public class MyViewModel : ViewModelBase
+{
+  // This will create and attach a new IDynamicProperty named "MyProperty"
+  // to your IViewModel. It's initial value will be default(int).
+  public int MyProperty => this.Get<int>();
+
+  // This will create a DynamicProperty with a name of "MyPropertyFromTask" and an initial value of 10.
+  // When the task completes, the property will be updated with its result and will notify its subscribers of this change.
+  Task<int> MyTask(CancellationToken ct) => Task.FromResult(20);
+  var myPropertyFromTask = new DynamicPropertyFromTask<int>("MyPropertyFromTask", MyTask, initialValue: 10);
+
+  // This will create and attach a new IDynamicCommand named "MyCommand"
+  // to your IViewModel. It will call the Execute method when executed.
+  public IDynamicCommand MyCommand => this.GetCommand(Execute);
+  private void Execute() { }
+
+  // This will create a DynamicCommand with a name of "MyCommandFromTaskWithParameter".
+  // The ExecuteCommand method will be called when MyCommandFromTaskWithParameter is being executed.
+  var myCommandStrategy = new TaskCommandStrategy<int>(ExecuteCommand);
+  var myCommand = new DynamicCommand("MyCommandFromTaskWithParameter", myCommandStrategy);
+  Task ExecuteCommand(CancellationToken ct, int parameter) => Task.CompletedTask;
+}
+```
 
 ## Changelog
 
@@ -35,12 +69,6 @@ contributing to this project.
 
 Be mindful of our [Code of Conduct](CODE_OF_CONDUCT.md).
 
- TODO REMOVE
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
-
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -51,6 +79,7 @@ If you want to learn more about creating good readme files then refer the follow
     <td align="center"><a href="https://github.com/jeanplevesque"><img src="https://avatars3.githubusercontent.com/u/39710855?v=4" width="100px;" alt=""/><br /><sub><b>Jean-Philippe Lévesque</b></sub></a><br /><a href="https://github.com/nventive/Chinook.DynamicMvvm/commits?author=jeanplevesque" title="Code">💻</a> <a href="https://github.com/nventive/Chinook.DynamicMvvm/commits?author=jeanplevesque" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://github.com/jeremiethibeault"><img src="https://avatars3.githubusercontent.com/u/5444226?v=4" width="100px;" alt=""/><br /><sub><b>Jérémie Thibeault</b></sub></a><br /><a href="https://github.com/nventive/Chinook.DynamicMvvm/commits?author=jeremiethibeault" title="Tests">⚠️</a> <a href="https://github.com/nventive/Chinook.DynamicMvvm/commits?author=jeremiethibeault" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/MatFillion"><img src="https://avatars0.githubusercontent.com/u/7029537?v=4" width="100px;" alt=""/><br /><sub><b>Mathieu Fillion</b></sub></a><br /><a href="https://github.com/nventive/Chinook.DynamicMvvm/commits?author=MatFillion" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/jcantin-nventive"><img src="https://avatars0.githubusercontent.com/u/43351943?v=4" width="100px;" alt=""/><br /><sub><b>Julie Cantin</b></sub></a><br /><a href="https://github.com/nventive/Chinook.DynamicMvvm/commits?author=jcantin-nventive" title="doc">📖</a></td>
   </tr>
 </table>
 
