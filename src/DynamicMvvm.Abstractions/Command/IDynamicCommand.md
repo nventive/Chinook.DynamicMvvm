@@ -176,7 +176,7 @@ You can decorate all commands created from the `IDynamicCommandFactory` by using
 // This will create a new IDynamicCommand using a IDynamicCommandFactory
 var myCommandDecorator = new DynamicCommandStrategyDecorator(c => c
   // This will add logs your commands.
-  .WithLogs(s.GetRequiredService<ILogger<IDynamicCommand>>())
+  .WithLogs()
 
   // This will catch any errors unhandled by your commands.
   .CatchErrors(HandleCommandError)

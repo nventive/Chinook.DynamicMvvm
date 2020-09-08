@@ -13,10 +13,10 @@ namespace Chinook.DynamicMvvm
 		/// Will add logs to the command execution.
 		/// </summary>
 		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
-		/// <param name="logger"><see cref="ILogger"/></param>
+		/// <param name="logger">Optional; the desired logger. If null is passed, a new one will be created using <see cref="DynamicMvvmConfiguration.LoggerFactory"/>.</param>
 		/// <returns><see cref="IDynamicCommandStrategy"/></returns>
-		public static IDynamicCommandStrategy WithLogs(this IDynamicCommandStrategy innerStrategy, ILogger logger)
-			=> new LoggerCommandStrategy(innerStrategy, logger);
+		public static IDynamicCommandStrategy WithLogs(this IDynamicCommandStrategy innerStrategy, ILogger logger = null)
+			=> new LoggerCommandStrategy(innerStrategy, logger ?? typeof(IDynamicCommand).Log());
 	}
 
 	/// <summary>
