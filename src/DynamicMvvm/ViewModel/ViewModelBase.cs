@@ -25,7 +25,7 @@ namespace Chinook.DynamicMvvm
 			Name = name ?? GetType().Name;
 			ServiceProvider = serviceProvider ?? DefaultServiceProvider;
 
-			_logger = (ILogger)ServiceProvider?.GetService<ILogger<ViewModelBase>>() ?? NullLogger.Instance;
+			_logger = typeof(ViewModelBase).Log();
 
 			if (_diagnostics.IsEnabled("Created"))
 			{
