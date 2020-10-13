@@ -89,3 +89,8 @@ myProperty.GetAndObserve().Subscribe(value =>
   // It will then be called everytime the value of the property changes.
 });
 ```
+
+### Code Snippets
+
+You can install the Visual Studio Extension [Chinook Snippets](https://marketplace.visualstudio.com/items?itemName=nventivecorp.ChinookSnippets) and use code snippets to quickly generate dynamic properties.
+All snippets related to `IDynamicProperty` start with `ckprop`.

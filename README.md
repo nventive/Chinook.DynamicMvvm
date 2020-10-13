@@ -21,7 +21,7 @@ If you want to use [Reactive Extensions](https://github.com/dotnet/reactive), we
 
 If you want to use [FluentValidations](https://fluentvalidation.net/), we recommend installing `DynamicMvvm.FluentValidation` to gain access to `IViewModel` extension methods.
 
-We also recommend installing these [code snippets](https://github.com/nventive/Chinook.DynamicMvvm/tree/master/src/DynamicMvvm.CodeSnippets).
+We also recommend installing the [Chinook Snippets](https://marketplace.visualstudio.com/items?itemName=nventivecorp.ChinookSnippets) Visual Studio Extension to benefit from code snippets.
 
 ## Features
 
