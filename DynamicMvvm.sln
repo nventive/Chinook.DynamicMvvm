@@ -13,24 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicMvvm.Uno", "src\Dyna
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicMvvm.Reactive", "src\DynamicMvvm.Reactive\DynamicMvvm.Reactive.csproj", "{9D94D67C-B58B-498E-B6F3-BE8FB4BB7802}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DynamicMvvm.CodeSnippets", "DynamicMvvm.CodeSnippets", "{6B2E9034-A169-430D-B09E-B9288A811B86}"
-	ProjectSection(SolutionItems) = preProject
-		src\DynamicMvvm.CodeSnippets\DynamicCommandFromAction.snippet = src\DynamicMvvm.CodeSnippets\DynamicCommandFromAction.snippet
-		src\DynamicMvvm.CodeSnippets\DynamicCommandFromFeedRefresh.snippet = src\DynamicMvvm.CodeSnippets\DynamicCommandFromFeedRefresh.snippet
-		src\DynamicMvvm.CodeSnippets\DynamicCommandFromIntent.snippet = src\DynamicMvvm.CodeSnippets\DynamicCommandFromIntent.snippet
-		src\DynamicMvvm.CodeSnippets\DynamicCommandFromTask.snippet = src\DynamicMvvm.CodeSnippets\DynamicCommandFromTask.snippet
-		src\DynamicMvvm.CodeSnippets\DynamicPropertyFromFeed.snippet = src\DynamicMvvm.CodeSnippets\DynamicPropertyFromFeed.snippet
-		src\DynamicMvvm.CodeSnippets\DynamicPropertyFromFeed2.snippet = src\DynamicMvvm.CodeSnippets\DynamicPropertyFromFeed2.snippet
-		src\DynamicMvvm.CodeSnippets\DynamicPropertyFromObservable.snippet = src\DynamicMvvm.CodeSnippets\DynamicPropertyFromObservable.snippet
-		src\DynamicMvvm.CodeSnippets\DynamicPropertyFromObservable2.snippet = src\DynamicMvvm.CodeSnippets\DynamicPropertyFromObservable2.snippet
-		src\DynamicMvvm.CodeSnippets\DynamicPropertyFromState.snippet = src\DynamicMvvm.CodeSnippets\DynamicPropertyFromState.snippet
-		src\DynamicMvvm.CodeSnippets\DynamicPropertyFromState2.snippet = src\DynamicMvvm.CodeSnippets\DynamicPropertyFromState2.snippet
-		src\DynamicMvvm.CodeSnippets\DynamicPropertyFromTask.snippet = src\DynamicMvvm.CodeSnippets\DynamicPropertyFromTask.snippet
-		src\DynamicMvvm.CodeSnippets\DynamicPropertyFromTask2.snippet = src\DynamicMvvm.CodeSnippets\DynamicPropertyFromTask2.snippet
-		src\DynamicMvvm.CodeSnippets\DynamicPropertyFromValue.snippet = src\DynamicMvvm.CodeSnippets\DynamicPropertyFromValue.snippet
-		src\DynamicMvvm.CodeSnippets\DynamicPropertyFromValue2.snippet = src\DynamicMvvm.CodeSnippets\DynamicPropertyFromValue2.snippet
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicMvvm.FluentValidation", "src\DynamicMvvm.FluentValidation\DynamicMvvm.FluentValidation.csproj", "{4EED6C41-468A-436F-B95F-9F6371090815}"
 EndProject
 Global

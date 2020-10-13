@@ -202,4 +202,7 @@ _Note: The **global** decorator wraps the **local** decorator which wraps the **
               - ActionCommandStrategy (implementation)
 ```
 
+### Code Snippets
 
+You can install the Visual Studio Extension [Chinook Snippets](https://marketplace.visualstudio.com/items?itemName=nventivecorp.ChinookSnippets) and use code snippets to quickly generate dynamic commands.
+All snippets related to `IDynamicCommand` start with `ckcmd`.
