@@ -41,7 +41,10 @@ namespace Chinook.DynamicMvvm.Tests.Command.Strategies
 				Interlocked.Decrement(ref concurrentExecutions);
 			});
 
-			var strategy = testStrategy.Locked();
+			var strategy = new LockCommandStrategy()
+			{
+				InnerStrategy = testStrategy
+			};
 
 			var command = new DynamicCommand(DefaultCommandName, strategy);
 

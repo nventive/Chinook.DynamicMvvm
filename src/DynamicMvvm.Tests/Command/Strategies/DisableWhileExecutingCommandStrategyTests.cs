@@ -23,7 +23,10 @@ namespace Chinook.DynamicMvvm.Tests.Command.Strategies
 				onExecute: (_, __, ___) => taskCompletionSource.Task
 			);
 
-			var strategy = testStrategy.DisableWhileExecuting();
+			var strategy = new DisableWhileExecutingCommandStrategy()
+			{
+				InnerStrategy = testStrategy
+			};
 
 			var command = new DynamicCommand(DefaultCommandName, strategy);
 

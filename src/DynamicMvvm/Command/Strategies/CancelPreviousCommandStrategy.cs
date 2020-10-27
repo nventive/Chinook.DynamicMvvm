@@ -11,10 +11,10 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Will cancel the previous command execution when executing the command.
 		/// </summary>
-		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
-		/// <returns><see cref="IDynamicCommandStrategy"/></returns>
-		public static IDynamicCommandStrategy CancelPrevious(this IDynamicCommandStrategy innerStrategy)
-			=> new CancelPreviousCommandStrategy(innerStrategy);
+		/// <param name="builder">The builder.</param>
+		/// <returns><see cref="IDynamicCommandBuilder"/></returns>
+		public static IDynamicCommandBuilder CancelPrevious(this IDynamicCommandBuilder builder)
+			=> builder.WithStrategy(new CancelPreviousCommandStrategy());
 	}
 
 	/// <summary>
@@ -27,9 +27,7 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CancelPreviousCommandStrategy"/> class.
 		/// </summary>
-		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
-		public CancelPreviousCommandStrategy(IDynamicCommandStrategy innerStrategy)
-			: base(innerStrategy)
+		public CancelPreviousCommandStrategy()
 		{
 		}
 

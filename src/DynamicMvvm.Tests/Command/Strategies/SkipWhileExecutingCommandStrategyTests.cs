@@ -36,7 +36,11 @@ namespace Chinook.DynamicMvvm.Tests.Command.Strategies
 				}
 			);
 
-			var strategy = testStrategy.SkipWhileExecuting();
+
+			var strategy = new SkipWhileExecutingCommandStrategy()
+			{
+				InnerStrategy = testStrategy
+			};
 
 			var command = new DynamicCommand(DefaultCommandName, strategy);
 

@@ -31,7 +31,10 @@ namespace Chinook.DynamicMvvm.Tests.Command.Strategies
 				}
 			});
 
-			var strategy = testStrategy.CancelPrevious();
+			var strategy = new CancelPreviousCommandStrategy()
+			{
+				InnerStrategy = testStrategy
+			};
 
 			var command = new DynamicCommand(DefaultCommandName, strategy);
 

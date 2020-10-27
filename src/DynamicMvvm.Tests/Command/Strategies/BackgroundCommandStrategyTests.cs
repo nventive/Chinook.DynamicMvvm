@@ -28,7 +28,10 @@ namespace Chinook.DynamicMvvm.Tests.Command.Strategies
 				}
 			);
 
-			var strategy = testStrategy.OnBackgroundThread();
+			var strategy = new BackgroundCommandStrategy()
+			{
+				InnerStrategy = testStrategy
+			};
 
 			var command = new DynamicCommand(DefaultCommandName, strategy);
 

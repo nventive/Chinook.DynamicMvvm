@@ -18,7 +18,7 @@ namespace Chinook.DynamicMvvm.Tests.ViewModel
 		{
 			var serviceCollection = new ServiceCollection();
 
-			serviceCollection.AddSingleton<IDynamicCommandFactory, DynamicCommandFactory>();
+			serviceCollection.AddSingleton<IDynamicCommandBuilderFactory, DynamicCommandBuilderFactory>();
 
 			_serviceProvider = serviceCollection.BuildServiceProvider();
 		}

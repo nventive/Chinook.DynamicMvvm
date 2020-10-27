@@ -11,10 +11,10 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Will lock the command execution.
 		/// </summary>
-		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
-		/// <returns><see cref="IDynamicCommandStrategy"/></returns>
-		public static IDynamicCommandStrategy Locked(this IDynamicCommandStrategy innerStrategy)
-			=> new LockCommandStrategy(innerStrategy);
+		/// <param name="builder">The builder.</param>
+		/// <returns><see cref="IDynamicCommandBuilder"/></returns>
+		public static IDynamicCommandBuilder Locked(this IDynamicCommandBuilder builder)
+			=> builder.WithStrategy(new LockCommandStrategy());
 	}
 
 	/// <summary>
@@ -27,9 +27,7 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LockCommandStrategy"/> class.
 		/// </summary>
-		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
-		public LockCommandStrategy(IDynamicCommandStrategy innerStrategy)
-			: base(innerStrategy)
+		public LockCommandStrategy()
 		{
 		}
 

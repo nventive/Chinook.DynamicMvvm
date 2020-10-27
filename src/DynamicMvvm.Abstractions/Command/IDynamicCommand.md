@@ -89,7 +89,7 @@ var myCommand = new DynamicCommand("MyCommandFromTaskWithParameter", myCommandSt
 Task ExecuteCommand(CancellationToken ct, int parameter) => Task.CompletedTask;
 ```
 
-### Decorators
+### Strategy Decorators
 
 `IDynamicCommandStrategy` can be decorated in order to add new logic to it.
 
@@ -147,59 +147,62 @@ public static class MyCustomCommandDecoratorExtensions
 var myCommandWithMyCustomDecorator = myCommandStrategy.WithMyCustomDecorator();
 ```
 
-### Command factory
+### Command builder and factory
 
-Instead of creating a `IDynamicCommand` using its constructor, you can use the `IDynamicCommandFactory`.
+Instead of creating a `IDynamicCommand` using its constructor, you can use `IDynamicCommandBuilder` and `IDynamicCommandBuilderFactory`.
 
-To create a `IDynamicCommand` using `IDynamicCommandFactory`, you use the factory methods.
+To create a `IDynamicCommand` using `IDynamicCommandBuilderFactory`, you use the factory methods followed by the `Build` method.
 
 ```csharp
-// This will create a new IDynamicCommand using a IDynamicCommandFactory
-var myDynamicCommandFactory = new DynamicCommandFactory();
-var myCommand = myDynamicCommandFactory.CreateFromAction("MyCommand", ExecuteCommand);
+// This will create a new IDynamicCommand using a IDynamicCommandBuilderFactory and IDynamicCommandBuilder.
+var myFactory = new DynamicCommandBuilderFactory();
+var myBuilder = myFactory.CreateFromAction("MyCommand", ExecuteCommand);
+var myCommand = myBuilder.Build();
 private void ExecuteCommand() { }
 ```
 
-You can decorate your commands locally using the decorator paremeter.
+You can configure your commands locally using the various extension methods on `IDynamicCommandBuilder`.
 
 ```csharp
-// This will create a new IDynamicCommand using a IDynamicCommandFactory
-var myDynamicCommandFactory = new DynamicCommandFactory();
-var myCommandDecorator = new DynamicCommandStrategyDecorator(c => c.WithLogs());
-var myCommand = myDynamicCommandFactory.CreateFromAction("MyCommand", ExecuteCommand, myCommandDecorator);
+// This will create a new IDynamicCommand using a IDynamicCommandBuilderFactory and IDynamicCommandBuilder.
+var myFactory = new DynamicCommandBuilderFactory();
+var myBuilder = myFactory.CreateFromAction("MyCommand", ExecuteCommand)
+	.WithLogs();
+var myCommand = myBuilder.Build();
 private void ExecuteCommand() { }
 ```
 
-You can decorate all commands created from the `IDynamicCommandFactory` by using a **global** decorator.
+You can configure all commands created from the `IDynamicCommandBuilderFactory` by using a **default configuration**.
 
 ```csharp
-// This will create a new IDynamicCommand using a IDynamicCommandFactory
-var myCommandDecorator = new DynamicCommandStrategyDecorator(c => c
-  // This will add logs your commands.
-  .WithLogs()
+// This will create a new IDynamicCommand using a IDynamicCommandBuilderFactory and IDynamicCommandBuilder.
+var myFactory = new DynamicCommandBuilderFactory(c => c
+  // This will run your commands on a background thread.
+  .ExecuteOnBackgroundThread()
 
   // This will catch any errors unhandled by your commands.
   .CatchErrors(HandleCommandError)
 
-  // This will run your commands on a background thread.
-  .ExecuteOnBackgroundThread()
+  // This will add logs your commands.
+  .WithLogs()
 ));
 
-var myDynamicCommandFactory = new DynamicCommandFactory(myCommandDecorator);
-var myCommand = myDynamicCommandFactory.CreateFromAction("MyCommand", ExecuteCommand);
+var myBuilder = myFactory.CreateFromAction("MyCommand", ExecuteCommand);
+var myCommand = myBuilder.Build();
+
 private void ExecuteCommand() { }
 ```
 
-_Note: The **global** decorator wraps the **local** decorator which wraps the **implementation**. The hierarchy could look like the following._
+_Note: The **default** configuration wraps the **local** configuration which wraps the **implementation**. The hierarchy could look like the following._
 
 ```
 - MyCommand
-  - BackgroundCommandStrategy (global decorator)
-    - ErrorHandlerCommandStrategy (global decorator)
-      - LogCommandStrategy (global decorator)
-          - CanExecuteStrategy (local decorator)
-            - ... (local decorator)
-              - ActionCommandStrategy (implementation)
+  - BackgroundCommandStrategy (default config)
+    - ErrorHandlerCommandStrategy (default config)
+      - LogCommandStrategy (default config)
+        - CanExecuteStrategy (local config)
+          - ... (other local strategies)
+            - ActionCommandStrategy (implementation)
 ```
 
 ### Code Snippets

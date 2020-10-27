@@ -21,7 +21,10 @@ namespace Chinook.DynamicMvvm.Tests.Command.Strategies
 			var property = new DynamicProperty<bool>(DefaultPropertyName, false);
 			var testStrategy = new TestCommandStrategy();
 
-			var strategy = testStrategy.WithCanExecute(property);
+			var strategy = new CanExecuteCommandStrategy(property)
+			{
+				InnerStrategy = testStrategy
+			};
 
 			var command = new DynamicCommand(DefaultCommandName, strategy);
 

@@ -19,15 +19,15 @@ namespace Chinook.DynamicMvvm
 		/// </summary>
 		/// <param name="viewModel"><see cref="IViewModel"/></param>
 		/// <param name="execute">Command execution</param>
-		/// <param name="decorator">Command decorator</param>
+		/// <param name="configure">The optional func to configure the command builder.</param>
 		/// <param name="name">Command name</param>
 		/// <returns><see cref="IDynamicCommand"/></returns>
 		public static IDynamicCommand GetCommand(
 			this IViewModel viewModel,
 			Action execute,
-			Func<IDynamicCommandStrategy, IDynamicCommandStrategy> decorator = null,
+			Func<IDynamicCommandBuilder, IDynamicCommandBuilder> configure = null,
 			[CallerMemberName] string name = null
-		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandFactory().CreateFromAction(n, execute, new DynamicCommandStrategyDecorator(decorator)));
+		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandBuilderFactory().CreateFromAction(n, execute), configure);
 
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicCommand"/> that will execute
@@ -36,15 +36,15 @@ namespace Chinook.DynamicMvvm
 		/// <typeparam name="TParameter">Parameter type</typeparam>
 		/// <param name="viewModel"><see cref="IViewModel"/></param>
 		/// <param name="execute">Command execution</param>
-		/// <param name="decorator">Command decorator</param>
+		/// <param name="configure">The optional func to configure the command builder.</param>
 		/// <param name="name">Command name</param>
 		/// <returns><see cref="IDynamicCommand"/></returns>
 		public static IDynamicCommand GetCommand<TParameter>(
 			this IViewModel viewModel,
 			Action<TParameter> execute,
-			Func<IDynamicCommandStrategy, IDynamicCommandStrategy> decorator = null,
+			Func<IDynamicCommandBuilder, IDynamicCommandBuilder> configure = null,
 			[CallerMemberName] string name = null
-		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandFactory().CreateFromAction(n, execute, new DynamicCommandStrategyDecorator(decorator)));
+		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandBuilderFactory().CreateFromAction(n, execute), configure);
 
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicCommand"/> that will execute
@@ -52,15 +52,15 @@ namespace Chinook.DynamicMvvm
 		/// </summary>
 		/// <param name="viewModel"><see cref="IViewModel"/></param>
 		/// <param name="execute">Command execution</param>
-		/// <param name="decorator">Command decorator</param>
+		/// <param name="configure">The optional func to configure the command builder.</param>
 		/// <param name="name">Command name</param>
 		/// <returns><see cref="IDynamicCommand"/></returns>
 		public static IDynamicCommand GetCommandFromTask(
 			this IViewModel viewModel,
 			Func<CancellationToken, Task> execute,
-			Func<IDynamicCommandStrategy, IDynamicCommandStrategy> decorator = null,
+			Func<IDynamicCommandBuilder, IDynamicCommandBuilder> configure = null,
 			[CallerMemberName] string name = null
-		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandFactory().CreateFromTask(n, execute, new DynamicCommandStrategyDecorator(decorator)));
+		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandBuilderFactory().CreateFromTask(n, execute), configure);
 
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicCommand"/> that will execute
@@ -69,15 +69,15 @@ namespace Chinook.DynamicMvvm
 		/// <typeparam name="TParameter">Parameter type</typeparam>
 		/// <param name="viewModel"><see cref="IViewModel"/></param>
 		/// <param name="execute">Command execution</param>
-		/// <param name="decorator">Command decorator</param>
+		/// <param name="configure">The optional func to configure the command builder.</param>
 		/// <param name="name">Command name</param>
 		/// <returns><see cref="IDynamicCommand"/></returns>
 		public static IDynamicCommand GetCommandFromTask<TParameter>(
 			this IViewModel viewModel,
 			Func<CancellationToken, TParameter, Task> execute,
-			Func<IDynamicCommandStrategy, IDynamicCommandStrategy> decorator = null,
+			Func<IDynamicCommandBuilder, IDynamicCommandBuilder> configure = null,
 			[CallerMemberName] string name = null
-		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandFactory().CreateFromTask(n, execute, new DynamicCommandStrategyDecorator(decorator)));
+		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandBuilderFactory().CreateFromTask(n, execute), configure);
 
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicCommand"/> that will be attached to the <paramref name="viewModel"/>.
@@ -85,16 +85,23 @@ namespace Chinook.DynamicMvvm
 		/// <param name="viewModel"><see cref="IViewModel"/></param>
 		/// <param name="name">Command name</param>
 		/// <param name="factory">Command factory</param>
+		/// <param name="configure">The optional func to configure the command builder.</param>
 		/// <returns><see cref="IDynamicCommand"/></returns>
 		public static IDynamicCommand GetOrCreateCommand(
 			this IViewModel viewModel,
 			string name,
-			Func<string, IDynamicCommand> factory
+			Func<string, IDynamicCommandBuilder> factory,
+			Func<IDynamicCommandBuilder, IDynamicCommandBuilder> configure = null
 		)
 		{
 			if (!viewModel.TryGetDisposable<IDynamicCommand>(name, out var command))
 			{
-				command = factory(name);
+				var builder = factory(name);
+				if (configure != null)
+				{
+					builder = configure(builder);
+				}
+				command = builder.Build();
 
 				viewModel.AddDisposable(command.Name, command);
 			}
@@ -103,11 +110,11 @@ namespace Chinook.DynamicMvvm
 		}
 
 		/// <summary>
-		/// Gets the <see cref="IDynamicCommandFactory"/> for the <paramref name="viewModel"/>.
+		/// Gets the <see cref="IDynamicCommandBuilderFactory"/> for the <paramref name="viewModel"/>.
 		/// </summary>
 		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <returns><see cref="IDynamicCommandFactory"/></returns>
-		private static IDynamicCommandFactory GetDynamicCommandFactory(this IViewModel viewModel)
-			=> viewModel.ServiceProvider.GetRequiredService<IDynamicCommandFactory>();
+		/// <returns><see cref="IDynamicCommandBuilderFactory"/></returns>
+		private static IDynamicCommandBuilderFactory GetDynamicCommandBuilderFactory(this IViewModel viewModel)
+			=> viewModel.ServiceProvider.GetRequiredService<IDynamicCommandBuilderFactory>();
 	}
 }

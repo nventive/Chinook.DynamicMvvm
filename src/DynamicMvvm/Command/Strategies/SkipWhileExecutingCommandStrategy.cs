@@ -12,10 +12,10 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Will skip executions if the command is already executing.
 		/// </summary>
-		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
-		/// <returns><see cref="IDynamicCommandStrategy"/></returns>
-		public static IDynamicCommandStrategy SkipWhileExecuting(this IDynamicCommandStrategy innerStrategy)
-			=> new SkipWhileExecutingCommandStrategy(innerStrategy);
+		/// <param name="builder">The builder.</param>
+		/// <returns><see cref="IDynamicCommandBuilder"/></returns>
+		public static IDynamicCommandBuilder SkipWhileExecuting(this IDynamicCommandBuilder builder)
+			=> builder.WithStrategy(new SkipWhileExecutingCommandStrategy());
 	}
 
 	/// <summary>
@@ -28,9 +28,7 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Initializes a new instance of the <see cref="SkipWhileExecutingCommandStrategy"/> class.
 		/// </summary>
-		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
-		public SkipWhileExecutingCommandStrategy(IDynamicCommandStrategy innerStrategy)
-			: base(innerStrategy)
+		public SkipWhileExecutingCommandStrategy()
 		{
 		}
 
