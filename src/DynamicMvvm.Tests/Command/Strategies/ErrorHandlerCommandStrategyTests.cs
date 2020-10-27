@@ -25,13 +25,16 @@ namespace Chinook.DynamicMvvm.Tests.Command.Strategies
 				onExecute: (_, __, ___) => throw exception
 			);
 
-			var strategy = testStrategy.CatchErrors((ct, c, e) =>
+			var strategy = new ErrorHandlerCommandStrategy(new DynamicCommandErrorHandler((ct, c, e) =>
 			{
 				receivedCommand = c;
 				receivedException = e;
 
 				return Task.CompletedTask;
-			});
+			}))
+			{
+				InnerStrategy = testStrategy
+			};
 
 			var command = new DynamicCommand(DefaultCommandName, strategy);
 
@@ -48,12 +51,15 @@ namespace Chinook.DynamicMvvm.Tests.Command.Strategies
 
 			var testStrategy = new TestCommandStrategy();
 
-			var strategy = testStrategy.CatchErrors((ct, c, e) =>
+			var strategy = new ErrorHandlerCommandStrategy(new DynamicCommandErrorHandler((ct, c, e) =>
 			{
 				catchedErrors = true;
 
 				return Task.CompletedTask;
-			});
+			}))
+			{
+				InnerStrategy = testStrategy
+			};
 
 			var command = new DynamicCommand(DefaultCommandName, strategy);
 

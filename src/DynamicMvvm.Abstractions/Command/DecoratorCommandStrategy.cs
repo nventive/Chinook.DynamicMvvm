@@ -11,32 +11,15 @@ namespace Chinook.DynamicMvvm
 	/// </summary>
 	public abstract class DecoratorCommandStrategy : IDynamicCommandStrategy
 	{
-		private IDynamicCommandStrategy _innerStrategy;
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DecoratorCommandStrategy"/> class.
 		/// </summary>
-		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
-		public DecoratorCommandStrategy(IDynamicCommandStrategy innerStrategy)
+		public DecoratorCommandStrategy()
 		{
-			InnerStrategy = innerStrategy;
 		}
 
 		/// <inheritdoc />
-		public virtual IDynamicCommandStrategy InnerStrategy
-		{
-			get
-			{
-				if (_innerStrategy == null)
-				{
-					throw new InvalidOperationException($"Please set a {nameof(InnerStrategy)}");
-				}
-
-				return _innerStrategy;
-			}
-
-			set => _innerStrategy = value;
-		}
+		public virtual IDynamicCommandStrategy InnerStrategy { get; set; }
 
 		/// <inheritdoc />
 		public virtual event EventHandler CanExecuteChanged
@@ -47,14 +30,14 @@ namespace Chinook.DynamicMvvm
 
 		/// <inheritdoc />
 		public virtual bool CanExecute(object parameter, IDynamicCommand command)
-			=> _innerStrategy.CanExecute(parameter, command);
+			=> InnerStrategy.CanExecute(parameter, command);
 
 		/// <inheritdoc />
 		public virtual Task Execute(CancellationToken ct, object parameter, IDynamicCommand command)
-			=> _innerStrategy.Execute(ct, parameter, command);
+			=> InnerStrategy.Execute(ct, parameter, command);
 
 		/// <inheritdoc />
 		public virtual void Dispose()
-			=> _innerStrategy.Dispose();
+			=> InnerStrategy.Dispose();
 	}
 }

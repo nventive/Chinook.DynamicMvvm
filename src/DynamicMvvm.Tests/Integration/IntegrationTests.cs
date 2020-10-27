@@ -19,7 +19,7 @@ namespace Chinook.DynamicMvvm.Tests.Integration
 			var serviceCollection = new ServiceCollection();
 
 			serviceCollection.AddSingleton<IDynamicPropertyFactory, DynamicPropertyFactory>();
-			serviceCollection.AddSingleton<IDynamicCommandFactory, DynamicCommandFactory>();
+			serviceCollection.AddSingleton<IDynamicCommandBuilderFactory, DynamicCommandBuilderFactory>();
 
 			_serviceProvider = serviceCollection.BuildServiceProvider();
 		}

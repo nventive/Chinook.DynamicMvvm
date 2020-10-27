@@ -11,10 +11,10 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Will execute the command on a background thread.
 		/// </summary>
-		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
-		/// <returns><see cref="IDynamicCommandStrategy"/></returns>
-		public static IDynamicCommandStrategy OnBackgroundThread(this IDynamicCommandStrategy innerStrategy)
-			=> new BackgroundCommandStrategy(innerStrategy);
+		/// <param name="builder">The builder.</param>
+		/// <returns><see cref="IDynamicCommandBuilder"/></returns>
+		public static IDynamicCommandBuilder OnBackgroundThread(this IDynamicCommandBuilder builder)
+			=> builder.WithStrategy(new BackgroundCommandStrategy());
 	}
 
 	/// <summary>
@@ -25,11 +25,8 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Initializes a new instance of the <see cref="BackgroundCommandStrategy"/> class.
 		/// </summary>
-		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
-		public BackgroundCommandStrategy(IDynamicCommandStrategy innerStrategy)
-			: base(innerStrategy)
+		public BackgroundCommandStrategy()
 		{
-
 		}
 
 		/// <inheritdoc />

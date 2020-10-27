@@ -11,10 +11,10 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Will disable the command while it's executing.
 		/// </summary>
-		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
-		/// <returns><see cref="IDynamicCommandStrategy"/></returns>
-		public static IDynamicCommandStrategy DisableWhileExecuting(this IDynamicCommandStrategy innerStrategy)
-			=> new DisableWhileExecutingCommandStrategy(innerStrategy);
+		/// <param name="builder">The builder.</param>
+		/// <returns><see cref="IDynamicCommandBuilder"/></returns>
+		public static IDynamicCommandBuilder DisableWhileExecuting(this IDynamicCommandBuilder builder)
+			=> builder.WithStrategy(new DisableWhileExecutingCommandStrategy());
 	}
 
 	/// <summary>
@@ -27,11 +27,27 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DisableWhileExecutingCommandStrategy"/> class.
 		/// </summary>
-		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
-		public DisableWhileExecutingCommandStrategy(IDynamicCommandStrategy innerStrategy)
-			: base(innerStrategy)
+		public DisableWhileExecutingCommandStrategy()
 		{
-			innerStrategy.CanExecuteChanged += OnInnerCanExecuteChanged;
+		}
+
+		public override IDynamicCommandStrategy InnerStrategy
+		{
+			get => base.InnerStrategy;
+			set
+			{
+				if (base.InnerStrategy != null)
+				{
+					base.InnerStrategy.CanExecuteChanged -= OnInnerCanExecuteChanged;
+				}
+
+				base.InnerStrategy = value;
+
+				if (base.InnerStrategy != null)
+				{
+					base.InnerStrategy.CanExecuteChanged += OnInnerCanExecuteChanged;
+				}
+			}
 		}
 
 		/// <inheritdoc />

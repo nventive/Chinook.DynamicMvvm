@@ -11,20 +11,20 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Will catch any exception thrown by the execution of the command and delegate it to the specified error handler.
 		/// </summary>
-		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
+		/// <param name="builder">The builder.</param>
 		/// <param name="errorHandler">Error handler</param>
-		/// <returns><see cref="IDynamicCommandStrategy"/></returns>
-		public static IDynamicCommandStrategy CatchErrors(this IDynamicCommandStrategy innerStrategy, IDynamicCommandErrorHandler errorHandler)
-			=> new ErrorHandlerCommandStrategy(innerStrategy, errorHandler);
+		/// <returns><see cref="IDynamicCommandBuilder"/></returns>
+		public static IDynamicCommandBuilder CatchErrors(this IDynamicCommandBuilder builder, IDynamicCommandErrorHandler errorHandler)
+			=> builder.WithStrategy(new ErrorHandlerCommandStrategy(errorHandler));
 
 		/// <summary>
 		/// Will catch any exception thrown by the execution of the command and delegate it to the specified error handler.
 		/// </summary>
-		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
+		/// <param name="builder">The builder.</param>
 		/// <param name="errorHandler">Error handler</param>
-		/// <returns><see cref="IDynamicCommandStrategy"/></returns>
-		public static IDynamicCommandStrategy CatchErrors(this IDynamicCommandStrategy innerStrategy, Func<CancellationToken, IDynamicCommand, Exception, Task> errorHandler)
-			=> new ErrorHandlerCommandStrategy(innerStrategy, new DynamicCommandErrorHandler(errorHandler));
+		/// <returns><see cref="IDynamicCommandBuilder"/></returns>
+		public static IDynamicCommandBuilder CatchErrors(this IDynamicCommandBuilder builder, Func<CancellationToken, IDynamicCommand, Exception, Task> errorHandler)
+			=> builder.WithStrategy(new ErrorHandlerCommandStrategy(new DynamicCommandErrorHandler(errorHandler)));
 	}
 
 	/// <summary>
@@ -38,10 +38,8 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ErrorHandlerCommandStrategy"/> class.
 		/// </summary>
-		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
 		/// <param name="errorHandler">Error handler</param>
-		public ErrorHandlerCommandStrategy(IDynamicCommandStrategy innerStrategy, IDynamicCommandErrorHandler errorHandler)
-			: base(innerStrategy)
+		public ErrorHandlerCommandStrategy(IDynamicCommandErrorHandler errorHandler)
 		{
 			_errorHandler = errorHandler;
 		}

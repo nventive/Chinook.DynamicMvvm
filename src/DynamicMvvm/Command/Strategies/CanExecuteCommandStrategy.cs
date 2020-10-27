@@ -11,11 +11,11 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Will attach the <see cref="ICommand.CanExecute(object)"/> to the specified <see cref="IDynamicProperty"/>.
 		/// </summary>
-		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
+		/// <param name="builder">The builder.</param>
 		/// <param name="canExecute"><see cref="IDynamicProperty"/> that affects the CanExecute</param>
-		/// <returns><see cref="IDynamicCommandStrategy"/></returns>
-		public static IDynamicCommandStrategy WithCanExecute(this IDynamicCommandStrategy innerStrategy, IDynamicProperty<bool> canExecute)
-			=> new CanExecuteCommandStrategy(innerStrategy, canExecute);
+		/// <returns><see cref="IDynamicCommandBuilder"/></returns>
+		public static IDynamicCommandBuilder WithCanExecute(this IDynamicCommandBuilder builder, IDynamicProperty<bool> canExecute)
+			=> builder.WithStrategy(new CanExecuteCommandStrategy(canExecute));
 	}
 
 	/// <summary>
@@ -29,15 +29,31 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CanExecuteCommandStrategy"/> class.
 		/// </summary>
-		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
 		/// <param name="canExecute">Can execute property</param>
-		public CanExecuteCommandStrategy(IDynamicCommandStrategy innerStrategy, IDynamicProperty<bool> canExecute)
-			: base(innerStrategy)
+		public CanExecuteCommandStrategy(IDynamicProperty<bool> canExecute)
 		{
 			_canExecute = canExecute;
 
 			_canExecute.ValueChanged += OnCanExecuteChanged;
-			innerStrategy.CanExecuteChanged += OnInnerCanExecuteChanged;
+		}
+
+		public override IDynamicCommandStrategy InnerStrategy
+		{
+			get => base.InnerStrategy;
+			set
+			{
+				if (base.InnerStrategy != null)
+				{
+					base.InnerStrategy.CanExecuteChanged -= OnInnerCanExecuteChanged;
+				}
+
+				base.InnerStrategy = value;
+
+				if (base.InnerStrategy != null)
+				{
+					base.InnerStrategy.CanExecuteChanged += OnInnerCanExecuteChanged;
+				}
+			}
 		}
 
 		/// <inheritdoc />

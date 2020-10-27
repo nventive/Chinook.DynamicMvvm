@@ -12,11 +12,11 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Will add logs to the command execution.
 		/// </summary>
-		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
+		/// <param name="builder">The builder.</param>
 		/// <param name="logger">Optional; the desired logger. If null is passed, a new one will be created using <see cref="DynamicMvvmConfiguration.LoggerFactory"/>.</param>
-		/// <returns><see cref="IDynamicCommandStrategy"/></returns>
-		public static IDynamicCommandStrategy WithLogs(this IDynamicCommandStrategy innerStrategy, ILogger logger = null)
-			=> new LoggerCommandStrategy(innerStrategy, logger ?? typeof(IDynamicCommand).Log());
+		/// <returns><see cref="IDynamicCommandBuilder"/></returns>
+		public static IDynamicCommandBuilder WithLogs(this IDynamicCommandBuilder builder, ILogger logger = null)
+			=> builder.WithStrategy(new LoggerCommandStrategy(logger ?? typeof(IDynamicCommand).Log()));
 	}
 
 	/// <summary>
@@ -29,10 +29,8 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LoggerCommandStrategy"/> class.
 		/// </summary>
-		/// <param name="innerStrategy"><see cref="IDynamicCommandStrategy"/></param>
 		/// <param name="logger"><see cref="ILogger"/></param>
-		public LoggerCommandStrategy(IDynamicCommandStrategy innerStrategy, ILogger logger)
-			: base(innerStrategy)
+		public LoggerCommandStrategy(ILogger logger)
 		{
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 		}

@@ -34,21 +34,35 @@ public class MyViewModel : ViewModelBase
   // to your IViewModel. It's initial value will be default(int).
   public int MyProperty => this.Get<int>();
 
-  // This will create a DynamicProperty with a name of "MyPropertyFromTask" and an initial value of 10.
+  // This will create and attach a new IDynamicProperty named "MyStringProperty"
+  // to your IViewModel. It's initial value will be "hello". It can be bound two-way.
+  public string MyStringProperty
+  {
+    get => this.Get(initialValue: "hello");
+    set => this.Set(value);
+  }
+
+  // This will create a DynamicProperty with a name of "MyAsyncProperty" and an initial value of 10.
   // When the task completes, the property will be updated with its result and will notify its subscribers of this change.
-  Task<int> MyTask(CancellationToken ct) => Task.FromResult(20);
-  var myPropertyFromTask = new DynamicPropertyFromTask<int>("MyPropertyFromTask", MyTask, initialValue: 10);
+  public int MyAsyncProperty => this.GetFromTask(MyTask);
+  
+  private Task<int> MyTask(CancellationToken ct) => Task.FromResult(20);
 
   // This will create and attach a new IDynamicCommand named "MyCommand"
   // to your IViewModel. It will call the Execute method when executed.
-  public IDynamicCommand MyCommand => this.GetCommand(Execute);
-  private void Execute() { }
+  public IDynamicCommand MyCommand => this.GetCommand(() => 
+  {
+    // Your custom logic.
+  }));
 
-  // This will create a DynamicCommand with a name of "MyCommandFromTaskWithParameter".
-  // The ExecuteCommand method will be called when MyCommandFromTaskWithParameter is being executed.
-  var myCommandStrategy = new TaskCommandStrategy<int>(ExecuteCommand);
-  var myCommand = new DynamicCommand("MyCommandFromTaskWithParameter", myCommandStrategy);
-  Task ExecuteCommand(CancellationToken ct, int parameter) => Task.CompletedTask;
+  // This will create a DynamicCommand with a name of "MyAsyncCommandWithParameter".
+  // The ExecuteCommand method will be called when MyAsyncCommandWithParameter is being executed.
+  public IDynamicCommand MyAsyncCommandWithParameter => this.GetCommandFromTask<int>(ExecuteCommand);
+  
+  private async Task ExecuteCommand(CancellationToken ct, int parameter)
+  {
+    // Your custom async logic.
+  }
 }
 ```
 
