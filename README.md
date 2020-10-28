@@ -44,7 +44,7 @@ public class MyViewModel : ViewModelBase
 
   // This will create a DynamicProperty with a name of "MyAsyncProperty" and an initial value of 10.
   // When the task completes, the property will be updated with its result and will notify its subscribers of this change.
-  public int MyAsyncProperty => this.GetFromTask(MyTask);
+  public int MyAsyncProperty => this.GetFromTask(MyTask, initialValue: 10);
   
   private Task<int> MyTask(CancellationToken ct) => Task.FromResult(20);
 

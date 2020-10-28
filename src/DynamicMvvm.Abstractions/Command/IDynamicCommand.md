@@ -205,6 +205,32 @@ _Note: The **default** configuration wraps the **local** configuration which wra
             - ActionCommandStrategy (implementation)
 ```
 
+You can override the default configuration by manipulating the builder.
+
+```csharp
+// This will create a new IDynamicCommand using a IDynamicCommandBuilderFactory and IDynamicCommandBuilder.
+var myFactory = new DynamicCommandBuilderFactory(c => c
+  .ExecuteOnBackgroundThread()
+  .CatchErrors(HandleCommandError)
+  .WithLogs()
+));
+
+var myBuilder = myFactory.CreateFromAction("MyCommand", ExecuteCommand)
+  // You can use WithoutStrategy to remove an existing strategy.
+  .WithoutStrategy<BackgroundCommandStrategy>();
+
+var myCommand = myBuilder.Build();
+
+var myBuilder2 = myFactory.CreateFromAction("MyCommand2", ExecuteCommand)
+  // You can use ClearStrategies to completely clear the default configuration to add your own.
+  .ClearStrategies()
+  .DisableWhileExecuting();
+
+var myCommand2 = myBuilder2.Build();
+
+private void ExecuteCommand() { }
+```
+
 ### Code Snippets
 
 You can install the Visual Studio Extension [Chinook Snippets](https://marketplace.visualstudio.com/items?itemName=nventivecorp.ChinookSnippets) and use code snippets to quickly generate dynamic commands.
