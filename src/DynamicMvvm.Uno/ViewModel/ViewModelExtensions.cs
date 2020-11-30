@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+#if HAS_WINUI
+using Microsoft.UI.Xaml;
+#else
 using Windows.UI.Xaml;
+#endif
 
 namespace Chinook.DynamicMvvm
 {

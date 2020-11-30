@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicMvvm.Reactive", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicMvvm.FluentValidation", "src\DynamicMvvm.FluentValidation\DynamicMvvm.FluentValidation.csproj", "{4EED6C41-468A-436F-B95F-9F6371090815}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicMvvm.WinUI", "src\DynamicMvvm.WinUI\DynamicMvvm.WinUI.csproj", "{D965F1E5-528A-4288-8F4D-339770F903F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Android = Debug|Android
@@ -167,6 +169,30 @@ Global
 		{4EED6C41-468A-436F-B95F-9F6371090815}.Release|Simulator.Build.0 = Release|Any CPU
 		{4EED6C41-468A-436F-B95F-9F6371090815}.Release|UAP.ActiveCfg = Release|Any CPU
 		{4EED6C41-468A-436F-B95F-9F6371090815}.Release|UAP.Build.0 = Release|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Debug|Android.ActiveCfg = Debug|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Debug|Android.Build.0 = Debug|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Debug|iOS.ActiveCfg = Debug|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Debug|iOS.Build.0 = Debug|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Debug|NuGet.ActiveCfg = Debug|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Debug|NuGet.Build.0 = Debug|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Debug|Simulator.ActiveCfg = Debug|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Debug|Simulator.Build.0 = Debug|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Debug|UAP.ActiveCfg = Debug|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Debug|UAP.Build.0 = Debug|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Release|Android.ActiveCfg = Release|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Release|Android.Build.0 = Release|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Release|iOS.ActiveCfg = Release|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Release|iOS.Build.0 = Release|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Release|NuGet.ActiveCfg = Release|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Release|NuGet.Build.0 = Release|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Release|Simulator.ActiveCfg = Release|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Release|Simulator.Build.0 = Release|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Release|UAP.ActiveCfg = Release|Any CPU
+		{D965F1E5-528A-4288-8F4D-339770F903F9}.Release|UAP.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
