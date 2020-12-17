@@ -18,9 +18,13 @@
     <DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='xamarinios10' or '$(TargetFramework)'=='monoandroid10.0' or '$(TargetFramework)'=='netstandard2.0'">
+  <ItemGroup Condition="'$(TargetFramework)'=='xamarinios10' or '$(TargetFramework)'=='monoandroid10.0'">
     <PackageReference Include="Uno.UI" Version="3.1.0-beta.84" />
   </ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+		<PackageReference Include="Uno.UI.WebAssembly" Version="3.1.0-beta.84" />
+	</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DynamicMvvm.Abstractions\DynamicMvvm.Abstractions.csproj" />
