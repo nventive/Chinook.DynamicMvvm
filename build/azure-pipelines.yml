@@ -19,6 +19,9 @@ variables:
   value: DynamicMvvm.sln
 - name: IsReleaseBranch # Should this branch name use the release stage
   value: $[or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))]
+# Pool names
+- name: windowsPoolName
+  value: 'windows 1809'
 
 stages:
 - stage: Build
@@ -33,7 +36,7 @@ stages:
           GeneratePackageOnBuild: true
 
     pool:
-      name: Container
+      name: $(windowsPoolName)
 
     variables:
     - name: PackageOutputPath # Path where nuget packages will be copied to.
@@ -54,7 +57,7 @@ stages:
   - job: Publish_NuGet_External
 
     pool:
-      name: Container
+      name: $(windowsPoolName)
 
     workspace:
       clean: all # Cleanup the workspaca before starting
