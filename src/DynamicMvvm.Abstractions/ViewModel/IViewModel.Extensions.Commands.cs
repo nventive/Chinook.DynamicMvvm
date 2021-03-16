@@ -17,11 +17,11 @@ namespace Chinook.DynamicMvvm
 		/// Gets or creates a <see cref="IDynamicCommand"/> that will execute
 		/// the specified <paramref name="execute"/> without any parameter.
 		/// </summary>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="execute">Command execution</param>
-		/// <param name="configure">The optional func to configure the command builder.</param>
-		/// <param name="name">Command name</param>
-		/// <returns><see cref="IDynamicCommand"/></returns>
+		/// <param name="viewModel">This <see cref="IViewModel"/>.</param>
+		/// <param name="execute">The command's execution delegate.</param>
+		/// <param name="configure">The optional function to configure the command builder.</param>
+		/// <param name="name">The command name.</param>
+		/// <returns>The attached <see cref="IDynamicCommand"/>.</returns>
 		public static IDynamicCommand GetCommand(
 			this IViewModel viewModel,
 			Action execute,
@@ -34,11 +34,11 @@ namespace Chinook.DynamicMvvm
 		/// the specified <paramref name="execute"/> with a parameter of type <typeparamref name="TParameter"/>.
 		/// </summary>
 		/// <typeparam name="TParameter">Parameter type</typeparam>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="execute">Command execution</param>
-		/// <param name="configure">The optional func to configure the command builder.</param>
-		/// <param name="name">Command name</param>
-		/// <returns><see cref="IDynamicCommand"/></returns>
+		/// <param name="viewModel">This <see cref="IViewModel"/>.</param>
+		/// <param name="execute">The command's execution delegate.</param>
+		/// <param name="configure">The optional function to configure the command builder.</param>
+		/// <param name="name">The command name.</param>
+		/// <returns>The attached <see cref="IDynamicCommand"/>.</returns>
 		public static IDynamicCommand GetCommand<TParameter>(
 			this IViewModel viewModel,
 			Action<TParameter> execute,
@@ -50,11 +50,11 @@ namespace Chinook.DynamicMvvm
 		/// Gets or creates a <see cref="IDynamicCommand"/> that will execute
 		/// the specified <paramref name="execute"/> without any parameter.
 		/// </summary>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="execute">Command execution</param>
-		/// <param name="configure">The optional func to configure the command builder.</param>
-		/// <param name="name">Command name</param>
-		/// <returns><see cref="IDynamicCommand"/></returns>
+		/// <param name="viewModel">This <see cref="IViewModel"/>.</param>
+		/// <param name="execute">The command's execution delegate.</param>
+		/// <param name="configure">The optional function to configure the command builder.</param>
+		/// <param name="name">The command name.</param>
+		/// <returns>The attached <see cref="IDynamicCommand"/>.</returns>
 		public static IDynamicCommand GetCommandFromTask(
 			this IViewModel viewModel,
 			Func<CancellationToken, Task> execute,
@@ -67,11 +67,11 @@ namespace Chinook.DynamicMvvm
 		/// the specified <paramref name="execute"/> with a parameter of type <typeparamref name="TParameter"/>.
 		/// </summary>
 		/// <typeparam name="TParameter">Parameter type</typeparam>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="execute">Command execution</param>
-		/// <param name="configure">The optional func to configure the command builder.</param>
-		/// <param name="name">Command name</param>
-		/// <returns><see cref="IDynamicCommand"/></returns>
+		/// <param name="viewModel">This <see cref="IViewModel"/>.</param>
+		/// <param name="execute">The command's execution delegate.</param>
+		/// <param name="configure">The optional function to configure the command builder.</param>
+		/// <param name="name">The command name.</param>
+		/// <returns>The attached <see cref="IDynamicCommand"/>.</returns>
 		public static IDynamicCommand GetCommandFromTask<TParameter>(
 			this IViewModel viewModel,
 			Func<CancellationToken, TParameter, Task> execute,
@@ -82,11 +82,11 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicCommand"/> that will be attached to the <paramref name="viewModel"/>.
 		/// </summary>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="name">Command name</param>
-		/// <param name="factory">Command factory</param>
-		/// <param name="configure">The optional func to configure the command builder.</param>
-		/// <returns><see cref="IDynamicCommand"/></returns>
+		/// <param name="viewModel">This <see cref="IViewModel"/>.</param>
+		/// <param name="name">The command name.</param>
+		/// <param name="factory">The command factory.</param>
+		/// <param name="configure">The optional function to configure the command builder.</param>
+		/// <returns>The attached <see cref="IDynamicCommand"/>.</returns>
 		public static IDynamicCommand GetOrCreateCommand(
 			this IViewModel viewModel,
 			string name,
@@ -112,8 +112,8 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets the <see cref="IDynamicCommandBuilderFactory"/> for the <paramref name="viewModel"/>.
 		/// </summary>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <returns><see cref="IDynamicCommandBuilderFactory"/></returns>
+		/// <param name="viewModel">This <see cref="IViewModel"/>.</param>
+		/// <returns>The <see cref="IDynamicCommandBuilderFactory"/>.</returns>
 		private static IDynamicCommandBuilderFactory GetDynamicCommandBuilderFactory(this IViewModel viewModel)
 			=> viewModel.ServiceProvider.GetRequiredService<IDynamicCommandBuilderFactory>();
 	}

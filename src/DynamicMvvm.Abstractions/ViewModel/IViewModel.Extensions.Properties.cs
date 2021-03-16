@@ -18,10 +18,10 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets the value of a <see cref="IDynamicProperty"/>.
 		/// </summary>
-		/// <typeparam name="T">Property type</typeparam>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="property">Property</param>
-		/// <returns>Property value</returns>
+		/// <typeparam name="T">The property type.</typeparam>
+		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
+		/// <param name="property">The property.</param>
+		/// <returns>The property's value.</returns>
 		public static T Get<T>(
 			this IViewModel viewModel,
 			IDynamicProperty property
@@ -30,11 +30,11 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicProperty"/> attached to this <see cref="IViewModel"/>.
 		/// </summary>
-		/// <typeparam name="T">Property type</typeparam>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="initialValue">Property initial value</param>
-		/// <param name="name">Property name</param>
-		/// <returns>Property value</returns>
+		/// <typeparam name="T">The property type.</typeparam>
+		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
+		/// <param name="initialValue">The property's initial value.</param>
+		/// <param name="name">The property's name.</param>
+		/// <returns>The property's value.</returns>
 		public static T Get<T>(
 			this IViewModel viewModel,
 			T initialValue = default,
@@ -44,11 +44,11 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicProperty"/> attached to this <see cref="IViewModel"/>.
 		/// </summary>
-		/// <typeparam name="T">Property type</typeparam>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="initialValue">Property initial value</param>
-		/// <param name="name">Property name</param>
-		/// <returns>Property value</returns>
+		/// <typeparam name="T">The property type.</typeparam>
+		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
+		/// <param name="initialValue">The property's initial value.</param>
+		/// <param name="name">The property's name.</param>
+		/// <returns>The property's value.</returns>
 		public static T Get<T>(
 			this IViewModel viewModel,
 			Func<T> initialValue,
@@ -58,12 +58,12 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicProperty"/> attached to this <see cref="IViewModel"/>.
 		/// </summary>
-		/// <typeparam name="T">Property type</typeparam>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="source">Property source</param>
-		/// <param name="initialValue">Property initial value</param>
-		/// <param name="name">Property name</param>
-		/// <returns>Property value</returns>
+		/// <typeparam name="T">The property type.</typeparam>
+		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
+		/// <param name="source">The asynchronous value source of the property.</param>
+		/// <param name="initialValue">The property's initial value.</param>
+		/// <param name="name">The property's name.</param>
+		/// <returns>The property's value.</returns>
 		public static T GetFromTask<T>(
 			this IViewModel viewModel,
 			Func<CancellationToken, Task<T>> source,
@@ -74,12 +74,12 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicProperty"/> attached to this <see cref="IViewModel"/>.
 		/// </summary>
-		/// <typeparam name="T">Property type</typeparam>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="source">Property source</param>
-		/// <param name="initialValue">Property initial value</param>
-		/// <param name="name">Property name</param>
-		/// <returns>Property value</returns>
+		/// <typeparam name="T">The property type.</typeparam>
+		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
+		/// <param name="source">The observable of values that feeds the property.</param>
+		/// <param name="initialValue">The property's initial value.</param>
+		/// <param name="name">The property's name.</param>
+		/// <returns>The property's value.</returns>
 		public static T GetFromObservable<T>(
 			this IViewModel viewModel,
 			IObservable<T> source,
@@ -90,10 +90,10 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Sets the value of a property.
 		/// </summary>
-		/// <typeparam name="T">Property type</typeparam>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="value">Value to set</param>
-		/// <param name="property">Property to set</param>
+		/// <typeparam name="T">The property type.</typeparam>
+		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
+		/// <param name="value">The value to set.</param>
+		/// <param name="property">The property to set.</param>
 		public static void Set<T>(
 			this IViewModel viewModel,
 			T value,
@@ -104,40 +104,40 @@ namespace Chinook.DynamicMvvm
 		/// Sets the value of a property.
 		/// If the property doesn't exist, it creates it.
 		/// </summary>
-		/// <typeparam name="T">Property type</typeparam>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="value">Value to set</param>
-		/// <param name="name">Property name</param>
+		/// <typeparam name="T">The property type.</typeparam>
+		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
+		/// <param name="value">The value to set.</param>
+		/// <param name="name">The property's name.</param>
 		public static void Set<T>(this IViewModel viewModel, T value, [CallerMemberName] string name = null)
 			=> viewModel.Set(value, viewModel.GetOrResolveProperty(name));
 
 		/// <summary>
 		/// Gets or creates a property of the specified <paramref name="name"/>.
 		/// </summary>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="name">Property name</param>
-		/// <returns><see cref="IDynamicProperty"/></returns>
+		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
+		/// <param name="name">The property's name.</param>
+		/// <returns>The <see cref="IDynamicProperty"/> with the specified <paramref name="name"/>.</returns>
 		public static IDynamicProperty GetProperty(this IViewModel viewModel, string name)
 			=> viewModel.GetOrResolveProperty(name);
 
 		/// <summary>
 		/// Gets or creates a property of the specified <paramref name="name"/>.
 		/// </summary>
-		/// <typeparam name="T">Property type</typeparam>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="name">Property name</param>
-		/// <returns><see cref="IDynamicProperty"/></returns>
+		/// <typeparam name="T">The property type.</typeparam>
+		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
+		/// <param name="name">The property's name.</param>
+		/// <returns>The <see cref="IDynamicProperty{T}"/> with the specified <paramref name="name"/>.</returns>
 		public static IDynamicProperty<T> GetProperty<T>(this IViewModel viewModel, string name)
 			=> (IDynamicProperty<T>)viewModel.GetOrResolveProperty(name);
 
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicProperty"/> attached to this <see cref="IViewModel"/>.
 		/// </summary>
-		/// <typeparam name="TViewModel">ViewModel type</typeparam>
-		/// <typeparam name="TProperty">Property type</typeparam>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="expression">Property</param>
-		/// <returns><see cref="IDynamicProperty"/></returns>
+		/// <typeparam name="TViewModel">THe ViewModel type.</typeparam>
+		/// <typeparam name="TProperty">The property type.</typeparam>
+		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
+		/// <param name="expression">The expression resolving the property.</param>
+		/// <returns>The <see cref="IDynamicProperty"/> obtained via the <paramref name="expression"/>.</returns>
 		public static IDynamicProperty<TProperty> GetProperty<TViewModel, TProperty>(this TViewModel viewModel, Expression<Func<TViewModel, TProperty>> expression)
 			where TViewModel : IViewModel
 		{
@@ -165,10 +165,10 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets or creates a property of the specified <paramref name="name"/>.
 		/// </summary>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="name">Property name</param>
-		/// <param name="factory">Property factory</param>
-		/// <returns>IDynamicProperty</returns>
+		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
+		/// <param name="name">The property's name.</param>
+		/// <param name="factory">The property factory.</param>
+		/// <returns>The <see cref="IDynamicProperty"/>.</returns>
 		public static IDynamicProperty GetOrCreateDynamicProperty(this IViewModel viewModel, string name, Func<string, IDynamicProperty> factory)
 		{
 			if (!viewModel.TryGetDisposable<IDynamicProperty>(name, out var property))
@@ -190,9 +190,9 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets or resolves a property of the specified <paramref name="name"/>.
 		/// </summary>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="name">Property name</param>
-		/// <returns>IDynamicProperty</returns>
+		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
+		/// <param name="name">The property's name.</param>
+		/// <returns>The <see cref="IDynamicProperty"/> matching the specified <paramref name="name"/>.</returns>
 		public static IDynamicProperty GetOrResolveProperty(this IViewModel viewModel, string name)
 		{
 			if (!viewModel.TryGetDisposable<IDynamicProperty>(name, out var property))
@@ -213,8 +213,8 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets the <see cref="IDynamicPropertyFactory"/> from the <paramref name="viewModel"/>.
 		/// </summary>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <returns>IDynamicPropertyFactory</returns>
+		/// <param name="viewModel">The <see cref="IViewModel"/> providing the factory.</param>
+		/// <returns>The <see cref="IDynamicPropertyFactory"/>.</returns>
 		public static IDynamicPropertyFactory GetDynamicPropertyFactory(this IViewModel viewModel)
 			=> viewModel.ServiceProvider.GetRequiredService<IDynamicPropertyFactory>();
 	}

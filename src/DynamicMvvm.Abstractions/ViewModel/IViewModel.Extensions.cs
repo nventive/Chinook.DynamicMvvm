@@ -12,11 +12,11 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets the typed <see cref="IDisposable"/> if it exists or default of <typeparamref name="TDisposable"/> otherwise.
 		/// </summary>
-		/// <typeparam name="TDisposable">Type of <see cref="IDisposable"/></typeparam>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="key">Key</param>
-		/// <param name="disposable">Disposable</param>
-		/// <returns>The typed disposable or default</returns>
+		/// <typeparam name="TDisposable">The type of <see cref="IDisposable"/>.</typeparam>
+		/// <param name="viewModel">This <see cref="IViewModel"/>.</param>
+		/// <param name="key">The key associated with the desired disposable.</param>
+		/// <param name="disposable">The disposable associated with <paramref name="key"/>.</param>
+		/// <returns>The typed disposable when the <paramref name="key"/> was found, or default of <typeparamref name="TDisposable"/> otherwise.</returns>
 		public static bool TryGetDisposable<TDisposable>(this IViewModel viewModel, string key, out TDisposable disposable)
 		{
 			if (viewModel.TryGetDisposable(key, out var untypedDisposable))

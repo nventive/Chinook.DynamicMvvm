@@ -11,20 +11,20 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Returns the registered service of the specified type <typeparamref name="T"/>.
 		/// </summary>
-		/// <typeparam name="T">Type of service</typeparam>
-		/// <param name="viewModel">ViewModel</param>
-		/// <returns>Registered service</returns>
+		/// <typeparam name="T">The desired type of service.</typeparam>
+		/// <param name="viewModel">The <see cref="IViewModel"/> providing the <see cref="IServiceProvider"/>.</param>
+		/// <returns>The registered service.</returns>
 		public static T GetService<T>(this IViewModel viewModel)
 		{
 			return viewModel.ServiceProvider.GetRequiredService<T>();
 		}
 
 		/// <summary>
-		/// Returns the registered service of the specified type <paramref name="type"/>.
+		/// Returns the registered service of the specified  <paramref name="type"/>.
 		/// </summary>
-		/// <param name="viewModel">ViewModel</param>
-		/// <param name="type">Type of service</param>
-		/// <returns>Registered service</returns>
+		/// <param name="viewModel">The <see cref="IViewModel"/> providing the <see cref="IServiceProvider"/>.</param>
+		/// <param name="type">The desired type of service.</param>
+		/// <returns>The registered service.</returns>
 		public static object GetService(this IViewModel viewModel, Type type)
 		{
 			return viewModel.ServiceProvider.GetRequiredService(type);
