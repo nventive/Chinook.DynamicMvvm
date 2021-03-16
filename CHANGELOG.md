@@ -7,11 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Added
+* Support for Android 11 (March, 2021)
 
 ### Changed
-
-[#09] Update Android target to 10.0
-[#10] Update the source of the `ViewModelBase` private `ILogger` instance.
+* [#09] Update Android target to 10.0
+* [#10] Update the source of the `ViewModelBase` private `ILogger` instance.
 
 ### Deprecated
 
