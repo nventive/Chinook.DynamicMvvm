@@ -163,14 +163,14 @@ public class MyViewModel : ViewModelBase
   public IDynamicCommand MyCommandFromTaskWithParameter => this.GetCommandFromTask<int>(ExecuteMyTaskWithParameter);
   private async Task ExecuteMyTaskWithParameter(CancellationToken ct, int parameter) => Task.CompletedTask;
   
-  // This will create and attach a new IDynamicCommand named "MyCommandForItemFromTask"
+  // This will create and attach a new IDynamicCommand named "MyCommandForItemFromTask + GUID"
   // to your IViewModel. It will call the ExecuteMyTask method when executed.
   // This is useful for items in a list to excecute the command only for the selected item.
   // The CancellationToken will be cancelled if the IViewModel is disposed.
   public IDynamicCommand MyCommandForItemFromTask => this.GetItemCommandFromTask(ExecuteMyTask);
   private async Task ExecuteMyTask(CancellationToken ct) => Task.CompletedTask;
 
-  // This will create and attach a new IDynamicCommand named "MyCommandFromTaskWithParameter"
+  // This will create and attach a new IDynamicCommand named "MyCommandForItemFromTaskWithParameter + GUID"
   // to your IViewModel. It will call the ExecuteMyTaskWithParameter method with its command parameter when executed.
   // This is useful for items in a list to excecute the command only for the selected item.
   // The CancellationToken will be cancelled if the IViewModel is disposed.
