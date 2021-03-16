@@ -80,6 +80,28 @@ namespace Chinook.DynamicMvvm
 		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandBuilderFactory().CreateFromTask(n, execute), configure);
 
 		/// <summary>
+		/// Gets a different Instance of a command configured for every items in a list.
+		/// </summary>
+		/// <param name="viewModel">The ViewModel.</param>
+		/// <param name="execute">The execute method.</param>
+		/// <param name="name">The command name.</param>
+		/// <returns><see cref="IDynamicCommand"/></returns>
+		public static IDynamicCommand GetItemCommandFromTask(this IViewModel viewModel, Func<CancellationToken, Task> execute, [CallerMemberName] string name = null) => viewModel
+			.GetCommandFromTask(execute, name:(name + new Guid()), configure: c => c
+			);
+		/// <summary>
+		/// Gets a different Instance of a command configured for every items in a list.
+		/// </summary>
+		/// <typeparam name="TParameter">The type of the command parameter.</typeparam>
+		/// <param name="viewModel">The ViewModel.</param>
+		/// <param name="execute">The execute method.</param>
+		/// <param name="name">The command name.</param>
+		/// <returns><see cref="IDynamicCommand"/></returns>
+		public static IDynamicCommand GetItemCommandFromTask<TParameter>(this IViewModel viewModel, Func<CancellationToken, TParameter, Task> execute, [CallerMemberName] string name = null) => viewModel
+			.GetCommandFromTask<TParameter>(execute, name:(name + new Guid()), configure: c => c
+			);
+
+		/// <summary>
 		/// Gets or creates a <see cref="IDynamicCommand"/> that will be attached to the <paramref name="viewModel"/>.
 		/// </summary>
 		/// <param name="viewModel"><see cref="IViewModel"/></param>
