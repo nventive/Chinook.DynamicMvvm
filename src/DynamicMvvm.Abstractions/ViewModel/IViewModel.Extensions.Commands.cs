@@ -87,7 +87,7 @@ namespace Chinook.DynamicMvvm
 		/// <param name="name">The command name.</param>
 		/// <returns><see cref="IDynamicCommand"/></returns>
 		public static IDynamicCommand GetItemCommandFromTask(this IViewModel viewModel, Func<CancellationToken, Task> execute, [CallerMemberName] string name = null) => viewModel
-			.GetCommandFromTask(execute, name:(name + new Guid()), configure: c => c
+			.GetCommandFromTask(execute, name:(name + Guid.NewGuid()), configure: c => c
 			);
 		/// <summary>
 		/// Gets a different Instance of a command configured for every items in a list.
@@ -98,7 +98,7 @@ namespace Chinook.DynamicMvvm
 		/// <param name="name">The command name.</param>
 		/// <returns><see cref="IDynamicCommand"/></returns>
 		public static IDynamicCommand GetItemCommandFromTask<TParameter>(this IViewModel viewModel, Func<CancellationToken, TParameter, Task> execute, [CallerMemberName] string name = null) => viewModel
-			.GetCommandFromTask<TParameter>(execute, name:(name + new Guid()), configure: c => c
+			.GetCommandFromTask<TParameter>(execute, name:(name + Guid.NewGuid()), configure: c => c
 			);
 
 		/// <summary>
