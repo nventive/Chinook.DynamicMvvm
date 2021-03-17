@@ -16,7 +16,7 @@ namespace Chinook.DynamicMvvm
 	public interface IViewModel : INotifyPropertyChanged, INotifyDataErrorInfo, IDisposable
 	{
 		/// <summary>
-		/// Returns the name of the <see cref="IViewModel"/>.
+		/// Gets the name of the <see cref="IViewModel"/>.
 		/// </summary>
 		string Name { get; }
 
@@ -55,9 +55,8 @@ namespace Chinook.DynamicMvvm
 		IEnumerable<KeyValuePair<string, IDisposable>> Disposables { get; }
 
 		/// <summary>
-		/// Returns the view attached to this <see cref="IViewModel"/>.
+		/// Gets or sets the view attached to this <see cref="IViewModel"/>.
 		/// </summary>
-		/// <returns>View</returns>
 		IViewModelView View { get; set; }
 
 		/// <summary>
@@ -66,27 +65,31 @@ namespace Chinook.DynamicMvvm
 		event Action<IViewModelView> ViewChanged;
 
 		/// <summary>
-		/// Returns the services available for this <see cref="IViewModel"/>.
+		/// Gets the services available for this <see cref="IViewModel"/>.
 		/// </summary>
 		IServiceProvider ServiceProvider { get; }
 
 		/// <summary>
 		/// Sets the errors for the <see cref="IViewModel"/>.
 		/// </summary>
-		/// <param name="errors">Errors</param>
+		/// <param name="errors">
+		/// The errors.
+		/// The dictionary maps property names to their associated errors.
+		/// </param>
 		void SetErrors(IDictionary<string, IEnumerable<object>> errors);
 
 		/// <summary>
 		/// Sets the errors for a given property of the <see cref="IViewModel"/>.
 		/// </summary>
-		/// <param name="propertyName">Property name</param>
-		/// <param name="errors">Errors</param>
+		/// <param name="propertyName">The property name.</param>
+		/// <param name="errors">The errors associated with the property.</param>
 		void SetErrors(string propertyName, IEnumerable<object> errors);
 
 		/// <summary>
-		/// Clears the errors. If no property name is provided, clears all errors.
+		/// Clears the errors for the property specified with <paramref name="propertyName"/>.
+		/// If no <paramref name="propertyName"/> is provided, clears all errors.
 		/// </summary>
-		/// <param name="propertyName">Property name</param>
+		/// <param name="propertyName">The property name.</param>
 		void ClearErrors(string propertyName = null);
 	}
 }
