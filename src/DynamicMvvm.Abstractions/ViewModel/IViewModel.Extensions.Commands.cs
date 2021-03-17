@@ -85,11 +85,15 @@ namespace Chinook.DynamicMvvm
 		/// </summary>
 		/// <param name="viewModel">The ViewModel.</param>
 		/// <param name="execute">The execute method.</param>
+		/// <param name="configure">The optional function to configure the command builder.</param>
 		/// <param name="name">The command name.</param>
 		/// <returns><see cref="IDynamicCommand"/></returns>
-		public static IDynamicCommand GetItemCommandFromTask(this IViewModel viewModel, Func<CancellationToken, Task> execute, [CallerMemberName] string name = null) => viewModel
-			.GetCommandFromTask(execute, name:(name + Guid.NewGuid()), configure: c => c
-			);
+		public static IDynamicCommand GetItemCommandFromTask(
+			this IViewModel viewModel, Func<CancellationToken, Task> execute,
+			Func<IDynamicCommandBuilder, IDynamicCommandBuilder> configure = null,
+			[CallerMemberName] string name = null
+			) => viewModel.GetCommandFromTask(execute, configure: c => c, name: (name + Guid.NewGuid()));
+
 		/// <summary>
 		/// Gets or creates a unique instance of <see cref="IDynamicCommand"/> configured for every items in a list.
 		/// with base name + guid.
@@ -97,11 +101,14 @@ namespace Chinook.DynamicMvvm
 		/// <typeparam name="TParameter">The type of the command parameter.</typeparam>
 		/// <param name="viewModel">The ViewModel.</param>
 		/// <param name="execute">The execute method.</param>
+		/// <param name="configure">The optional function to configure the command builder.</param>
 		/// <param name="name">The command name.</param>
 		/// <returns><see cref="IDynamicCommand"/></returns>
-		public static IDynamicCommand GetItemCommandFromTask<TParameter>(this IViewModel viewModel, Func<CancellationToken, TParameter, Task> execute, [CallerMemberName] string name = null) => viewModel
-			.GetCommandFromTask<TParameter>(execute, name:(name + Guid.NewGuid()), configure: c => c
-			);
+		public static IDynamicCommand GetItemCommandFromTask<TParameter>(
+			this IViewModel viewModel, Func<CancellationToken, TParameter, Task> execute,
+			Func<IDynamicCommandBuilder, IDynamicCommandBuilder> configure = null,
+			[CallerMemberName] string name = null
+			) => viewModel.GetCommandFromTask<TParameter>(execute, configure: c => c, name: (name + Guid.NewGuid()));
 
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicCommand"/> that will be attached to the <paramref name="viewModel"/>.
