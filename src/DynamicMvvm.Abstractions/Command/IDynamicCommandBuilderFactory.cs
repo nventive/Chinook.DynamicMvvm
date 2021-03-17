@@ -15,9 +15,9 @@ namespace Chinook.DynamicMvvm
 		/// Creates a <see cref="IDynamicCommandBuilder"/> with the specified <paramref name="name"/>
 		/// that will execute the specified <paramref name="execute"/> action.
 		/// </summary>
-		/// <param name="name">Command name</param>
-		/// <param name="execute">Action to execute</param>
-		/// <returns><see cref="IDynamicCommandBuilder"/></returns>
+		/// <param name="name">The command name.</param>
+		/// <param name="execute">The action to execute.</param>
+		/// <returns>The created <see cref="IDynamicCommandBuilder"/>.</returns>
 		IDynamicCommandBuilder CreateFromAction(
 			string name,
 			Action execute
@@ -28,9 +28,9 @@ namespace Chinook.DynamicMvvm
 		/// that will execute the specified <paramref name="execute"/> action with
 		/// a parameter of type <typeparamref name="TParameter"/>.
 		/// </summary>
-		/// <param name="name">Command name</param>
-		/// <param name="execute">Action to execute</param>
-		/// <returns><see cref="IDynamicCommandBuilder"/></returns>
+		/// <param name="name">The command name.</param>
+		/// <param name="execute">The action to execute.</param>
+		/// <returns>The created <see cref="IDynamicCommandBuilder"/>.</returns>
 		IDynamicCommandBuilder CreateFromAction<TParameter>(
 			string name,
 			Action<TParameter> execute
@@ -40,9 +40,9 @@ namespace Chinook.DynamicMvvm
 		/// Creates a <see cref="IDynamicCommandBuilder"/> with the specified <paramref name="name"/>
 		/// that will execute the specified <paramref name="execute"/> task.
 		/// </summary>
-		/// <param name="name">Command name</param>
-		/// <param name="execute">Task to execute</param>
-		/// <returns><see cref="IDynamicCommandBuilder"/></returns>
+		/// <param name="name">The command name.</param>
+		/// <param name="execute">The task to execute.</param>
+		/// <returns>The created <see cref="IDynamicCommandBuilder"/>.</returns>
 		IDynamicCommandBuilder CreateFromTask(
 			string name,
 			Func<CancellationToken, Task> execute
@@ -53,9 +53,9 @@ namespace Chinook.DynamicMvvm
 		/// that will execute the specified <paramref name="execute"/> task with
 		/// a parameter of type <typeparamref name="TParameter"/>.
 		/// </summary>
-		/// <param name="name">Command name</param>
-		/// <param name="execute">Task to execute</param>
-		/// <returns><see cref="IDynamicCommandBuilder"/></returns>
+		/// <param name="name">The command name.</param>
+		/// <param name="execute">The task to execute.</param>
+		/// <returns>The created <see cref="IDynamicCommandBuilder"/>.</returns>
 		IDynamicCommandBuilder CreateFromTask<TParameter>(
 			string name,
 			Func<CancellationToken, TParameter, Task> execute

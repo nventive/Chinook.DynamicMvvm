@@ -17,8 +17,8 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets the children of a <see cref="IViewModel"/>.
 		/// </summary>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <returns>Childen</returns>
+		/// <param name="viewModel">This <see cref="IViewModel"/>.</param>
+		/// <returns>The children <see cref="IViewModel"/>s of this viewmodel.</returns>
 		public static IEnumerable<IViewModel> GetChildren(this IViewModel viewModel) => viewModel
 			.Disposables
 			.Select(pair => pair.Value as IViewModel)
@@ -28,11 +28,11 @@ namespace Chinook.DynamicMvvm
 		/// Gets the child of a <see cref="IViewModel"/> for the specified <paramref name="name"/>.
 		/// If the child doesn't exist, it is created and attached using <paramref name="childViewModelProvider"/>.
 		/// </summary>
-		/// <typeparam name="TChildViewModel">Type of child</typeparam>
-		/// <param name="viewModel">Parent <see cref="IViewModel"/></param>
-		/// <param name="childViewModelProvider">Factory for the child <see cref="IViewModel"/></param>
-		/// <param name="name">Child name</param>
-		/// <returns>Child <see cref="IViewModel"/></returns>
+		/// <typeparam name="TChildViewModel">The type of child viewmodel.</typeparam>
+		/// <param name="viewModel">The parent <see cref="IViewModel"/>.</param>
+		/// <param name="childViewModelProvider">The factory to the child <see cref="IViewModel"/>.</param>
+		/// <param name="name">The child viewmodel's name.</param>
+		/// <returns>The attached child <see cref="IViewModel"/>.</returns>
 		public static TChildViewModel GetChild<TChildViewModel>(
 			this IViewModel viewModel,
 			Func<TChildViewModel> childViewModelProvider,
@@ -51,10 +51,10 @@ namespace Chinook.DynamicMvvm
 		/// Gets the child of a <see cref="IViewModel"/> for the specified <paramref name="name"/>.
 		/// If the child doesn't exist, it is created and attached using the default constructor.
 		/// </summary>
-		/// <typeparam name="TChildViewModel">Type of child</typeparam>
-		/// <param name="viewModel">Parent <see cref="IViewModel"/></param>
-		/// <param name="name">Child name</param>
-		/// <returns>Child <see cref="IViewModel"/></returns>
+		/// <typeparam name="TChildViewModel">The type of child viewmodel.</typeparam>
+		/// <param name="viewModel">The parent <see cref="IViewModel"/>.</param>
+		/// <param name="name">The child viewmodel's name.</param>
+		/// <returns>The attached child <see cref="IViewModel"/>.</returns>
 		public static TChildViewModel GetChild<TChildViewModel>(
 			this IViewModel viewModel,
 			[CallerMemberName] string name = null
@@ -69,11 +69,11 @@ namespace Chinook.DynamicMvvm
 		/// Both also share the same <see cref="IViewModelView"/>.
 		/// A child can only be attached once to a single <see cref="IViewModel"/>.
 		/// </summary>
-		/// <typeparam name="TChildViewModel">Type of child</typeparam>
-		/// <param name="viewModel">Parent <see cref="IViewModel"/></param>
-		/// <param name="childViewModel">Child <see cref="IViewModel"/></param>
-		/// <param name="name">Child name</param>
-		/// <returns>Child <see cref="IViewModel"/></returns>
+		/// <typeparam name="TChildViewModel">The type of child viewmodel.</typeparam>
+		/// <param name="viewModel">The parent <see cref="IViewModel"/>.</param>
+		/// <param name="childViewModel">The child <see cref="IViewModel"/> to attach.</param>
+		/// <param name="name">The child viewmodel's name. This defaults to <paramref name="childViewModel"/>.Name when not provided.</param>
+		/// <returns>The attached child <see cref="IViewModel"/>.</returns>
 		public static TChildViewModel AttachChild<TChildViewModel>(this IViewModel viewModel, TChildViewModel childViewModel, string name = null)
 			where TChildViewModel : IViewModel
 		{
@@ -104,12 +104,11 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Detaches a child <see cref="IViewModel"/> from its parent <see cref="IViewModel"/>.
 		/// By being detached, the child will no longer be disposed when the parent is disposed.
-		/// The child <see cref="IViewModelView"/> will also be reset.
+		/// The child's <see cref="IViewModelView"/> will also be removed.
 		/// </summary>
-		/// <param name="viewModel">Parent <see cref="IViewModel"/></param>
-		/// <param name="childViewModel">Child <see cref="IViewModel"/></param>
-		/// <param name="name">Child name</param>
-		/// <returns>Child <see cref="IViewModel"/></returns>
+		/// <param name="viewModel">The parent <see cref="IViewModel"/>.</param>
+		/// <param name="childViewModel">The child <see cref="IViewModel"/> to detach.</param>
+		/// <param name="name">The child viewmodel's name. This defaults to <paramref name="childViewModel"/>.Name when not provided.</param>
 		public static void DetachChild(this IViewModel viewModel, IViewModel childViewModel, string name = null)
 		{
 			if (childViewModel == null)

@@ -27,7 +27,7 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Executes the specified action on a dispatcher thread.
 		/// </summary>
-		/// <param name="action">Action to execute</param>
+		/// <param name="action">The action to execute.</param>
 		void ExecuteOnDispatcher(Action action);
 	}
 }
