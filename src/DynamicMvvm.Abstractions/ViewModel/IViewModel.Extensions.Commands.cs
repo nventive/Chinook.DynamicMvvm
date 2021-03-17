@@ -80,7 +80,8 @@ namespace Chinook.DynamicMvvm
 		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandBuilderFactory().CreateFromTask(n, execute), configure);
 
 		/// <summary>
-		/// Gets a different Instance of a command configured for every items in a list.
+		/// Gets or creates a unique instance of <see cref="IDynamicCommand"/> configured for every items in a list
+		/// with base name + guid.
 		/// </summary>
 		/// <param name="viewModel">The ViewModel.</param>
 		/// <param name="execute">The execute method.</param>
@@ -90,7 +91,8 @@ namespace Chinook.DynamicMvvm
 			.GetCommandFromTask(execute, name:(name + Guid.NewGuid()), configure: c => c
 			);
 		/// <summary>
-		/// Gets a different Instance of a command configured for every items in a list.
+		/// Gets or creates a unique instance of <see cref="IDynamicCommand"/> configured for every items in a list.
+		/// with base name + guid.
 		/// </summary>
 		/// <typeparam name="TParameter">The type of the command parameter.</typeparam>
 		/// <param name="viewModel">The ViewModel.</param>
