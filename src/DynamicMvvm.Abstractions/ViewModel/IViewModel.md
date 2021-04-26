@@ -1,8 +1,8 @@
 ﻿# IViewModel
 
-`IViewModel` is a store of `IDisposable` that can be bound to a view.
+A `IViewModel` entity is a container for all the `IDisposable` object that can be bound to a view.
 
-When `IViewModel` is disposed, all the `IDisposable` attached to it will be disposed.
+When `IViewModel` is disposed, all the `IDisposable` object attached to it will be disposed.
 
 It is meant to store [DynamicProperties](../Property/IDynamicProperty.md), [DynamicCommands](../Command/IDynamicCommand.md), children ViewModels, etc.
 
@@ -120,7 +120,7 @@ public class MyViewModel : ViewModelBase
 }
 ```
 
-You can change the creation of the `IDynamicProperty` by registering a `IDynamicPropertyFactory` in your `IServiceProvider`.
+You can change the creation of `IDynamicProperty`s by registering a `IDynamicPropertyFactory` in your `IServiceProvider`.
 
 ```csharp
 private void ConfigureProperties(IServiceCollection services)
@@ -133,7 +133,7 @@ private void ConfigureProperties(IServiceCollection services)
 
 There are multiple ways to create a `IDynamicCommand` from a `IViewModel`.
 
-When disposed, the `IViewModel` will dispose all commands attached to it causing their cancellation.
+When disposed, the `IViewModel` will dispose all commands attached to it, causing their cancellation.
 
 [Refer to this documention for more information on IDynamicCommand](../Command/IDynamicCommand.md).
 
@@ -178,7 +178,7 @@ public class MyViewModel : ViewModelBase
 }
 ```
 
-You can change the creation of the `IDynamicCommand` by registering a `IDynamicCommandFactory` in your `IServiceProvider`.
+You can change the creation of `IDynamicCommand`s by registering a `IDynamicCommandFactory` in your `IServiceProvider`.
 
 ```csharp
 private void ConfigureCommands(IServiceCollection services)
@@ -189,7 +189,7 @@ private void ConfigureCommands(IServiceCollection services)
 
 ### Children view models
 
-You can attach children ViewModels to your `IViewModel`.
+You can attach child ViewModels to your `IViewModel`.
 
 This is useful if you want to share a set of functionalities between multiple ViewModels.
 
@@ -243,11 +243,11 @@ public partial class MyViewModel : ViewModelBase
 {
   public MyViewModel(IDisposable myDisposable)
   {
-	// The disposable will be disposed when this ViewModel is disposed.
+    // The disposable will be disposed when this ViewModel is disposed.
     this.AddDisposable("MyDisposable", myDisposable);
 
     // You can get the disposable using its key.
-	this.TryGetDisposable("MyDisposable", out var disposable);
+    this.TryGetDisposable("MyDisposable", out var disposable);
   }
 }
 ```

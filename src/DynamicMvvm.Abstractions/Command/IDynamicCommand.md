@@ -1,4 +1,4 @@
-﻿* # IDynamicCommand
+﻿# IDynamicCommand
 
 A `IDynamicCommand` is a `ICommand` that will notify its subscribers when it is executing.
 
@@ -167,7 +167,7 @@ You can configure your commands locally using the various extension methods on `
 // This will create a new IDynamicCommand using a IDynamicCommandBuilderFactory and IDynamicCommandBuilder.
 var myFactory = new DynamicCommandBuilderFactory();
 var myBuilder = myFactory.CreateFromAction("MyCommand", ExecuteCommand)
-	.WithLogs();
+  .WithLogs();
 var myCommand = myBuilder.Build();
 private void ExecuteCommand() { }
 ```
