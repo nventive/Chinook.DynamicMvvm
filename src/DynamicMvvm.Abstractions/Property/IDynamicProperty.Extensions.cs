@@ -10,8 +10,8 @@ namespace Chinook.DynamicMvvm
 		/// Subscribes to the changes in the value of the <paramref name="property"/> and invokes the
 		/// <paramref name="onValueChanged"/> callback.
 		/// </summary>
-		/// <param name="property">Property to subscribe to</param>
-		/// <param name="onValueChanged">Callback</param>
+		/// <param name="property">The property to subscribe to.</param>
+		/// <param name="onValueChanged">The callback.</param>
 		/// <returns><see cref="IDisposable"/></returns>
 		public static IDisposable Subscribe(this IDynamicProperty property, Action<IDynamicProperty> onValueChanged)
 		{
@@ -27,9 +27,9 @@ namespace Chinook.DynamicMvvm
 		/// Subscribes to the changes in the value of the <paramref name="property"/> and invokes the
 		/// <paramref name="onValueChanged"/> callback.
 		/// </summary>
-		/// <typeparam name="T">Type of the property</typeparam>
-		/// <param name="property">Property to subscribe to</param>
-		/// <param name="onValueChanged">Callback</param>
+		/// <typeparam name="T">The type of the property.</typeparam>
+		/// <param name="property">The property to subscribe to.</param>
+		/// <param name="onValueChanged">The callback.</param>
 		/// <returns><see cref="IDisposable"/></returns>
 		public static IDisposable Subscribe<T>(this IDynamicProperty<T> property, Action<IDynamicProperty<T>> onValueChanged)
 		{

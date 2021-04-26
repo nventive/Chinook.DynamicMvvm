@@ -11,12 +11,12 @@ namespace Chinook.DynamicMvvm
 	public interface IDynamicProperty : IDisposable
 	{
 		/// <summary>
-		/// Name of the property.
+		/// The name of the property.
 		/// </summary>
 		string Name { get; }
 
 		/// <summary>
-		/// Value of the property.
+		/// The value of the property.
 		/// </summary>
 		object Value { get; set; }
 
@@ -29,11 +29,11 @@ namespace Chinook.DynamicMvvm
 	/// <summary>
 	/// A typed version of <see cref="IDynamicProperty"/>.
 	/// </summary>
-	/// <typeparam name="T">Type of value</typeparam>
+	/// <typeparam name="T">The type of value.</typeparam>
 	public interface IDynamicProperty<T> : IDynamicProperty
 	{
 		/// <summary>
-		/// Value of the property.
+		/// The value of the property.
 		/// </summary>
 		new T Value { get; set; }
 	}

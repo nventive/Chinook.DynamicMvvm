@@ -20,7 +20,7 @@ namespace Chinook.DynamicMvvm
 		}
 
 		/// <summary>
-		/// Returns the registered service of the specified  <paramref name="type"/>.
+		/// Returns the registered service of the specified <paramref name="type"/>.
 		/// </summary>
 		/// <param name="viewModel">The <see cref="IViewModel"/> providing the <see cref="IServiceProvider"/>.</param>
 		/// <param name="type">The desired type of service.</param>
