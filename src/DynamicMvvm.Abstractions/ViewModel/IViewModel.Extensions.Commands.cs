@@ -20,7 +20,7 @@ namespace Chinook.DynamicMvvm
 		/// <param name="viewModel">This <see cref="IViewModel"/>.</param>
 		/// <param name="execute">The command's execution delegate.</param>
 		/// <param name="configure">The optional function to configure the command builder.</param>
-		/// <param name="name">The optional command name.</param>
+		/// <param name="name">The command name.</param>
 		/// <returns>The attached <see cref="IDynamicCommand"/>.</returns>
 		public static IDynamicCommand GetCommand(
 			this IViewModel viewModel,
@@ -37,7 +37,7 @@ namespace Chinook.DynamicMvvm
 		/// <param name="viewModel">This <see cref="IViewModel"/>.</param>
 		/// <param name="execute">The command's execution delegate.</param>
 		/// <param name="configure">The optional function to configure the command builder.</param>
-		/// <param name="name">The optional command name.</param>
+		/// <param name="name">The command name.</param>
 		/// <returns>The attached <see cref="IDynamicCommand"/>.</returns>
 		public static IDynamicCommand GetCommand<TParameter>(
 			this IViewModel viewModel,
@@ -53,7 +53,7 @@ namespace Chinook.DynamicMvvm
 		/// <param name="viewModel">This <see cref="IViewModel"/>.</param>
 		/// <param name="execute">The command's execution delegate.</param>
 		/// <param name="configure">The optional function to configure the command builder.</param>
-		/// <param name="name">The optional command name.</param>
+		/// <param name="name">The command name.</param>
 		/// <returns>The attached <see cref="IDynamicCommand"/>.</returns>
 		public static IDynamicCommand GetCommandFromTask(
 			this IViewModel viewModel,
@@ -70,7 +70,7 @@ namespace Chinook.DynamicMvvm
 		/// <param name="viewModel">This <see cref="IViewModel"/>.</param>
 		/// <param name="execute">The command's execution delegate.</param>
 		/// <param name="configure">The optional function to configure the command builder.</param>
-		/// <param name="name">The optional command name.</param>
+		/// <param name="name">The command name.</param>
 		/// <returns>The attached <see cref="IDynamicCommand"/>.</returns>
 		public static IDynamicCommand GetCommandFromTask<TParameter>(
 			this IViewModel viewModel,

@@ -15,7 +15,7 @@ To create a `IDynamicProperty`, you use its constructor.
 var myProperty = new DynamicProperty<int>("MyProperty", value: 10);
 ```
 
-To synchronously get or set the value of a `IDynamicProperty`, you use its `Value` property.
+To get or set the value of a `IDynamicProperty`, you use its `Value` property.
 
 ```csharp
 // This will return the last value of the DynamicProperty.

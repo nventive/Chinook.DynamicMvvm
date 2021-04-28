@@ -15,10 +15,10 @@ namespace Chinook.DynamicMvvm
 		private const string RemoveSelfFromParentSubscriptionKey = "RemoveSelfFromParentSubscription";
 
 		/// <summary>
-		/// Gets the children of a <see cref="IViewModel"/>.
+		/// Gets the children of this <see cref="IViewModel"/>.
 		/// </summary>
 		/// <param name="viewModel">This <see cref="IViewModel"/>.</param>
-		/// <returns>A IEnumerable of <see cref="IViewModel"/>s registered to this ViewModel.</returns>
+		/// <returns>A IEnumerable of child <see cref="IViewModel"/>s of this ViewModel.</returns>
 		public static IEnumerable<IViewModel> GetChildren(this IViewModel viewModel) => viewModel
 			.Disposables
 			.Select(pair => pair.Value as IViewModel)

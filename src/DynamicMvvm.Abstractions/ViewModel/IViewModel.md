@@ -1,8 +1,8 @@
 ﻿# IViewModel
 
-A `IViewModel` entity is a container for all the `IDisposable` object that can be bound to a view.
+A `IViewModel` is a container of `IDisposable` objects and can be bound to a view.
 
-When `IViewModel` is disposed, all the `IDisposable` object attached to it will be disposed.
+When `IViewModel` is disposed, all the `IDisposable` objects attached to it will be disposed.
 
 It is meant to store [DynamicProperties](../Property/IDynamicProperty.md), [DynamicCommands](../Command/IDynamicCommand.md), children ViewModels, etc.
 
@@ -133,7 +133,7 @@ private void ConfigureProperties(IServiceCollection services)
 
 There are multiple ways to create a `IDynamicCommand` from a `IViewModel`.
 
-When disposed, the `IViewModel` will dispose all commands attached to it, causing their cancellation.
+Disposing a IViewModel disposes all its attached commands, causing their cancellation.
 
 [Refer to this documention for more information on IDynamicCommand](../Command/IDynamicCommand.md).
 
