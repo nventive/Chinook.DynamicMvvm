@@ -15,18 +15,18 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Determines if the strategy can be executed. 
 		/// </summary>
-		/// <param name="parameter">Command parameter</param>
-		/// <param name="command">Calling command</param>
+		/// <param name="parameter">The command parameter.</param>
+		/// <param name="command">The calling command.</param>
 		/// <returns>True if the command can be executed; false otherwise.</returns>
 		bool CanExecute(object parameter, IDynamicCommand command);
 
 		/// <summary>
 		/// Executes the strategy.
 		/// </summary>
-		/// <param name="ct">Cancellation token</param>
-		/// <param name="parameter">Command parameter</param>
-		/// <param name="command">Calling command</param>
-		/// <returns>Task</returns>
+		/// <param name="ct">The <see cref="CancellationToken"/>.</param>
+		/// <param name="parameter">The command parameter.</param>
+		/// <param name="command">The calling command.</param>
+		/// <returns><see cref="Task"/></returns>
 		Task Execute(CancellationToken ct, object parameter, IDynamicCommand command);
 
 		/// <summary>

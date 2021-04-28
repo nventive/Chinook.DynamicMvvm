@@ -28,9 +28,11 @@ namespace Chinook.DynamicMvvm
 
 		/// <summary>
 		/// Adds a disposable to this ViewModel.
+		/// </summary>
+		/// <remarks>
 		/// The <paramref name="disposable"/> disposes when <see cref="IDisposable.Dispose"/> is called.
 		/// You can retrieve <paramref name="disposable"/> using <see cref="Disposables"/> and <see cref="TryGetDisposable(string, out IDisposable)"/>.
-		/// </summary>
+		/// </remarks>
 		/// <param name="key">The key associated with the disposable.</param>
 		/// <param name="disposable">The disposable to dispose with this ViewModel.</param>
 		void AddDisposable(string key, IDisposable disposable);
@@ -46,7 +48,7 @@ namespace Chinook.DynamicMvvm
 		/// </summary>
 		/// <param name="key">The key associated to a disposable.</param>
 		/// <param name="disposable">When found, the disposable associated with the key. Null otherwise.</param>
-		/// <returns>True if the key was found. False otherwise.</returns>
+		/// <returns>Returns true if the key was found. False otherwise.</returns>
 		bool TryGetDisposable(string key, out IDisposable disposable);
 
 		/// <summary>

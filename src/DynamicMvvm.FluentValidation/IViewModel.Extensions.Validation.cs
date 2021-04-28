@@ -20,8 +20,8 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets the <see cref="IValidator"/> for the given <see cref="IViewModel"/>.
 		/// </summary>
-		/// <typeparam name="TViewModel">Type of ViewModel</typeparam>
-		/// <param name="viewModel">ViewModel</param>
+		/// <typeparam name="TViewModel">The type of ViewModel.</typeparam>
+		/// <param name="viewModel">The ViewModel.</param>
 		/// <returns><see cref="IValidator"/></returns>
 		public static IValidator<TViewModel> GetValidator<TViewModel>(this TViewModel viewModel)
 			where TViewModel : IViewModel
@@ -39,9 +39,9 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Adds validation to the <see cref="IViewModel"/> using <see cref="IValidator"/>.
 		/// </summary>
-		/// <typeparam name="TViewModel">Type of ViewModel</typeparam>
-		/// <param name="viewModel">ViewModel</param>
-		/// <param name="property">Property to validate</param>
+		/// <typeparam name="TViewModel">The type of ViewModel.</typeparam>
+		/// <param name="viewModel">The ViewModel.</param>
+		/// <param name="property">The property to validate.</param>
 		public static void AddValidation<TViewModel>(this TViewModel viewModel, IDynamicProperty property)
 			where TViewModel : IViewModel
 		{
@@ -63,11 +63,11 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Validates a given <paramref name="property"/>.
 		/// </summary>
-		/// <typeparam name="TViewModel">Type of ViewModel</typeparam>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
+		/// <typeparam name="TViewModel">The type of ViewModel.</typeparam>
+		/// <param name="viewModel">The ViewModel.</param>
 		/// <param name="ct"><see cref="CancellationToken"/></param>
-		/// <param name="property"><see cref="IDynamicProperty"/></param>
-		/// <returns>True if valid; false otherwise.</returns>
+		/// <param name="property">The property to validate.</param>
+		/// <returns>Returns true if valid; false otherwise.</returns>
 		public static async Task<ValidationResult> ValidateProperty<TViewModel>(
 			this TViewModel viewModel,
 			CancellationToken ct,
@@ -109,10 +109,10 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Validates a given <see cref="IViewModel"/>.
 		/// </summary>
-		/// <typeparam name="TViewModel">Type of ViewModel</typeparam>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
+		/// <typeparam name="TViewModel">The type of ViewModel.</typeparam>
+		/// <param name="viewModel">The ViewModel.</param>
 		/// <param name="ct"><see cref="CancellationToken"/></param>
-		/// <returns>Validation result</returns>
+		/// <returns>The validation result.</returns>
 		public static async Task<ValidationResult> Validate<TViewModel>(this TViewModel viewModel, CancellationToken ct)
 			where TViewModel : IViewModel
 		{

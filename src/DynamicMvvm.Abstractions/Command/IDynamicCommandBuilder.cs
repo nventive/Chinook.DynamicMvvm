@@ -10,13 +10,13 @@ namespace Chinook.DynamicMvvm
 	public interface IDynamicCommandBuilder
 	{
 		/// <summary>
-		/// The name of the command.
+		/// Gets name of the command.
 		/// This cannot be changed.
 		/// </summary>
 		string Name { get; }
 
 		/// <summary>
-		/// This is the base stragegy that actually invokes the user execution.
+		/// Gets the base stragegy that actually invokes the user execution.
 		/// This cannot be changed.
 		/// </summary>
 		IDynamicCommandStrategy BaseStrategy { get; }

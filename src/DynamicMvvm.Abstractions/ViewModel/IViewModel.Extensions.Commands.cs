@@ -33,7 +33,7 @@ namespace Chinook.DynamicMvvm
 		/// Gets or creates a <see cref="IDynamicCommand"/> that will execute
 		/// the specified <paramref name="execute"/> with a parameter of type <typeparamref name="TParameter"/>.
 		/// </summary>
-		/// <typeparam name="TParameter">Parameter type</typeparam>
+		/// <typeparam name="TParameter">The parameter type.</typeparam>
 		/// <param name="viewModel">This <see cref="IViewModel"/>.</param>
 		/// <param name="execute">The command's execution delegate.</param>
 		/// <param name="configure">The optional function to configure the command builder.</param>
@@ -66,7 +66,7 @@ namespace Chinook.DynamicMvvm
 		/// Gets or creates a <see cref="IDynamicCommand"/> that will execute
 		/// the specified <paramref name="execute"/> with a parameter of type <typeparamref name="TParameter"/>.
 		/// </summary>
-		/// <typeparam name="TParameter">Parameter type</typeparam>
+		/// <typeparam name="TParameter">The parameter type.</typeparam>
 		/// <param name="viewModel">This <see cref="IViewModel"/>.</param>
 		/// <param name="execute">The command's execution delegate.</param>
 		/// <param name="configure">The optional function to configure the command builder.</param>

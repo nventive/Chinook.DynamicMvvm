@@ -6,7 +6,7 @@ using System.Reactive.Linq;
 namespace Chinook.DynamicMvvm
 {
 	/// <summary>
-	/// Extensions on <see cref="IDynamicCommand"/>.
+	/// Extensions on <see cref="IDynamicCommand"/>
 	/// </summary>
 	public static class IDynamicCommandExtensions
 	{

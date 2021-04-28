@@ -5,14 +5,14 @@ using System.Reactive.Linq;
 namespace Chinook.DynamicMvvm
 {
 	/// <summary>
-	/// Extensions on <see cref="IDynamicProperty"/>.
+	/// Extensions on <see cref="IDynamicProperty"/> to observe its value.
 	/// </summary>
 	public static class IDynamicPropertyExtensions
     {
 		/// <summary>
 		/// Observes the value of the <paramref name="property"/>.
 		/// </summary>
-		/// <param name="property"><see cref="IDynamicProperty"/> to observe</param>
+		/// <param name="property"><see cref="IDynamicProperty"/> to observe.</param>
 		/// <returns>Observable sequence of the values of the property.</returns>
 		public static IObservable<object> Observe(this IDynamicProperty property)
 		{
@@ -26,7 +26,7 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets and observes the value of the <paramref name="property"/>.
 		/// </summary>
-		/// <param name="property"><see cref="IDynamicProperty"/> to observe</param>
+		/// <param name="property"><see cref="IDynamicProperty"/> to observe.</param>
 		/// <returns>Observable sequence of the values of the property. The sequence will start with the current value of the property.</returns>
 		public static IObservable<object> GetAndObserve(this IDynamicProperty property)
 		{
@@ -36,7 +36,8 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Observes the value of the <paramref name="property"/>.
 		/// </summary>
-		/// <param name="property"><see cref="IDynamicProperty"/> to observe</param>
+		/// <typeparam name="T">The property type.</typeparam>
+		/// <param name="property"><see cref="IDynamicProperty"/> to observe.</param>
 		/// <returns>Observable sequence of the values of the property.</returns>
 		public static IObservable<T> Observe<T>(this IDynamicProperty property)
 		{
@@ -46,7 +47,8 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets and observes the value of the <paramref name="property"/>.
 		/// </summary>
-		/// <param name="property"><see cref="IDynamicProperty"/> to observe</param>
+		/// <typeparam name="T">The property type.</typeparam>
+		/// <param name="property"><see cref="IDynamicProperty"/> to observe.</param>
 		/// <returns>Observable sequence of the values of the property. The sequence will start with the current value of the property.</returns>
 		public static IObservable<T> GetAndObserve<T>(this IDynamicProperty property)
 		{
@@ -56,7 +58,8 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Observes the value of the <paramref name="property"/>.
 		/// </summary>
-		/// <param name="property"><see cref="IDynamicProperty"/> to observe</param>
+		/// <typeparam name="T">The property type.</typeparam>
+		/// <param name="property"><see cref="IDynamicProperty"/> to observe.</param>
 		/// <returns>Observable sequence of the values of the property.</returns>
 		public static IObservable<T> Observe<T>(this IDynamicProperty<T> property)
 		{
@@ -66,7 +69,8 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets and observes the value of the <paramref name="property"/>.
 		/// </summary>
-		/// <param name="property"><see cref="IDynamicProperty"/> to observe</param>
+		/// <typeparam name="T">The property type.</typeparam>
+		/// <param name="property"><see cref="IDynamicProperty"/> to observe.</param>
 		/// <returns>Observable sequence of the values of the property. The sequence will start with the current value of the property.</returns>
 		public static IObservable<T> GetAndObserve<T>(this IDynamicProperty<T> property)
 		{

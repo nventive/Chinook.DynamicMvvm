@@ -25,13 +25,13 @@ We also recommend installing the [Chinook Snippets](https://marketplace.visualst
 
 ## Features
 
-Please refer to the documentation for [IViewModel](src/DynamicMvvm.Abstractions/ViewModel/IViewModel.md#Features), [IDynamicProperty](src/DynamicMvvm.Abstractions/Property/IDynamicProperty.md#Features) and [IDynamicCommand](src/DynamicMvvm.Abstractions/Command/IDynamicCommand.md#Features) for a full list of the features! Here's a small code sample showing the interaction between `IViewModel`, `IDynamicProperty` and `IDynamicCommand`:
+Please refer to the documentation for [IViewModel](src/DynamicMvvm.Abstractions/ViewModel/IViewModel.md#Features), [IDynamicProperty](src/DynamicMvvm.Abstractions/Property/IDynamicProperty.md#Features) and [IDynamicCommand](src/DynamicMvvm.Abstractions/Command/IDynamicCommand.md#Features) for a full list of their features! Here's a small code sample showing the interaction between `IViewModel`, `IDynamicProperty` and `IDynamicCommand`:
 
 ```csharp
 public class MyViewModel : ViewModelBase
 {
   // This will create and attach a new IDynamicProperty named "MyProperty"
-  // to your IViewModel. It's initial value will be default(int).
+  // to your IViewModel. It's initial value will be default(int). It cannot be bound two-way.
   public int MyProperty => this.Get<int>();
 
   // This will create and attach a new IDynamicProperty named "MyStringProperty"
@@ -43,7 +43,7 @@ public class MyViewModel : ViewModelBase
   }
 
   // This will create a DynamicProperty with a name of "MyAsyncProperty" and an initial value of 10.
-  // When the task completes, the property will be updated with its result and will notify its subscribers of this change.
+  // When the task completes, the property will be updated with the result and will notify all its subscribers.
   public int MyAsyncProperty => this.GetFromTask(MyTask, initialValue: 10);
   
   private Task<int> MyTask(CancellationToken ct) => Task.FromResult(20);

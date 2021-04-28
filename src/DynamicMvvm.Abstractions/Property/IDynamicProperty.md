@@ -22,17 +22,19 @@ To get or set the value of a `IDynamicProperty`, you use its `Value` property.
 var myValue = myProperty.Value;
 
 // This will set the value of the DynamicProperty to 30.
-// the property will notify its subscribers of this change.
+// The property will notify its subscribers of this change.
 myProperty.Value = 30;
 ```
 
-To be notified when the value of a `IDynamicProperty` changes, you subscribe to its `ValueChanged` event.
+To be notified when the value of a `IDynamicProperty` changes, you need to subscribe to its `ValueChanged` event.
 
 ```csharp
 // This method will be called everytime the value of the property changes.
 void OnValueChanged(IDynamicProperty property)
 {
   var newValue = property.Value;
+  
+  // ...
 }
 
 myProperty.ValueChanged += OnValueChanged;

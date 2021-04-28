@@ -14,10 +14,10 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Creates a <see cref="IDynamicProperty"/> with the specified <paramref name="name"/> and <paramref name="initialValue"/>.
 		/// </summary>
-		/// <typeparam name="T">Property type</typeparam>
-		/// <param name="name">Property name</param>
-		/// <param name="initialValue">Initial value</param>
-		/// <returns>IDynamicProperty</returns>
+		/// <typeparam name="T">The property type.</typeparam>
+		/// <param name="name">The property name.</param>
+		/// <param name="initialValue">The initial value.</param>
+		/// <returns><see cref="IDynamicProperty"/></returns>
 		IDynamicProperty Create<T>(
 			string name,
 			T initialValue = default
@@ -27,11 +27,11 @@ namespace Chinook.DynamicMvvm
 		/// Creates a <see cref="IDynamicProperty"/> with the specified <paramref name="name"/> and <paramref name="initialValue"/>.
 		/// This property will be updated once the <paramref name="source"/> task is complete.
 		/// </summary>
-		/// <typeparam name="T">Property type</typeparam>
-		/// <param name="name">Property name</param>
-		/// <param name="source">Property source</param>
-		/// <param name="initialValue">Initial value</param>
-		/// <returns>IDynamicProperty</returns>
+		/// <typeparam name="T">The property type.</typeparam>
+		/// <param name="name">The property name.</param>
+		/// <param name="source">The property source.</param>
+		/// <param name="initialValue">The initial value.</param>
+		/// <returns><see cref="IDynamicProperty"/></returns>
 		IDynamicProperty CreateFromTask<T>(
 			string name,
 			Func<CancellationToken, Task<T>> source,
@@ -42,11 +42,11 @@ namespace Chinook.DynamicMvvm
 		/// Creates a <see cref="IDynamicProperty"/> with the specified <paramref name="name"/> and <paramref name="initialValue"/>.
 		/// This property will be updated when the <paramref name="source"/> observable pushes new values.
 		/// </summary>
-		/// <typeparam name="T">Property type</typeparam>
-		/// <param name="name">Property name</param>
-		/// <param name="source">Property source</param>
-		/// <param name="initialValue">Initial value</param>
-		/// <returns>IDynamicProperty</returns>
+		/// <typeparam name="T">The property type.</typeparam>
+		/// <param name="name">The property name.</param>
+		/// <param name="source">The property source.</param>
+		/// <param name="initialValue">The initial value.</param>
+		/// <returns><see cref="IDynamicProperty"/></returns>
 		IDynamicProperty CreateFromObservable<T>(
 			string name,
 			IObservable<T> source,

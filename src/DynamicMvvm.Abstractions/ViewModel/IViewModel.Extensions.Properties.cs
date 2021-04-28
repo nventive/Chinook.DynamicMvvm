@@ -133,7 +133,7 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicProperty"/> attached to this <see cref="IViewModel"/>.
 		/// </summary>
-		/// <typeparam name="TViewModel">THe ViewModel type.</typeparam>
+		/// <typeparam name="TViewModel">The ViewModel type.</typeparam>
 		/// <typeparam name="TProperty">The property type.</typeparam>
 		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
 		/// <param name="expression">The expression resolving the property.</param>
