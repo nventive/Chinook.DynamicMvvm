@@ -27,6 +27,12 @@ namespace Chinook.DynamicMvvm
 
 		private void SetView(IViewModelView view)
 		{
+			if (view != null)
+			{
+				// When the VM is disposed, we don't want to throw when setting a null view.
+				ThrowIfDisposed();
+			}
+
 			_view.SetTarget(view);
 
 			ViewChanged?.Invoke(view);

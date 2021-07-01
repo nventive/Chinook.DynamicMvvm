@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Chinook.DynamicMvvm;
+using Chinook.DynamicMvvm.Tests.Helpers;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -93,6 +95,39 @@ namespace Chinook.DynamicMvvm.Tests.Integration
 			viewModel.Counter.Should().Be(1);
 		}
 
+		[Fact]
+		public async Task A_disposed_VM_cannot_be_mutated()
+		{
+			var viewModel = new MyViewModel(_serviceProvider);
+
+			viewModel.Dispose();
+
+			// Direct interface members
+			Assert.Throws<ObjectDisposedException>(() => viewModel.AddDisposable(new TestDisposable()));
+			Assert.Throws<ObjectDisposedException>(() => viewModel.AddDisposable("key", new TestDisposable()));
+			Assert.Throws<ObjectDisposedException>(() => viewModel.RemoveDisposable(nameof(MyViewModel.Counter)));
+			Assert.Throws<ObjectDisposedException>(() => viewModel.SetErrors(nameof(MyViewModel.Counter), Enumerable.Empty<object>()));
+			Assert.Throws<ObjectDisposedException>(() => viewModel.SetErrors(errors: new Dictionary<string, IEnumerable<object>>()));
+			Assert.Throws<ObjectDisposedException>(() => viewModel.ClearErrors(nameof(MyViewModel.Counter)));
+			Assert.Throws<ObjectDisposedException>(() => viewModel.View = new TestViewModelView());
+			Assert.Throws<ObjectDisposedException>(() => viewModel.RaisePropertyChanged(nameof(MyViewModel.Counter)));
+
+			// Extensions via exposed properties
+			Assert.Throws<ObjectDisposedException>(() => viewModel.Counter = 1);
+			await Assert.ThrowsAsync<ObjectDisposedException>(async () => await viewModel.IncrementCounter.Execute());
+		}
+
+		[Fact]
+		public void Disposing_a_child_removes_it_from_the_parent()
+		{
+			var viewModel = new MyViewModel(_serviceProvider);
+			var child = viewModel.Child;
+
+			child.Dispose();
+
+			viewModel.TryGetDisposable(nameof(viewModel.Child), out var _).Should().BeFalse();
+		}
+
 		private class MyViewModel : ViewModelBase
 		{
 			public MyViewModel(IServiceProvider serviceProvider)
@@ -104,6 +139,8 @@ namespace Chinook.DynamicMvvm.Tests.Integration
 
 				AddDisposable(updateCounterStringWhenCounterChanges);
 			}
+
+			public TestChildVM Child => this.GetChild<TestChildVM>(() => new TestChildVM());
 
 			public int Counter
 			{
@@ -169,6 +206,15 @@ namespace Chinook.DynamicMvvm.Tests.Integration
 				ErrorMessage = e.Message;
 
 				return Task.CompletedTask;
+			}
+		}
+
+		public class TestChildVM : ViewModelBase
+		{
+			public int MyNumber
+			{
+				get => this.Get<int>(initialValue: 0);
+				set => this.Set(value);
 			}
 		}
 	}

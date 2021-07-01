@@ -12,6 +12,8 @@ namespace Chinook.DynamicMvvm
 		/// <inheritdoc />
 		public void RaisePropertyChanged(string propertyName)
 		{
+			ThrowIfDisposed();
+
 			if (PropertyChanged == null)
 			{
 				return;

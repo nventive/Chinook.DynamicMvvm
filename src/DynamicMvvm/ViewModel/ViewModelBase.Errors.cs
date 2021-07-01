@@ -40,6 +40,8 @@ namespace Chinook.DynamicMvvm
 		/// <inheritdoc />
 		public void SetErrors(string propertyName, IEnumerable<object> errors)
 		{
+			ThrowIfDisposed();
+
 			_errors[propertyName] = errors;
 
 			ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
@@ -48,6 +50,8 @@ namespace Chinook.DynamicMvvm
 		/// <inheritdoc />
 		public void SetErrors(IDictionary<string, IEnumerable<object>> errors)
 		{
+			ThrowIfDisposed();
+
 			_errors = new ConcurrentDictionary<string, IEnumerable<object>>(errors);
 
 			ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName: null));
@@ -56,6 +60,8 @@ namespace Chinook.DynamicMvvm
 		/// <inheritdoc />
 		public void ClearErrors(string propertyName = null)
 		{
+			ThrowIfDisposed();
+
 			if (string.IsNullOrEmpty(propertyName))
 			{
 				_errors.Clear();
