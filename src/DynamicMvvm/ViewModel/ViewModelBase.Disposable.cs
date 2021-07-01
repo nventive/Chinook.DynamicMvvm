@@ -27,6 +27,8 @@ namespace Chinook.DynamicMvvm
 			key = key ?? throw new ArgumentNullException(nameof(key));
 			disposable = disposable ?? throw new ArgumentNullException(nameof(disposable));
 
+			ThrowIfDisposed();
+
 			_disposables.Add(key, disposable);
 		}
 
@@ -41,6 +43,8 @@ namespace Chinook.DynamicMvvm
 				return;
 			}
 
+			ThrowIfDisposed();
+
 			_disposables.Remove(key);
 		}
 
@@ -49,7 +53,17 @@ namespace Chinook.DynamicMvvm
 		{
 			key = key ?? throw new ArgumentNullException(nameof(key));
 
+			ThrowIfDisposed();
+
 			return _disposables.TryGetValue(key, out disposable);
+		}
+
+		private void ThrowIfDisposed()
+		{
+			if (_isDisposed)
+			{
+				throw new ObjectDisposedException($"The ViewModel {Name} is disposed.");
+			}
 		}
 
 		/// <inheritdoc />
@@ -75,6 +89,7 @@ namespace Chinook.DynamicMvvm
 					}
 				}
 
+				_view.SetTarget(null);
 				_disposables.Clear();
 			}
 
