@@ -127,6 +127,29 @@ namespace Chinook.DynamicMvvm
 			viewModel.RemoveDisposable(name ?? childViewModel.Name);
 		}
 
+		/// <summary>
+		/// Attaches a child <see cref="IViewModel"/> to a parent <see cref="IViewModel"/>.
+		/// If the child has already been attached, the newer instance will be attached instead of the previous instance.
+		/// By being attached, the child will be disposed when the parent is disposed.
+		/// Both also share the same <see cref="IViewModelView"/>.
+		/// </summary>
+		/// <remarks>The previous instance will be disposed when replaced.</remarks>
+		/// <param name="viewModel">The parent <see cref="IViewModel"/>.</param>
+		/// <param name="childViewModel">The child <see cref="IViewModel"/> to detach.</param>
+		/// <param name="name">The child ViewModel's name. This defaults to <paramref name="childViewModel"/>.Name when not provided.</param>
+		public static TChildViewModel AttachOrReplaceChild<TChildViewModel>(this IViewModel viewModel, TChildViewModel childViewModel, string name = null)
+			where TChildViewModel : IViewModel
+		{
+			name = name ?? childViewModel.Name;
+
+			if (viewModel.TryGetDisposable(name, out var instance))
+			{
+				viewModel.DetachChild((IViewModel)instance, name);
+				instance.Dispose();
+			}
+			return viewModel.AttachChild(childViewModel, name);
+		}
+
 		private class ParentViewChangedDisposable : IDisposable
 		{
 			private IViewModel _parentViewModel;
