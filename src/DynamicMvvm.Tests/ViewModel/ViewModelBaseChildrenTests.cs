@@ -178,5 +178,70 @@ namespace Chinook.DynamicMvvm.Tests.ViewModel
 
 			Assert.Throws<InvalidOperationException>(() => parentViewModel.AttachChild(childViewModel2));
 		}
+
+		[Fact]
+		public void It_Attaches_Child_When_AttachOrReplaceChild()
+		{
+			var parentViewModel = new ViewModelBase();
+			var childViewModel = new ViewModelBase();
+
+			parentViewModel.AttachOrReplaceChild(childViewModel);
+
+			parentViewModel.GetChildren().Should().Contain(childViewModel);
+		}
+
+		[Fact]
+		public void It_Replaces_PreviousChild_And_Attaches_NewChild_When_AttachOrReplaceChild_With_Same_Name()
+		{
+			var parentViewModel = new ViewModelBase();
+			var childViewModel1 = new ViewModelBase();
+			var childViewModel2 = new ViewModelBase();
+
+			parentViewModel.AttachOrReplaceChild(childViewModel1, "Child1");
+			parentViewModel.AttachOrReplaceChild(childViewModel2, "Child1");
+
+			parentViewModel.GetChildren().Should().NotContain(childViewModel1);
+			parentViewModel.GetChildren().Should().Contain(childViewModel2);
+		}
+
+		[Fact]
+		public void It_Replaces_PreviousChild_And_Attaches_NewChild_When_AttachOrReplaceChild_With_Same_Name_From_ViewModel()
+		{
+			var parentViewModel = new ViewModelBase();
+			var childViewModel1 = new ViewModelBase("Child1");
+			var childViewModel2 = new ViewModelBase("Child1");
+
+			parentViewModel.AttachOrReplaceChild(childViewModel1);
+			parentViewModel.AttachOrReplaceChild(childViewModel2);
+
+			parentViewModel.GetChildren().Should().NotContain(childViewModel1);
+			parentViewModel.GetChildren().Should().Contain(childViewModel2);
+		}
+
+		[Fact]
+		public void It_Dispose_PreviousChild_When_AttachOrReplaceChild_With_Same_Name()
+		{
+			var parentViewModel = new ViewModelBase();
+			var childViewModel1 = new ViewModelBase();
+			var childViewModel2 = new ViewModelBase();
+
+			parentViewModel.AttachOrReplaceChild(childViewModel1, "Child1");
+			parentViewModel.AttachOrReplaceChild(childViewModel2, "Child1");
+
+			Assert.Throws<ObjectDisposedException>(() => childViewModel1.SetErrors(string.Empty, Array.Empty<object>()));
+		}
+
+		[Fact]
+		public void It_Dispose_PreviousChild_When_AttachOrReplaceChild_With_Same_Name_From_ViewModel()
+		{
+			var parentViewModel = new ViewModelBase();
+			var childViewModel1 = new ViewModelBase("Child1");
+			var childViewModel2 = new ViewModelBase("Child1");
+
+			parentViewModel.AttachOrReplaceChild(childViewModel1);
+			parentViewModel.AttachOrReplaceChild(childViewModel2);
+
+			Assert.Throws<ObjectDisposedException>(() => childViewModel1.SetErrors(string.Empty, Array.Empty<object>()));
+		}
 	}
 }
