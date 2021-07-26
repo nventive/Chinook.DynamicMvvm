@@ -93,5 +93,10 @@ namespace Chinook.DynamicMvvm
 		/// </summary>
 		/// <param name="propertyName">The property name.</param>
 		void ClearErrors(string propertyName = null);
+
+		/// <summary>
+		/// Gets whether this <see cref="IViewModel"/> is disposed.
+		/// </summary>
+		bool IsDisposed { get; }
 	}
 }

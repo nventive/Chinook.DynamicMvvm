@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace Chinook.DynamicMvvm
 {
@@ -42,6 +43,12 @@ namespace Chinook.DynamicMvvm
 		{
 			ThrowIfDisposed();
 
+			if (_isDisposing)
+			{
+				_logger.LogDebug($"Skipped '{nameof(SetErrors)}' for '{GetType().Name}.{propertyName}' on ViewModel '{Name}' because it's disposing.");
+				return;
+			}
+
 			_errors[propertyName] = errors;
 
 			ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
@@ -52,6 +59,12 @@ namespace Chinook.DynamicMvvm
 		{
 			ThrowIfDisposed();
 
+			if (_isDisposing)
+			{
+				_logger.LogDebug($"Skipped '{nameof(SetErrors)}' for ViewModel '{Name}' because it's disposing.");
+				return;
+			}
+
 			_errors = new ConcurrentDictionary<string, IEnumerable<object>>(errors);
 
 			ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName: null));
@@ -61,6 +74,12 @@ namespace Chinook.DynamicMvvm
 		public void ClearErrors(string propertyName = null)
 		{
 			ThrowIfDisposed();
+
+			if (_isDisposing)
+			{
+				_logger.LogDebug($"Skipped '{nameof(ClearErrors)}' for '{GetType().Name}.{propertyName}' on ViewModel '{Name}' because it's disposing.");
+				return;
+			}
 
 			if (string.IsNullOrEmpty(propertyName))
 			{

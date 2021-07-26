@@ -12,6 +12,8 @@ namespace Chinook.DynamicMvvm
 		private bool _isDisposing;
 		private bool _isDisposed;
 
+		public bool IsDisposed => _isDisposed;
+
 		/// <inheritdoc />
 		public IEnumerable<KeyValuePair<string, IDisposable>> Disposables => _disposables;
 
@@ -53,8 +55,6 @@ namespace Chinook.DynamicMvvm
 		{
 			key = key ?? throw new ArgumentNullException(nameof(key));
 
-			ThrowIfDisposed();
-
 			return _disposables.TryGetValue(key, out disposable);
 		}
 
@@ -76,7 +76,13 @@ namespace Chinook.DynamicMvvm
 
 			if (isDisposing)
 			{
+				_logger.LogDebug($"Disposing ViewModel '{Name}'.");
+
 				_isDisposing = true;
+				if (_view.TryGetTarget(out var view))
+				{
+					view.Dispose();
+				}
 				foreach (var pair in _disposables)
 				{
 					try
@@ -101,7 +107,7 @@ namespace Chinook.DynamicMvvm
 				_diagnostics.Write("Disposed", Name);
 			}
 
-			_logger.LogInformation($"ViewModel '{Name}' disposed.");
+			_logger.LogInformation($"Disposed ViewModel '{Name}'.");
 		}
 
 		/// <inheritdoc />

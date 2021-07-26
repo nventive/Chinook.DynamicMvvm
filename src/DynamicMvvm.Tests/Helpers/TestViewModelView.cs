@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Chinook.DynamicMvvm.Tests.Helpers
@@ -25,6 +26,14 @@ namespace Chinook.DynamicMvvm.Tests.Helpers
 		public event EventHandler Loaded;
 		public event EventHandler Unloaded;
 
-		public void ExecuteOnDispatcher(Action action) => _onExecuteOnDispatcher?.Invoke(action);
+		public Task ExecuteOnDispatcher(Action action)
+		{
+			_onExecuteOnDispatcher?.Invoke(action);
+			return Task.CompletedTask;
+		}
+
+		public void Dispose()
+		{
+		}
 	}
 }

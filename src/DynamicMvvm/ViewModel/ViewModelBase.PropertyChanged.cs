@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading;
 using Microsoft.Extensions.Logging;
 
 namespace Chinook.DynamicMvvm
@@ -14,6 +15,12 @@ namespace Chinook.DynamicMvvm
 		{
 			ThrowIfDisposed();
 
+			if (_isDisposing)
+			{
+				_logger.LogDebug($"Skipped '{nameof(RaisePropertyChanged)}' for '{GetType().Name}.{propertyName}' on ViewModel '{Name}' because it's disposing.");
+				return;
+			}
+
 			if (PropertyChanged == null)
 			{
 				return;
@@ -23,7 +30,7 @@ namespace Chinook.DynamicMvvm
 
 			if (viewModelView != null && !viewModelView.GetHasDispatcherAccess())
 			{
-				viewModelView.ExecuteOnDispatcher(() => RaisePropertyChangedInner(propertyName));
+				_ = viewModelView.ExecuteOnDispatcher(() => RaisePropertyChangedInner(propertyName));
 			}
 			else
 			{
@@ -33,6 +40,18 @@ namespace Chinook.DynamicMvvm
 
 		private void RaisePropertyChangedInner(string propertyName)
 		{
+			if (_isDisposing)
+			{
+				_logger.LogDebug($"Skipped '{nameof(RaisePropertyChangedInner)}' for '{GetType().Name}.{propertyName}' on ViewModel '{Name}' because it's disposing.");
+				return;
+			}
+
+			if (_isDisposed)
+			{
+				_logger.LogDebug($"Skipped '{nameof(RaisePropertyChangedInner)}' for '{GetType().Name}.{propertyName}' on ViewModel '{Name}' because it's disposed.");
+				return;
+			}
+
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
 			_logger.LogDebug($"Raised property changed for '{propertyName}' from ViewModel '{Name}'.");

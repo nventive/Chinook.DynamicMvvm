@@ -21,11 +21,18 @@ namespace Chinook.DynamicMvvm
 		/// <typeparam name="T">The property type.</typeparam>
 		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
 		/// <param name="property">The property.</param>
-		/// <returns>The property's value.</returns>
+		/// <returns>The property's value. Default of <typeparamref name="T"/> is returned if the <see cref="IViewModel"/> is disposed.</returns>
 		public static T Get<T>(
 			this IViewModel viewModel,
-			IDynamicProperty property
-		) => (T)property.Value;
+			IDynamicProperty property)
+		{
+			if (viewModel.IsDisposed)
+			{
+				return default(T);
+			}
+
+			return (T)property?.Value;
+		}
 
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicProperty"/> attached to this <see cref="IViewModel"/>.
@@ -90,6 +97,9 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Sets the value of a property.
 		/// </summary>
+		/// <remarks>
+		/// Nothing happens if the <see cref="IViewModel"/> is disposed.
+		/// </remarks>
 		/// <typeparam name="T">The property type.</typeparam>
 		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
 		/// <param name="value">The value to set.</param>
@@ -97,8 +107,15 @@ namespace Chinook.DynamicMvvm
 		public static void Set<T>(
 			this IViewModel viewModel,
 			T value,
-			IDynamicProperty property
-		) => property.Value = value;
+			IDynamicProperty property)
+		{
+			if (viewModel.IsDisposed)
+			{
+				return;
+			}
+
+			property.Value = value;
+		}
 
 		/// <summary>
 		/// Sets the value of a property.
@@ -168,9 +185,14 @@ namespace Chinook.DynamicMvvm
 		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
 		/// <param name="name">The property's name.</param>
 		/// <param name="factory">The property factory.</param>
-		/// <returns>The <see cref="IDynamicProperty"/>.</returns>
+		/// <returns>The <see cref="IDynamicProperty"/> matching the specified <paramref name="name"/>. Null is returned if the <see cref="IViewModel"/> is disposed.</returns>
 		public static IDynamicProperty GetOrCreateDynamicProperty(this IViewModel viewModel, string name, Func<string, IDynamicProperty> factory)
 		{
+			if (viewModel.IsDisposed)
+			{
+				return null;
+			}
+
 			if (!viewModel.TryGetDisposable<IDynamicProperty>(name, out var property))
 			{
 				property = factory(name);
@@ -192,12 +214,17 @@ namespace Chinook.DynamicMvvm
 		/// </summary>
 		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
 		/// <param name="name">The property's name.</param>
-		/// <returns>The <see cref="IDynamicProperty"/> matching the specified <paramref name="name"/>.</returns>
+		/// <returns>The <see cref="IDynamicProperty"/> matching the specified <paramref name="name"/>. Null is returned if the <see cref="IViewModel"/> is disposed.</returns>
 		public static IDynamicProperty GetOrResolveProperty(this IViewModel viewModel, string name)
 		{
+			if (viewModel.IsDisposed)
+			{
+				return null;
+			}
+
 			if (!viewModel.TryGetDisposable<IDynamicProperty>(name, out var property))
 			{
-				typeof(IViewModel).Log().LogWarning($"Resolving property {viewModel.Name}.{name} using reflection.");
+				typeof(IViewModel).Log().LogWarning($"Resolving property '{viewModel.GetType().Name}.{name}' using reflection on '{viewModel.Name}'.");
 
 				// This is a rare case where the property was resolved before being created.
 				// We simply resolve it manually on the type.

@@ -96,7 +96,7 @@ namespace Chinook.DynamicMvvm.Tests.Integration
 		}
 
 		[Fact]
-		public async Task A_disposed_VM_cannot_be_mutated()
+		public void A_disposed_VM_cannot_be_mutated()
 		{
 			var viewModel = new MyViewModel(_serviceProvider);
 
@@ -111,10 +111,19 @@ namespace Chinook.DynamicMvvm.Tests.Integration
 			Assert.Throws<ObjectDisposedException>(() => viewModel.ClearErrors(nameof(MyViewModel.Counter)));
 			Assert.Throws<ObjectDisposedException>(() => viewModel.View = new TestViewModelView());
 			Assert.Throws<ObjectDisposedException>(() => viewModel.RaisePropertyChanged(nameof(MyViewModel.Counter)));
+		}
 
-			// Extensions via exposed properties
-			Assert.Throws<ObjectDisposedException>(() => viewModel.Counter = 1);
-			await Assert.ThrowsAsync<ObjectDisposedException>(async () => await viewModel.IncrementCounter.Execute());
+		[Fact]
+		public void A_disposed_VM_returns_default_property_values()
+		{
+			var viewModel = new MyViewModel(_serviceProvider);
+			viewModel.Counter = 1;
+
+			viewModel.Dispose();
+
+			viewModel.Counter.Should().Be(default(int));
+			viewModel.Child.Should().Be(null);
+			viewModel.IncrementCounter.Should().Be(null);
 		}
 
 		[Fact]
