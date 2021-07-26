@@ -14,6 +14,16 @@ namespace Chinook.DynamicMvvm.Tests.ViewModel
 		private const string DefaultDisposableKey = nameof(DefaultDisposableKey);
 
 		[Fact]
+		public void It_Reports_IsDisposed_Correctly()
+		{
+			var viewModel = new ViewModelBase();
+
+			viewModel.IsDisposed.Should().BeFalse();
+			viewModel.Dispose();
+			viewModel.IsDisposed.Should().BeTrue();
+		}
+
+		[Fact]
 		public void It_Adds_Anonymous_Disposable()
 		{
 			var viewModel = new ViewModelBase();

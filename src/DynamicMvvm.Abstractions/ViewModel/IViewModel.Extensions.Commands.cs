@@ -86,7 +86,7 @@ namespace Chinook.DynamicMvvm
 		/// <param name="name">The command name.</param>
 		/// <param name="factory">The command factory.</param>
 		/// <param name="configure">The optional function to configure the command builder.</param>
-		/// <returns>The attached <see cref="IDynamicCommand"/>.</returns>
+		/// <returns>The attached <see cref="IDynamicCommand"/>. Null is returned if the <see cref="IViewModel"/> is disposed.</returns>
 		public static IDynamicCommand GetOrCreateCommand(
 			this IViewModel viewModel,
 			string name,
@@ -94,6 +94,11 @@ namespace Chinook.DynamicMvvm
 			Func<IDynamicCommandBuilder, IDynamicCommandBuilder> configure = null
 		)
 		{
+			if (viewModel.IsDisposed)
+			{
+				return null;
+			}
+
 			if (!viewModel.TryGetDisposable<IDynamicCommand>(name, out var command))
 			{
 				var builder = factory(name);

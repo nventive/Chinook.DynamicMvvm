@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace Chinook.DynamicMvvm
 {
@@ -34,6 +35,12 @@ namespace Chinook.DynamicMvvm
 			}
 
 			_view.SetTarget(view);
+
+			if (_isDisposing)
+			{
+				_logger.LogDebug($"Skipped invocation of '{nameof(ViewChanged)}' on ViewModel '{Name}' because it's disposing.");
+				return;
+			}
 
 			ViewChanged?.Invoke(view);
 		}

@@ -32,13 +32,18 @@ namespace Chinook.DynamicMvvm
 		/// <param name="viewModel">The parent <see cref="IViewModel"/>.</param>
 		/// <param name="childViewModelProvider">The factory to the child <see cref="IViewModel"/>.</param>
 		/// <param name="name">The child ViewModel's name.</param>
-		/// <returns>The attached child <see cref="IViewModel"/>.</returns>
+		/// <returns>The attached child <see cref="IViewModel"/>. Default of <typeparamref name="TChildViewModel"/> is returned if the <see cref="IViewModel"/> is disposed.</returns>
 		public static TChildViewModel GetChild<TChildViewModel>(
 			this IViewModel viewModel,
 			Func<TChildViewModel> childViewModelProvider,
 			[CallerMemberName] string name = null
 		) where TChildViewModel : IViewModel
 		{
+			if (viewModel.IsDisposed)
+			{
+				return default(TChildViewModel);
+			}
+
 			if (!viewModel.TryGetDisposable<TChildViewModel>(name, out var childViewModel))
 			{
 				childViewModel = viewModel.AttachChild(childViewModelProvider(), name);
