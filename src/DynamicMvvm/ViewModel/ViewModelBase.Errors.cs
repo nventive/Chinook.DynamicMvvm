@@ -17,7 +17,7 @@ namespace Chinook.DynamicMvvm
 		public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
 		/// <inheritdoc />
-		public bool HasErrors => _errors.Any();
+		public bool HasErrors => _errors.Values.SelectMany(x => x).Any();
 
 		/// <inheritdoc />
 		public IEnumerable GetErrors(string propertyName)
