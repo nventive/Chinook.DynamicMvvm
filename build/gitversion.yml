@@ -1,6 +1,6 @@
 ﻿assembly-versioning-scheme: MajorMinorPatch
 mode: ContinuousDeployment
-next-version: 0.5.0
+next-version: 0.6.0
 continuous-delivery-fallback-tag: ""
 increment: none # Disabled as it is not used. Saves time on the GitVersion step
 branches:

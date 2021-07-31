@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Microsoft.Extensions.Logging;
 
 namespace Chinook.DynamicMvvm
@@ -9,10 +10,19 @@ namespace Chinook.DynamicMvvm
 	public partial class ViewModelBase
 	{
 		private readonly Dictionary<string, IDisposable> _disposables = new Dictionary<string, IDisposable>();
+		private readonly CancellationTokenSource _cts = new CancellationTokenSource();
+
 		private bool _isDisposing;
 		private bool _isDisposed;
 
+		/// <inheritdoc/>
 		public bool IsDisposed => _isDisposed;
+
+		/// <summary>
+		/// Gets a <see cref="System.Threading.CancellationToken"/> bound to the lifetime of this <see cref="ViewModelBase"/>.
+		/// It cancels when this <see cref="ViewModelBase"/> is disposes.
+		/// </summary>
+		public CancellationToken CancellationToken => _cts.Token;
 
 		/// <inheritdoc />
 		public IEnumerable<KeyValuePair<string, IDisposable>> Disposables => _disposables;
@@ -79,10 +89,7 @@ namespace Chinook.DynamicMvvm
 				_logger.LogDebug($"Disposing ViewModel '{Name}'.");
 
 				_isDisposing = true;
-				if (_view.TryGetTarget(out var view))
-				{
-					view.Dispose();
-				}
+				_cts.Dispose();
 				foreach (var pair in _disposables)
 				{
 					try

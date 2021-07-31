@@ -26,7 +26,7 @@ namespace Chinook.DynamicMvvm.Tests.Helpers
 		public event EventHandler Loaded;
 		public event EventHandler Unloaded;
 
-		public Task ExecuteOnDispatcher(Action action)
+		public Task ExecuteOnDispatcher(CancellationToken ct, Action action)
 		{
 			_onExecuteOnDispatcher?.Invoke(action);
 			return Task.CompletedTask;
