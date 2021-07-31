@@ -9,7 +9,7 @@ namespace Chinook.DynamicMvvm
 	/// <summary>
 	/// A <see cref="IViewModelView"/> represents the view contract of a <see cref="IViewModel"/>.
 	/// </summary>
-	public interface IViewModelView : IDisposable
+	public interface IViewModelView
 	{
 		/// <summary>
 		/// Gets whether or not the thread has dispatcher access.
@@ -29,7 +29,8 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Executes the specified action on a dispatcher thread.
 		/// </summary>
+		/// <param name="ct">The cancellation token.</param>
 		/// <param name="action">The action to execute.</param>
-		Task ExecuteOnDispatcher(Action action);
+		Task ExecuteOnDispatcher(CancellationToken ct, Action action);
 	}
 }

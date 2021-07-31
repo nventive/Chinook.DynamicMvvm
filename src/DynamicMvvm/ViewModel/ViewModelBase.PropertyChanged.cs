@@ -30,7 +30,7 @@ namespace Chinook.DynamicMvvm
 
 			if (viewModelView != null && !viewModelView.GetHasDispatcherAccess())
 			{
-				_ = viewModelView.ExecuteOnDispatcher(() => RaisePropertyChangedInner(propertyName));
+				_ = viewModelView.ExecuteOnDispatcher(CancellationToken, () => RaisePropertyChangedInner(propertyName));
 			}
 			else
 			{

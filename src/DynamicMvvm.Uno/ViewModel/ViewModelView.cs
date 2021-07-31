@@ -5,6 +5,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Core;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Chinook.DynamicMvvm
 {
@@ -14,8 +15,6 @@ namespace Chinook.DynamicMvvm
 	public class ViewModelView : IViewModelView
 	{
 		private readonly FrameworkElement _frameworkElement;
-
-		private bool _isDisposed;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ViewModelView"/> class.
@@ -39,15 +38,21 @@ namespace Chinook.DynamicMvvm
 		public event EventHandler Unloaded;
 
 		/// <inheritdoc />
-		public async Task ExecuteOnDispatcher(Action action)
+		public async Task ExecuteOnDispatcher(CancellationToken ct, Action action)
 		{
+			if (ct.IsCancellationRequested)
+			{
+				this.Log().LogDebug($"Cancelled 'ExecuteOnDispatcher' because of the cancellation token.");
+				return;
+			}
+
 			await _frameworkElement.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
 			{
 				try
 				{
-					if (_isDisposed)
+					if (ct.IsCancellationRequested)
 					{
-						this.Log().LogDebug($"Cancelled 'ExecuteOnDispatcher' because the ViewModelView is disposed.");
+						this.Log().LogDebug($"Cancelled 'ExecuteOnDispatcher' because of the cancellation token.");
 						return;
 					}
 
@@ -68,27 +73,6 @@ namespace Chinook.DynamicMvvm
 		private void OnUnloaded(object sender, RoutedEventArgs e)
 		{
 			Unloaded?.Invoke(sender, EventArgs.Empty);
-		}
-
-		public void Dispose()
-		{
-			Loaded = null;
-			Unloaded = null;
-
-			_ = _frameworkElement.Dispatcher.RunAsync(CoreDispatcherPriority.Low, () =>
-			{
-				try
-				{
-					_frameworkElement.Loaded -= OnLoaded;
-					_frameworkElement.Unloaded -= OnUnloaded;
-				}
-				catch (Exception e)
-				{
-					this.Log().LogError(e, "Failed to unsubscribe to Loaded and Unloaded events on FrameworkElement.");
-				}
-			});
-
-			_isDisposed = true;
 		}
 	}
 }
