@@ -17,11 +17,11 @@ namespace Chinook.DynamicMvvm
 			=> new DynamicProperty<T>(name, initialValue);
 
 		/// <inheritdoc />
-		public IDynamicProperty CreateFromTask<T>(string name, Func<CancellationToken, Task<T>> source, T initialValue = default)
+		public virtual IDynamicProperty CreateFromTask<T>(string name, Func<CancellationToken, Task<T>> source, T initialValue = default)
 			=> new DynamicPropertyFromTask<T>(name, source, initialValue);
 
 		/// <inheritdoc />
-		public IDynamicProperty CreateFromObservable<T>(string name, IObservable<T> source, T initialValue = default)
+		public virtual IDynamicProperty CreateFromObservable<T>(string name, IObservable<T> source, T initialValue = default)
 			=> new DynamicPropertyFromObservable<T>(name, source, initialValue);
 	}
 }
