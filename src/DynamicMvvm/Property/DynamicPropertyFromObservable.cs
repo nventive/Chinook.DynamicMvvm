@@ -51,7 +51,7 @@ namespace Chinook.DynamicMvvm
 			base.Dispose(isDisposing);
 		}
 
-		private class DynamicPropertyObserver : IObserver<T>
+		public class DynamicPropertyObserver : IObserver<T>
 		{
 			private readonly DynamicPropertyFromObservable<T> _owner;
 

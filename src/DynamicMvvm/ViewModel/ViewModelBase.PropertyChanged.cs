@@ -11,7 +11,7 @@ namespace Chinook.DynamicMvvm
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		/// <inheritdoc />
-		public void RaisePropertyChanged(string propertyName)
+		public virtual void RaisePropertyChanged(string propertyName)
 		{
 			ThrowIfDisposed();
 
