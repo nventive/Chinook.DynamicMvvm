@@ -53,9 +53,9 @@ namespace Chinook.DynamicMvvm
 
 		public class DynamicPropertyObserver : IObserver<T>
 		{
-			private readonly DynamicPropertyFromObservable<T> _owner;
+			private readonly IDynamicProperty<T> _owner;
 
-			public DynamicPropertyObserver(DynamicPropertyFromObservable<T> owner)
+			public DynamicPropertyObserver(IDynamicProperty<T> owner)
 			{
 				_owner = owner;
 			}

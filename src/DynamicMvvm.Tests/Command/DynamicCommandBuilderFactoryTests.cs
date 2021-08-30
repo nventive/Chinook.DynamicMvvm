@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Chinook.DynamicMvvm.Tests.Helpers;
 using FluentAssertions;
 using Xunit;
 
@@ -153,6 +154,26 @@ namespace Chinook.DynamicMvvm.Tests.Command
 			await command.Execute();
 
 			testString.Should().Be("123");
+		}
+
+		[Fact]
+		public void It_passes_ViewModel_owner_correctly()
+		{
+			var owner = new TestViewModel();
+
+			var builder = new DynamicCommandBuilder("myCommand", new ActionCommandStrategy(() => { }), owner); ;
+
+			builder.ViewModel.Should().Be(owner);
+		}
+
+		[Fact]
+		public void It_passes_ViewModel_owner_correctly_when_null()
+		{
+			var owner = default(IViewModel);
+
+			var builder = new DynamicCommandBuilder("myCommand", new ActionCommandStrategy(() => { }), owner); ;
+
+			builder.ViewModel.Should().BeNull();
 		}
 
 		private class TestParameter { }

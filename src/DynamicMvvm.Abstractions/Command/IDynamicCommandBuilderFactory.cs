@@ -17,10 +17,12 @@ namespace Chinook.DynamicMvvm
 		/// </summary>
 		/// <param name="name">The command name.</param>
 		/// <param name="execute">The action to execute.</param>
+		/// <param name="viewModel">The <see cref="IViewModel"/> that will own the newly created <see cref="IDynamicCommand"/>.</param>
 		/// <returns>The created <see cref="IDynamicCommandBuilder"/>.</returns>
 		IDynamicCommandBuilder CreateFromAction(
 			string name,
-			Action execute
+			Action execute,
+			IViewModel viewModel = null
 		);
 
 		/// <summary>
@@ -30,10 +32,12 @@ namespace Chinook.DynamicMvvm
 		/// </summary>
 		/// <param name="name">The command name.</param>
 		/// <param name="execute">The action to execute.</param>
+		/// <param name="viewModel">The <see cref="IViewModel"/> that will own the newly created <see cref="IDynamicCommand"/>.</param>
 		/// <returns>The created <see cref="IDynamicCommandBuilder"/>.</returns>
 		IDynamicCommandBuilder CreateFromAction<TParameter>(
 			string name,
-			Action<TParameter> execute
+			Action<TParameter> execute,
+			IViewModel viewModel = null
 		);
 
 		/// <summary>
@@ -42,10 +46,12 @@ namespace Chinook.DynamicMvvm
 		/// </summary>
 		/// <param name="name">The command name.</param>
 		/// <param name="execute">The task to execute.</param>
+		/// <param name="viewModel">The <see cref="IViewModel"/> that will own the newly created <see cref="IDynamicCommand"/>.</param>
 		/// <returns>The created <see cref="IDynamicCommandBuilder"/>.</returns>
 		IDynamicCommandBuilder CreateFromTask(
 			string name,
-			Func<CancellationToken, Task> execute
+			Func<CancellationToken, Task> execute,
+			IViewModel viewModel = null
 		);
 
 		/// <summary>
@@ -55,10 +61,12 @@ namespace Chinook.DynamicMvvm
 		/// </summary>
 		/// <param name="name">The command name.</param>
 		/// <param name="execute">The task to execute.</param>
+		/// <param name="viewModel">The <see cref="IViewModel"/> that will own the newly created <see cref="IDynamicCommand"/>.</param>
 		/// <returns>The created <see cref="IDynamicCommandBuilder"/>.</returns>
 		IDynamicCommandBuilder CreateFromTask<TParameter>(
 			string name,
-			Func<CancellationToken, TParameter, Task> execute
+			Func<CancellationToken, TParameter, Task> execute,
+			IViewModel viewModel = null
 		);
 	}
 }

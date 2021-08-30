@@ -16,6 +16,14 @@ namespace Chinook.DynamicMvvm
 		string Name { get; }
 
 		/// <summary>
+		/// The <see cref="IViewModel"/> that will own the resulting <see cref="IDynamicCommand"/>.
+		/// </summary>
+		/// <remarks>
+		/// This can be null.
+		/// </remarks>
+		IViewModel ViewModel { get; }
+
+		/// <summary>
 		/// Gets the base stragegy that actually invokes the user execution.
 		/// This cannot be changed.
 		/// </summary>

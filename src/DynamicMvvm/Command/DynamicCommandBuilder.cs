@@ -17,7 +17,8 @@ namespace Chinook.DynamicMvvm
 		/// </summary>
 		/// <param name="name">The name of the command.</param>
 		/// <param name="baseStrategy">The base strategy to use for the command.</param>
-		public DynamicCommandBuilder(string name, IDynamicCommandStrategy baseStrategy)
+		/// <param name="viewModel">The <see cref="IViewModel"/> that will own the newly created <see cref="IDynamicCommand"/>.</param>
+		public DynamicCommandBuilder(string name, IDynamicCommandStrategy baseStrategy, IViewModel viewModel = null)
 		{
 			if (string.IsNullOrEmpty(name))
 			{
@@ -25,11 +26,15 @@ namespace Chinook.DynamicMvvm
 			}
 
 			Name = name;
+			ViewModel = viewModel;
 			BaseStrategy = baseStrategy ?? throw new ArgumentNullException(nameof(baseStrategy));
 		}
 
 		/// <inheritdoc/>
 		public string Name { get; }
+
+		/// <inheritdoc/>
+		public IViewModel ViewModel { get; }
 
 		/// <inheritdoc/>
 		public IDynamicCommandStrategy BaseStrategy { get; }

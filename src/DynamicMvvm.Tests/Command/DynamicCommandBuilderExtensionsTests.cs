@@ -13,7 +13,7 @@ namespace Chinook.DynamicMvvm.Tests.Command
 		[Fact]
 		public void WithStrategy_properly_adds()
 		{
-			var builder = new DynamicCommandBuilder("myCommand", new ActionCommandStrategy(() => { }));
+			var builder = new DynamicCommandBuilder("myCommand", new ActionCommandStrategy(() => { }), null);
 
 			builder.Strategies.Should().BeEmpty();
 
@@ -25,7 +25,7 @@ namespace Chinook.DynamicMvvm.Tests.Command
 		[Fact]
 		public void WithoutStrategy_properly_removes()
 		{
-			var builder = new DynamicCommandBuilder("myCommand", new ActionCommandStrategy(() => { }))
+			var builder = new DynamicCommandBuilder("myCommand", new ActionCommandStrategy(() => { }), null)
 				.OnBackgroundThread()
 				.Locked()
 				.DisableWhileExecuting();
@@ -40,7 +40,7 @@ namespace Chinook.DynamicMvvm.Tests.Command
 		[Fact]
 		public void ClearStrategies_properly_clears()
 		{
-			var builder = new DynamicCommandBuilder("myCommand", new ActionCommandStrategy(() => { }))
+			var builder = new DynamicCommandBuilder("myCommand", new ActionCommandStrategy(() => { }), null)
 				.OnBackgroundThread()
 				.Locked()
 				.DisableWhileExecuting();
@@ -51,6 +51,6 @@ namespace Chinook.DynamicMvvm.Tests.Command
 			builder.ClearStrategies();
 
 			builder.Strategies.Should().BeEmpty();
-		}
+		}		
 	}
 }
