@@ -46,7 +46,7 @@ namespace Chinook.DynamicMvvm
 			this IViewModel viewModel,
 			T initialValue = default,
 			[CallerMemberName] string name = null
-		) => viewModel.Get<T>(viewModel.GetOrCreateDynamicProperty(name, n => viewModel.GetDynamicPropertyFactory().Create(n, initialValue)));
+		) => viewModel.Get<T>(viewModel.GetOrCreateDynamicProperty(name, n => viewModel.GetDynamicPropertyFactory().Create(n, initialValue, viewModel)));
 
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicProperty"/> attached to this <see cref="IViewModel"/>.
@@ -60,7 +60,7 @@ namespace Chinook.DynamicMvvm
 			this IViewModel viewModel,
 			Func<T> initialValue,
 			[CallerMemberName] string name = null
-		) => viewModel.Get<T>(viewModel.GetOrCreateDynamicProperty(name, n => viewModel.GetDynamicPropertyFactory().Create(n, initialValue())));
+		) => viewModel.Get<T>(viewModel.GetOrCreateDynamicProperty(name, n => viewModel.GetDynamicPropertyFactory().Create(n, initialValue(), viewModel)));
 
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicProperty"/> attached to this <see cref="IViewModel"/>.
@@ -76,7 +76,7 @@ namespace Chinook.DynamicMvvm
 			Func<CancellationToken, Task<T>> source,
 			T initialValue = default,
 			[CallerMemberName] string name = null
-		) => viewModel.Get<T>(viewModel.GetOrCreateDynamicProperty(name, n => viewModel.GetDynamicPropertyFactory().CreateFromTask(n, source, initialValue)));
+		) => viewModel.Get<T>(viewModel.GetOrCreateDynamicProperty(name, n => viewModel.GetDynamicPropertyFactory().CreateFromTask(n, source, initialValue, viewModel)));
 
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicProperty"/> attached to this <see cref="IViewModel"/>.
@@ -92,7 +92,7 @@ namespace Chinook.DynamicMvvm
 			IObservable<T> source,
 			T initialValue = default,
 			[CallerMemberName] string name = null
-		) => viewModel.Get<T>(viewModel.GetOrCreateDynamicProperty(name, n => viewModel.GetDynamicPropertyFactory().CreateFromObservable(n, source, initialValue)));
+		) => viewModel.Get<T>(viewModel.GetOrCreateDynamicProperty(name, n => viewModel.GetDynamicPropertyFactory().CreateFromObservable(n, source, initialValue, viewModel)));
 
 		/// <summary>
 		/// Sets the value of a property.

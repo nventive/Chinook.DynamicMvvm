@@ -17,10 +17,12 @@ namespace Chinook.DynamicMvvm
 		/// <typeparam name="T">The property type.</typeparam>
 		/// <param name="name">The property name.</param>
 		/// <param name="initialValue">The initial value.</param>
+		/// <param name="viewModel">The <see cref="IViewModel"/> that will own the newly created <see cref="IDynamicProperty"/>.</param>
 		/// <returns><see cref="IDynamicProperty"/></returns>
 		IDynamicProperty Create<T>(
 			string name,
-			T initialValue = default
+			T initialValue = default,
+			IViewModel viewModel = null
 		);
 
 		/// <summary>
@@ -31,11 +33,13 @@ namespace Chinook.DynamicMvvm
 		/// <param name="name">The property name.</param>
 		/// <param name="source">The property source.</param>
 		/// <param name="initialValue">The initial value.</param>
+		/// <param name="viewModel">The <see cref="IViewModel"/> that will own the newly created <see cref="IDynamicProperty"/>.</param>
 		/// <returns><see cref="IDynamicProperty"/></returns>
 		IDynamicProperty CreateFromTask<T>(
 			string name,
 			Func<CancellationToken, Task<T>> source,
-			T initialValue = default
+			T initialValue = default,
+			IViewModel viewModel = null
 		);
 
 		/// <summary>
@@ -46,11 +50,13 @@ namespace Chinook.DynamicMvvm
 		/// <param name="name">The property name.</param>
 		/// <param name="source">The property source.</param>
 		/// <param name="initialValue">The initial value.</param>
+		/// <param name="viewModel">The <see cref="IViewModel"/> that will own the newly created <see cref="IDynamicProperty"/>.</param>
 		/// <returns><see cref="IDynamicProperty"/></returns>
 		IDynamicProperty CreateFromObservable<T>(
 			string name,
 			IObservable<T> source,
-			T initialValue = default
+			T initialValue = default,
+			IViewModel viewModel = null
 		);
 	}
 }

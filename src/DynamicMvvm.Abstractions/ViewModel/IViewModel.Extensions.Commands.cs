@@ -27,7 +27,7 @@ namespace Chinook.DynamicMvvm
 			Action execute,
 			Func<IDynamicCommandBuilder, IDynamicCommandBuilder> configure = null,
 			[CallerMemberName] string name = null
-		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandBuilderFactory().CreateFromAction(n, execute), configure);
+		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandBuilderFactory().CreateFromAction(n, execute, viewModel), configure);
 
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicCommand"/> that will execute
@@ -44,7 +44,7 @@ namespace Chinook.DynamicMvvm
 			Action<TParameter> execute,
 			Func<IDynamicCommandBuilder, IDynamicCommandBuilder> configure = null,
 			[CallerMemberName] string name = null
-		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandBuilderFactory().CreateFromAction(n, execute), configure);
+		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandBuilderFactory().CreateFromAction(n, execute, viewModel), configure);
 
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicCommand"/> that will execute
@@ -60,7 +60,7 @@ namespace Chinook.DynamicMvvm
 			Func<CancellationToken, Task> execute,
 			Func<IDynamicCommandBuilder, IDynamicCommandBuilder> configure = null,
 			[CallerMemberName] string name = null
-		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandBuilderFactory().CreateFromTask(n, execute), configure);
+		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandBuilderFactory().CreateFromTask(n, execute, viewModel), configure);
 
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicCommand"/> that will execute
@@ -77,7 +77,7 @@ namespace Chinook.DynamicMvvm
 			Func<CancellationToken, TParameter, Task> execute,
 			Func<IDynamicCommandBuilder, IDynamicCommandBuilder> configure = null,
 			[CallerMemberName] string name = null
-		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandBuilderFactory().CreateFromTask(n, execute), configure);
+		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandBuilderFactory().CreateFromTask(n, execute, viewModel), configure);
 
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicCommand"/> that will be attached to the <paramref name="viewModel"/>.

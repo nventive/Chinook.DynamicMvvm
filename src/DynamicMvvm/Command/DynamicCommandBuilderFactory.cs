@@ -28,9 +28,9 @@ namespace Chinook.DynamicMvvm
 		/// <param name="name">Command name</param>
 		/// <param name="strategy"><see cref="IDynamicCommandStrategy"/></param>
 		/// <returns><see cref="IDynamicCommandBuilder"/></returns>
-		protected IDynamicCommandBuilder CreateBuilder(string name, IDynamicCommandStrategy strategy)
+		protected IDynamicCommandBuilder CreateBuilder(string name, IDynamicCommandStrategy strategy, IViewModel viewModel)
 		{
-			IDynamicCommandBuilder builder = new DynamicCommandBuilder(name, strategy);
+			IDynamicCommandBuilder builder = new DynamicCommandBuilder(name, strategy, viewModel);
 
 			if (_defaultConfigure != null)
 			{
@@ -41,19 +41,19 @@ namespace Chinook.DynamicMvvm
 		}
 
 		/// <inheritdoc />
-		public virtual IDynamicCommandBuilder CreateFromAction(string name, Action execute)
-			=> CreateBuilder(name, new ActionCommandStrategy(execute));
+		public virtual IDynamicCommandBuilder CreateFromAction(string name, Action execute, IViewModel viewModel = null)
+			=> CreateBuilder(name, new ActionCommandStrategy(execute), viewModel);
 
 		/// <inheritdoc />
-		public virtual IDynamicCommandBuilder CreateFromAction<TParameter>(string name, Action<TParameter> execute)
-			=> CreateBuilder(name, new ActionCommandStrategy<TParameter>(execute));
+		public virtual IDynamicCommandBuilder CreateFromAction<TParameter>(string name, Action<TParameter> execute, IViewModel viewModel = null)
+			=> CreateBuilder(name, new ActionCommandStrategy<TParameter>(execute), viewModel);
 
 		/// <inheritdoc />
-		public virtual IDynamicCommandBuilder CreateFromTask(string name, Func<CancellationToken, Task> execute)
-			=> CreateBuilder(name, new TaskCommandStrategy(execute));
+		public virtual IDynamicCommandBuilder CreateFromTask(string name, Func<CancellationToken, Task> execute, IViewModel viewModel = null)
+			=> CreateBuilder(name, new TaskCommandStrategy(execute), viewModel);
 
 		/// <inheritdoc />
-		public virtual IDynamicCommandBuilder CreateFromTask<TParameter>(string name, Func<CancellationToken, TParameter, Task> execute)
-			=> CreateBuilder(name, new TaskCommandStrategy<TParameter>(execute));
+		public virtual IDynamicCommandBuilder CreateFromTask<TParameter>(string name, Func<CancellationToken, TParameter, Task> execute, IViewModel viewModel = null)
+			=> CreateBuilder(name, new TaskCommandStrategy<TParameter>(execute), viewModel);
 	}
 }
