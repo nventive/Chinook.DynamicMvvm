@@ -35,6 +35,25 @@ namespace Chinook.DynamicMvvm
 		}
 
 		/// <summary>
+		/// Gets the value of a <see cref="IDynamicProperty{T}"/>.
+		/// </summary>
+		/// <typeparam name="T">The property type.</typeparam>
+		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
+		/// <param name="property">The property.</param>
+		/// <returns>The property's value. Default of <typeparamref name="T"/> is returned if the <see cref="IViewModel"/> is disposed or if <paramref name="property"/> is null.</returns>
+		public static T Get<T>(
+			this IViewModel viewModel,
+			IDynamicProperty<T> property)
+		{
+			if (viewModel.IsDisposed || property == null)
+			{
+				return default(T);
+			}
+
+			return property.Value;
+		}
+
+		/// <summary>
 		/// Gets or creates a <see cref="IDynamicProperty"/> attached to this <see cref="IViewModel"/>.
 		/// </summary>
 		/// <typeparam name="T">The property type.</typeparam>
