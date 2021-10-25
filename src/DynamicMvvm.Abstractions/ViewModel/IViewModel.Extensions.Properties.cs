@@ -217,7 +217,12 @@ namespace Chinook.DynamicMvvm
 				property = factory(name);
 				property.ValueChanged += OnDynamicPropertyChanged;
 
-				viewModel.AddDisposable(name, property);
+				// We check the same condition twice because it's possible that the factory invocation already added the property.
+				// This can happen when the property implements IViewModel and was added using AttachChild.
+				if (!viewModel.TryGetDisposable<IDynamicProperty>(name, out var _))
+				{
+					viewModel.AddDisposable(name, property);
+				}
 			}
 
 			return property;
