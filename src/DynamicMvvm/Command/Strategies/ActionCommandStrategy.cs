@@ -11,48 +11,15 @@ namespace Chinook.DynamicMvvm
 	/// </summary>
 	public class ActionCommandStrategy : IDynamicCommandStrategy
 	{
-		private static readonly Func<object, bool> _defaultCanExecute = _ => true;
-
-		private readonly Func<object, bool> _canExecute;
 		private readonly Action<object> _execute;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ActionCommandStrategy"/> class.
 		/// </summary>
 		/// <param name="execute">Action to execute</param>
-		/// <param name="canExecute">Can execute evaluator</param>
-		public ActionCommandStrategy(Action<object> execute, Func<object, bool> canExecute)
+		public ActionCommandStrategy(Action<object> execute)
 		{
 			_execute = execute ?? throw new ArgumentNullException(nameof(execute));
-			_canExecute = canExecute ?? throw new ArgumentNullException(nameof(canExecute));
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ActionCommandStrategy"/> class.
-		/// </summary>
-		/// <param name="execute">Action to execute</param>
-		/// <param name="canExecute">Can execute evaluator</param>
-		public ActionCommandStrategy(Action execute, Func<object, bool> canExecute)
-			: this(_ => execute(), canExecute)
-		{
-			if (execute == null)
-			{
-				throw new ArgumentNullException(nameof(execute));
-			}
-
-			if (canExecute == null)
-			{
-				throw new ArgumentNullException(nameof(canExecute));
-			}
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ActionCommandStrategy"/> class.
-		/// </summary>
-		/// <param name="execute">Action to execute</param>
-		public ActionCommandStrategy(Action<object> execute)
-			: this(execute, _defaultCanExecute)
-		{
 		}
 
 		/// <summary>
@@ -60,16 +27,19 @@ namespace Chinook.DynamicMvvm
 		/// </summary>
 		/// <param name="execute">Action to execute</param>
 		public ActionCommandStrategy(Action execute)
-			: this(execute, _defaultCanExecute)
+			: this(_ => execute())
 		{
+			if (execute == null)
+			{
+				throw new ArgumentNullException(nameof(execute));
+			}
 		}
 
 		/// <inheritdoc />
 		public event EventHandler CanExecuteChanged;
 
 		/// <inheritdoc />
-		public bool CanExecute(object parameter, IDynamicCommand command)
-			=> _canExecute(parameter);
+		public bool CanExecute(object parameter, IDynamicCommand command) => true;
 
 		/// <inheritdoc />
 		public Task Execute(CancellationToken ct, object parameter, IDynamicCommand command)

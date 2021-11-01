@@ -11,48 +11,15 @@ namespace Chinook.DynamicMvvm
 	/// </summary>
 	public class TaskCommandStrategy : IDynamicCommandStrategy
 	{
-		private static readonly Func<object, bool> _defaultCanExecute = _ => true;
-
-		private readonly Func<object, bool> _canExecute;
 		private readonly Func<CancellationToken, object, Task> _execute;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TaskCommandStrategy"/> class.
 		/// </summary>
 		/// <param name="execute">Action to execute</param>
-		/// <param name="canExecute">Can execute evaluator</param>
-		public TaskCommandStrategy(Func<CancellationToken, object, Task> execute, Func<object, bool> canExecute)
+		public TaskCommandStrategy(Func<CancellationToken, object, Task> execute)
 		{
 			_execute = execute ?? throw new ArgumentNullException(nameof(execute));
-			_canExecute = canExecute ?? throw new ArgumentNullException(nameof(canExecute));
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="TaskCommandStrategy"/> class.
-		/// </summary>
-		/// <param name="execute">Action to execute</param>
-		/// <param name="canExecute">Can execute evaluator</param>
-		public TaskCommandStrategy(Func<CancellationToken, Task> execute, Func<object, bool> canExecute)
-			: this((ct, _) => execute(ct), canExecute)
-		{
-			if (execute == null)
-			{
-				throw new ArgumentNullException(nameof(execute));
-			}
-
-			if (canExecute == null)
-			{
-				throw new ArgumentNullException(nameof(canExecute));
-			}
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="TaskCommandStrategy"/> class.
-		/// </summary>
-		/// <param name="execute">Action to execute</param>
-		public TaskCommandStrategy(Func<CancellationToken, object, Task> execute)
-		   : this(execute, _defaultCanExecute)
-		{
 		}
 
 		/// <summary>
@@ -60,7 +27,7 @@ namespace Chinook.DynamicMvvm
 		/// </summary>
 		/// <param name="execute">Action to execute</param>
 		public TaskCommandStrategy(Func<CancellationToken, Task> execute)
-			: this((ct, _) => execute(ct), _defaultCanExecute)
+			: this((ct, _) => execute(ct))
 		{
 			if (execute == null)
 			{
@@ -69,8 +36,7 @@ namespace Chinook.DynamicMvvm
 		}
 
 		/// <inheritdoc />
-		public bool CanExecute(object parameter, IDynamicCommand command)
-			=> _canExecute(parameter);
+		public bool CanExecute(object parameter, IDynamicCommand command) => true;
 
 		/// <inheritdoc />
 		public Task Execute(CancellationToken ct, object parameter, IDynamicCommand command)
