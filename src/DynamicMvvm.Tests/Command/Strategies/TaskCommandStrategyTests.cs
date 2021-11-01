@@ -36,7 +36,6 @@ namespace Chinook.DynamicMvvm.Tests.Command.Strategies
 		[Fact]
 		public async Task It_Executes_With_Parameter()
 		{
-			var canExecuteStrategyParameter = default(object);
 			var executeStrategyParameter = default(object);
 
 			var strategy = new TaskCommandStrategy(
@@ -45,8 +44,7 @@ namespace Chinook.DynamicMvvm.Tests.Command.Strategies
 					executeStrategyParameter = p;
 
 					return Task.CompletedTask;
-				},
-				canExecute: p => { canExecuteStrategyParameter = p; return true; }
+				}
 			);
 
 			var command = new DynamicCommand(DefaultCommandName, strategy);
@@ -54,14 +52,12 @@ namespace Chinook.DynamicMvvm.Tests.Command.Strategies
 			var parameter = new object();
 			await command.Execute(parameter);
 
-			canExecuteStrategyParameter.Should().Be(parameter);
 			executeStrategyParameter.Should().Be(parameter);
 		}
 
 		[Fact]
 		public async Task It_Executes_With_Parameter_T()
 		{
-			var canExecuteStrategyParameter = default(TestParameter);
 			var executeStrategyParameter = default(TestParameter);
 
 			var strategy = new TaskCommandStrategy<TestParameter>(
@@ -70,8 +66,7 @@ namespace Chinook.DynamicMvvm.Tests.Command.Strategies
 					executeStrategyParameter = p;
 
 					return Task.CompletedTask;
-				},
-				canExecute: p => { canExecuteStrategyParameter = p; return true; }
+				}
 			);
 
 			var command = new DynamicCommand(DefaultCommandName, strategy);
@@ -79,52 +74,7 @@ namespace Chinook.DynamicMvvm.Tests.Command.Strategies
 			var parameter = new TestParameter();
 			await command.Execute(parameter);
 
-			canExecuteStrategyParameter.Should().Be(parameter);
 			executeStrategyParameter.Should().Be(parameter);
-		}
-
-		[Fact]
-		public async Task It_Doesnt_Execute_When_CantExecute()
-		{
-			var isExecuted = false;
-
-			var strategy = new TaskCommandStrategy(
-				execute: ct =>
-				{
-					isExecuted = true;
-
-					return Task.CompletedTask;
-				},
-				canExecute: _ => false
-			);
-
-			var command = new DynamicCommand(DefaultCommandName, strategy);
-
-			await command.Execute();
-
-			isExecuted.Should().BeFalse();
-		}
-
-		[Fact]
-		public async Task It_Doesnt_Execute_When_CantExecute_T()
-		{
-			var isExecuted = false;
-
-			var strategy = new TaskCommandStrategy<TestParameter>(
-				execute: (ct, p) =>
-				{
-					isExecuted = true;
-
-					return Task.CompletedTask;
-				},
-				canExecute: _ => false
-			);
-
-			var command = new DynamicCommand(DefaultCommandName, strategy);
-
-			await command.Execute();
-
-			isExecuted.Should().BeFalse();
 		}
 
 		private class TestParameter { }
