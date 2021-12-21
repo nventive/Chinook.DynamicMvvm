@@ -2,6 +2,7 @@
   branches:
     include:
     - master
+    - feature/*
 
 resources:
    containers:
