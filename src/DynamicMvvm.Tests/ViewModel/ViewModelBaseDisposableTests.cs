@@ -136,5 +136,21 @@ namespace Chinook.DynamicMvvm.Tests.ViewModel
 
 			viewModel.Disposables.Should().BeEmpty();
 		}
+
+		[Fact]
+		public void It_Exposes_A_Not_Cancelled_Token_When_Not_Disposed()
+		{
+			var viewModel = new ViewModelBase();
+			viewModel.CancellationToken.IsCancellationRequested.Should().BeFalse();
+		}
+
+		[Fact]
+		public void It_Exposes_A_Cancelled_Token_When_Disposed()
+		{
+			var viewModel = new ViewModelBase();
+
+			viewModel.Dispose();
+			viewModel.CancellationToken.IsCancellationRequested.Should().BeTrue();
+		}
 	}
 }

@@ -22,7 +22,7 @@ namespace Chinook.DynamicMvvm
 		/// Gets a <see cref="System.Threading.CancellationToken"/> bound to the lifetime of this <see cref="ViewModelBase"/>.
 		/// It cancels when this <see cref="ViewModelBase"/> is disposes.
 		/// </summary>
-		public CancellationToken CancellationToken => _cts.Token;
+		public CancellationToken CancellationToken { get; }
 
 		/// <inheritdoc />
 		public IEnumerable<KeyValuePair<string, IDisposable>> Disposables => _disposables;
@@ -89,6 +89,7 @@ namespace Chinook.DynamicMvvm
 				_logger.LogDebug($"Disposing ViewModel '{Name}'.");
 
 				_isDisposing = true;
+				_cts.Cancel();
 				_cts.Dispose();
 				foreach (var pair in _disposables)
 				{
