@@ -24,6 +24,7 @@ namespace Chinook.DynamicMvvm
 		{
 			Name = name ?? GetType().Name;
 			ServiceProvider = serviceProvider ?? DefaultServiceProvider;
+			CancellationToken = _cts.Token;
 
 			_logger = typeof(ViewModelBase).Log();
 
