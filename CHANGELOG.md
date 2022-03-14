@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 * [#09] Update Android target to 10.0
 * [#10] Update the source of the `ViewModelBase` private `ILogger` instance.
+* [#39] Change target Uno.UI version to 4.0.7.
 
 ### Deprecated
 
