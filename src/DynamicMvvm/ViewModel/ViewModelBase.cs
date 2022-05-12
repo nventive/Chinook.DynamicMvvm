@@ -18,8 +18,8 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ViewModelBase"/> class.
 		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="serviceProvider"></param>
+		/// <param name="name">The name of the ViewModel.</param>
+		/// <param name="serviceProvider">The service provider.</param>
 		public ViewModelBase(string name = null, IServiceProvider serviceProvider = null)
 		{
 			Name = name ?? GetType().Name;
