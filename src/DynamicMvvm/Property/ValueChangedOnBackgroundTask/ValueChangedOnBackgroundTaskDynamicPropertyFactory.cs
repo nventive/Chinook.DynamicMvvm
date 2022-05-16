@@ -9,6 +9,7 @@ namespace Chinook.DynamicMvvm.Implementations
 	/// <summary>
 	/// This implementation of <see cref="IDynamicPropertyFactory"/> uses the <see cref="ValueChangedOnBackgroundTaskDynamicProperty"/> base class for all methods.
 	/// </summary>
+	[Preserve(AllMembers = true)]
 	public class ValueChangedOnBackgroundTaskDynamicPropertyFactory : IDynamicPropertyFactory
 	{
 		/// <inheritdoc/>
