@@ -9,10 +9,16 @@
 		<PackageId>Chinook.DynamicMvvm.FluentValidation</PackageId>
 		<Description>Chinook.DynamicMvvm.FluentValidation</Description>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>
     	<PackageReference Include="FluentValidation" Version="9.5.4" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
 	</ItemGroup>
 
 	<ItemGroup>
