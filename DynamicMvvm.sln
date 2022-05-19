@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29613.14
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicMvvm.Abstractions", "src\DynamicMvvm.Abstractions\DynamicMvvm.Abstractions.csproj", "{FB040CF7-8A52-412E-964F-B8BE3B025746}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicMvvm.Reactive", "src\DynamicMvvm.Reactive\DynamicMvvm.Reactive.csproj", "{9D94D67C-B58B-498E-B6F3-BE8FB4BB7802}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicMvvm.FluentValidation", "src\DynamicMvvm.FluentValidation\DynamicMvvm.FluentValidation.csproj", "{4EED6C41-468A-436F-B95F-9F6371090815}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicMvvm.CollectionTracking", "src\DynamicMvvm.CollectionTracking\DynamicMvvm.CollectionTracking.csproj", "{143F2C3E-1241-4D44-939F-8ED5556C982E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -167,6 +169,30 @@ Global
 		{4EED6C41-468A-436F-B95F-9F6371090815}.Release|Simulator.Build.0 = Release|Any CPU
 		{4EED6C41-468A-436F-B95F-9F6371090815}.Release|UAP.ActiveCfg = Release|Any CPU
 		{4EED6C41-468A-436F-B95F-9F6371090815}.Release|UAP.Build.0 = Release|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Debug|Android.ActiveCfg = Debug|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Debug|Android.Build.0 = Debug|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Debug|iOS.ActiveCfg = Debug|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Debug|iOS.Build.0 = Debug|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Debug|NuGet.ActiveCfg = Debug|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Debug|NuGet.Build.0 = Debug|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Debug|Simulator.ActiveCfg = Debug|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Debug|Simulator.Build.0 = Debug|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Debug|UAP.ActiveCfg = Debug|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Debug|UAP.Build.0 = Debug|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Release|Android.ActiveCfg = Release|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Release|Android.Build.0 = Release|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Release|iOS.ActiveCfg = Release|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Release|iOS.Build.0 = Release|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Release|NuGet.ActiveCfg = Release|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Release|NuGet.Build.0 = Release|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Release|Simulator.ActiveCfg = Release|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Release|Simulator.Build.0 = Release|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Release|UAP.ActiveCfg = Release|Any CPU
+		{143F2C3E-1241-4D44-939F-8ED5556C982E}.Release|UAP.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
