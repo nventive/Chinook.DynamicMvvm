@@ -27,6 +27,7 @@ namespace Chinook.DynamicMvvm
 		/// </summary>
 		/// <param name="name">Command name</param>
 		/// <param name="strategy"><see cref="IDynamicCommandStrategy"/></param>
+		/// <param name="viewModel">The <see cref="IViewModel"/> that will own the newly created command.</param>
 		/// <returns><see cref="IDynamicCommandBuilder"/></returns>
 		protected IDynamicCommandBuilder CreateBuilder(string name, IDynamicCommandStrategy strategy, IViewModel viewModel)
 		{
