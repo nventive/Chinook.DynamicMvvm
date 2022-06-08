@@ -17,6 +17,7 @@ namespace Chinook.DynamicMvvm
 		private static readonly DiagnosticSource _diagnostics = new DiagnosticListener("Chinook.DynamicMvvm.IDynamicCommand");
 
 		private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+		private readonly CancellationToken _cancellationToken;
 		private readonly IDynamicCommandStrategy _strategy;
 		private int _executions;
 		private bool _isDisposed;
@@ -28,6 +29,8 @@ namespace Chinook.DynamicMvvm
 		/// <param name="strategy"><see cref="IDynamicCommandStrategy"/></param>
 		public DynamicCommand(string name, IDynamicCommandStrategy strategy)
 		{
+			_cancellationToken = _cancellationTokenSource.Token;
+			
 			Name = name;
 
 			_strategy = strategy ?? throw new ArgumentNullException(nameof(strategy));
@@ -81,7 +84,7 @@ namespace Chinook.DynamicMvvm
 				{
 					IncrementExecutions();
 
-					await _strategy.Execute(_cancellationTokenSource.Token, parameter, this);
+					await _strategy.Execute(_cancellationToken, parameter, this);
 				}
 				finally
 				{
