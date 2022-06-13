@@ -72,6 +72,13 @@ namespace Chinook.DynamicMvvm
 		{
 			try
 			{
+				if (_isDisposed)
+				{
+					// Note that we don't throw an ObjectDisposedException here because we're likely on a UI thread.
+					this.Log().LogError("Failed to execute command '{Name}' because it's disposed.", Name);
+					return;
+				}
+
 				if (!CanExecute(parameter))
 				{
 					return;
