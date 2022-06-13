@@ -284,5 +284,35 @@ namespace Chinook.DynamicMvvm.Tests.Command
 
 			taskCompletionSource.Task.IsCanceled.Should().BeTrue();
 		}
+
+		[Fact]
+		public async Task It_Doesnt_Execute_When_Disposed()
+		{
+			var didExecute = false;
+			var didIsExecutingChanged = false;
+			var strategy = new TestCommandStrategy(
+				onExecute: async (ct, _, __) =>
+				{
+					didExecute = true;
+				}
+			);
+
+			var command = new DynamicCommand(DefaultCommandName, strategy);
+			command.IsExecutingChanged += OnIsExecutingChanged;
+			
+			command.Dispose();
+			
+			var commandExecution = command.Execute();
+
+			await commandExecution;
+
+			didExecute.Should().BeFalse();
+			didIsExecutingChanged.Should().BeFalse();
+			
+			void OnIsExecutingChanged(object sender, EventArgs e)
+			{
+				didIsExecutingChanged = true;
+			}
+		}
 	}
 }
