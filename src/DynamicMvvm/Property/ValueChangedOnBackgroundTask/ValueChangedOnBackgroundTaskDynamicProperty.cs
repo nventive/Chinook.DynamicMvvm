@@ -36,7 +36,7 @@ namespace Chinook.DynamicMvvm.Implementations
 			}
 		}
 
-		protected bool IsOnDispatcher => _viewModel.TryGetTarget(out var vm) && (vm.View?.GetHasDispatcherAccess() ?? false);
+		protected bool IsOnDispatcher => _viewModel.TryGetTarget(out var vm) && (vm.Dispatcher?.GetHasDispatcherAccess() ?? false);
 
 		/// <inheritdoc />
 		public string Name { get; }

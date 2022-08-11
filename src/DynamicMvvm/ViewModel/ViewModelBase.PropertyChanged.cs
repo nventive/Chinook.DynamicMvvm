@@ -26,7 +26,7 @@ namespace Chinook.DynamicMvvm
 				return;
 			}
 
-			var viewModelView = GetView();
+			var viewModelView = GetDispatcher();
 
 			if (viewModelView != null && !viewModelView.GetHasDispatcherAccess())
 			{
@@ -56,10 +56,10 @@ namespace Chinook.DynamicMvvm
 			{
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 			}
-			catch (Exception exception) when (View is null)
+			catch (Exception exception) when (Dispatcher is null)
 			{
 				// Give some details and tips on how to fix the issue.
-				_logger.LogError(exception, "Failed to raise PropertyChanged. Make sure you link child viewmodels to their parent by using one of the following IViewModel extension method: AttachChild, GetChild, AttachOrReplaceChild.");
+				_logger.LogError(exception, "Failed to raise PropertyChanged. Your IVewModel.Dispatcher is null. Make sure you set it. Make sure you link child viewmodels to their parent by using one of the following IViewModel extension method: AttachChild, GetChild, AttachOrReplaceChild.");
 				throw;
 			}
 
