@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,24 +8,15 @@ using System.Threading.Tasks;
 namespace Chinook.DynamicMvvm
 {
 	/// <summary>
-	/// A <see cref="IViewModelView"/> represents the view contract of a <see cref="IViewModel"/>.
+	/// An <see cref="IDispatcher"/> allows to execute code on a specific thread.
+	/// This is useful when the <see cref="INotifyPropertyChanged.PropertyChanged"/> event needs to be raised on a specific thread.
 	/// </summary>
-	public interface IViewModelView
+	public interface IDispatcher
 	{
 		/// <summary>
 		/// Gets whether or not the thread has dispatcher access.
 		/// </summary>
 		bool GetHasDispatcherAccess();
-
-		/// <summary>
-		/// Occurs when the view is loaded.
-		/// </summary>
-		event EventHandler Loaded;
-
-		/// <summary>
-		/// Occurs when the view is unloaded.
-		/// </summary>
-		event EventHandler Unloaded;
 
 		/// <summary>
 		/// Executes the specified action on a dispatcher thread.

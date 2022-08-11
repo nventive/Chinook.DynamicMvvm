@@ -11,7 +11,7 @@ namespace Chinook.DynamicMvvm
 	/// </summary>
 	public static partial class IViewModelExtensions
 	{
-		private const string ParentViewChangedSubscriptionKey = "ParentViewChangedSubscription";
+		private const string ParentDispatcherChangedSubscriptionKey = "ParentDispatcherChangedSubscription";
 		private const string RemoveSelfFromParentSubscriptionKey = "RemoveSelfFromParentSubscription";
 
 		/// <summary>
@@ -71,7 +71,7 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Attaches a child <see cref="IViewModel"/> to a parent <see cref="IViewModel"/>.
 		/// By being attached, the child will be disposed when the parent is disposed.
-		/// Both also share the same <see cref="IViewModelView"/>.
+		/// Both also share the same <see cref="IDispatcher"/>.
 		/// A child can only be attached once to a single <see cref="IViewModel"/>.
 		/// </summary>
 		/// <typeparam name="TChildViewModel">The type of child viewmodel.</typeparam>
@@ -96,11 +96,11 @@ namespace Chinook.DynamicMvvm
 
 			viewModel.AddDisposable(name, childViewModel);
 
-			childViewModel.View = viewModel.View;
+			childViewModel.Dispatcher = viewModel.Dispatcher;
 
-			var parentViewChangedDisposable = new ParentViewChangedDisposable(viewModel, childViewModel);
+			var parentViewChangedDisposable = new ParentDispatcherChangedDisposable(viewModel, childViewModel);
 
-			childViewModel.AddDisposable(ParentViewChangedSubscriptionKey, parentViewChangedDisposable);
+			childViewModel.AddDisposable(ParentDispatcherChangedSubscriptionKey, parentViewChangedDisposable);
 			childViewModel.AddDisposable(RemoveSelfFromParentSubscriptionKey, new ActionDisposable(() => viewModel.RemoveDisposable(name)));
 
 			return childViewModel;
@@ -109,7 +109,7 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Detaches a child <see cref="IViewModel"/> from its parent <see cref="IViewModel"/>.
 		/// By being detached, the child will no longer be disposed when the parent is disposed.
-		/// The child's <see cref="IViewModelView"/> will also be removed.
+		/// The child's <see cref="IDispatcher"/> will also be removed.
 		/// </summary>
 		/// <param name="viewModel">The parent <see cref="IViewModel"/>.</param>
 		/// <param name="childViewModel">The child <see cref="IViewModel"/> to detach.</param>
@@ -121,11 +121,11 @@ namespace Chinook.DynamicMvvm
 				throw new ArgumentNullException(nameof(childViewModel));
 			}
 
-			childViewModel.View = null;
-			if (childViewModel.TryGetDisposable(ParentViewChangedSubscriptionKey, out var subscription))
+			childViewModel.Dispatcher = null;
+			if (childViewModel.TryGetDisposable(ParentDispatcherChangedSubscriptionKey, out var subscription))
 			{
 				subscription.Dispose();
-				childViewModel.RemoveDisposable(ParentViewChangedSubscriptionKey);
+				childViewModel.RemoveDisposable(ParentDispatcherChangedSubscriptionKey);
 			}
 			childViewModel.RemoveDisposable(RemoveSelfFromParentSubscriptionKey);
 
@@ -136,7 +136,7 @@ namespace Chinook.DynamicMvvm
 		/// Attaches a child <see cref="IViewModel"/> to a parent <see cref="IViewModel"/>.
 		/// If the child has already been attached, the newer instance will be attached instead of the previous instance.
 		/// By being attached, the child will be disposed when the parent is disposed.
-		/// Both also share the same <see cref="IViewModelView"/>.
+		/// Both also share the same <see cref="IDispatcher"/>.
 		/// </summary>
 		/// <remarks>The previous instance will be disposed when replaced.</remarks>
 		/// <param name="viewModel">The parent <see cref="IViewModel"/>.</param>
@@ -155,27 +155,27 @@ namespace Chinook.DynamicMvvm
 			return viewModel.AttachChild(childViewModel, name);
 		}
 
-		private class ParentViewChangedDisposable : IDisposable
+		private class ParentDispatcherChangedDisposable : IDisposable
 		{
 			private IViewModel _parentViewModel;
 			private IViewModel _childViewModel;
 
-			public ParentViewChangedDisposable(IViewModel parentViewModel, IViewModel childViewModel)
+			public ParentDispatcherChangedDisposable(IViewModel parentViewModel, IViewModel childViewModel)
 			{
 				_parentViewModel = parentViewModel;
 				_childViewModel = childViewModel;
 
-				_parentViewModel.ViewChanged += OnParentViewChanged;
+				_parentViewModel.DispatcherChanged += OnParentDispatcherChanged;
 			}
 
-			private void OnParentViewChanged(IViewModelView view)
+			private void OnParentDispatcherChanged(IDispatcher view)
 			{
-				_childViewModel.View = view;
+				_childViewModel.Dispatcher = view;
 			}
 
 			public void Dispose()
 			{
-				_parentViewModel.ViewChanged -= OnParentViewChanged;
+				_parentViewModel.DispatcherChanged -= OnParentDispatcherChanged;
 				_parentViewModel = null;
 				_childViewModel = null;
 			}

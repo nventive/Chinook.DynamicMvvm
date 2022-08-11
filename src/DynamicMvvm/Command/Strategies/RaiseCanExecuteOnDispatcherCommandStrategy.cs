@@ -7,7 +7,7 @@ using Chinook.DynamicMvvm;
 namespace Chinook.DynamicMvvm
 {
 	/// <summary>
-	/// This <see cref="IDynamicCommandStrategy"/> ensures that the <see cref="CanExecuteChanged"/> event is raised using <see cref="IViewModelView.ExecuteOnDispatcher(CancellationToken, Action)"/>.
+	/// This <see cref="IDynamicCommandStrategy"/> ensures that the <see cref="CanExecuteChanged"/> event is raised using <see cref="IDispatcher.ExecuteOnDispatcher(CancellationToken, Action)"/>.
 	/// </summary>
 	public class RaiseCanExecuteOnDispatcherCommandStrategy : DecoratorCommandStrategy
 	{
@@ -17,7 +17,7 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Creates a new instance of <see cref="RaiseCanExecuteOnDispatcherCommandStrategy"/>.
 		/// </summary>
-		/// <param name="viewModel">The <see cref="IViewModel"/> from which to access the <see cref="IViewModelView"/>.</param>
+		/// <param name="viewModel">The <see cref="IViewModel"/> from which to access the <see cref="IDispatcher"/>.</param>
 		/// <exception cref="ArgumentNullException"><paramref name="viewModel"/> cannot be null.</exception>
 		public RaiseCanExecuteOnDispatcherCommandStrategy(IViewModel viewModel)
 		{
@@ -62,15 +62,15 @@ namespace Chinook.DynamicMvvm
 			}
 
 			// The event should be raised immediately when the view already has dispatcher access OR when there is no view.
-			var shouldDispatch = viewModel.View?.GetHasDispatcherAccess() ?? true;
+			var shouldRaiseImmediately= viewModel.Dispatcher?.GetHasDispatcherAccess() ?? true;
 
-			if (shouldDispatch)
+			if (shouldRaiseImmediately)
 			{
 				RaiseCanExecuteChanged();
 			}
 			else
 			{
-				_ = viewModel.View.ExecuteOnDispatcher(_cts.Token, RaiseCanExecuteChanged);
+				_ = viewModel.Dispatcher.ExecuteOnDispatcher(_cts.Token, RaiseCanExecuteChanged);
 			}
 
 			void RaiseCanExecuteChanged()

@@ -26,7 +26,7 @@ namespace Chinook.DynamicMvvm.Tests.Command.Strategies
 			var dispatched = false;
 			sut.InnerStrategy = inner;
 
-			vm.View = new TestViewModelView(hasDispatcherAccess: false, OnExecuteOnDispatcher);
+			vm.Dispatcher = new TestDispatcher(hasDispatcherAccess: false, OnExecuteOnDispatcher);
 
 			inner.RaiseCanExecuteChanged();
 
@@ -48,7 +48,7 @@ namespace Chinook.DynamicMvvm.Tests.Command.Strategies
 			var dispatched = false;
 			sut.InnerStrategy = inner;
 
-			vm.View = new TestViewModelView(hasDispatcherAccess: true, OnExecuteOnDispatcher);
+			vm.Dispatcher = new TestDispatcher(hasDispatcherAccess: true, OnExecuteOnDispatcher);
 
 			inner.RaiseCanExecuteChanged();
 

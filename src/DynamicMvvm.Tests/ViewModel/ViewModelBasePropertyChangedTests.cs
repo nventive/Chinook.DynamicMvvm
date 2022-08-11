@@ -42,7 +42,7 @@ namespace Chinook.DynamicMvvm.Tests.ViewModel
 
 			var viewModel = new ViewModelBase
 			{
-				View = new TestViewModelView(
+				Dispatcher = new TestDispatcher(
 					hasDispatcherAccess: false,
 					onExecuteOnDispatcher: a =>
 					{
@@ -77,7 +77,7 @@ namespace Chinook.DynamicMvvm.Tests.ViewModel
 
 			var viewModel = new ViewModelBase
 			{
-				View = new TestViewModelView(
+				Dispatcher = new TestDispatcher(
 					hasDispatcherAccess: true,
 					onExecuteOnDispatcher: a =>
 					{

@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Chinook.DynamicMvvm.Tests.Helpers
 {
-	public class TestViewModelView : IViewModelView
+	public class TestDispatcher : IDispatcher
 	{
 		private readonly bool _hasDispatcherAccess;
 		private readonly Action<Action> _onExecuteOnDispatcher;
 
-		public TestViewModelView(
+		public TestDispatcher(
 			bool hasDispatcherAccess = false,
 			Action<Action> onExecuteOnDispatcher = null
 		)
@@ -22,9 +22,6 @@ namespace Chinook.DynamicMvvm.Tests.Helpers
 		}
 
 		public bool GetHasDispatcherAccess() => _hasDispatcherAccess;
-
-		public event EventHandler Loaded;
-		public event EventHandler Unloaded;
 
 		public Task ExecuteOnDispatcher(CancellationToken ct, Action action)
 		{

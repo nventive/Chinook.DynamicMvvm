@@ -12,7 +12,7 @@ namespace Chinook.DynamicMvvm.CollectionTracking
 {
 	/// <summary>
 	/// This class adapts an observable of lists into a <see cref="ReadOnlyObservableCollection{T}"/> exposed via <see cref="ReadOnlyCollection"/> or <see cref="Collection"/>.
-	/// It also ensures that <see cref="INotifyCollectionChanged.CollectionChanged"/> is raised using the provided <see cref="IViewModel.View"/>.
+	/// It also ensures that <see cref="INotifyCollectionChanged.CollectionChanged"/> is raised using the provided <see cref="IViewModel.Dispatcher"/>.
 	/// </summary>
 	/// <typeparam name="T">The collection item type.</typeparam>
 	public class ObservableCollectionFromObservableAdapter<T> : IDisposable
@@ -62,13 +62,13 @@ namespace Chinook.DynamicMvvm.CollectionTracking
 			// Here, we add the operation to a queue to keep track of operations applied to the list.
 			QueueUpdate(list);
 
-			if (_viewModel.View == null)
+			if (_viewModel.Dispatcher == null)
 			{
 				ApplyOperations();
 			}
 			else
 			{
-				_ = _viewModel.View.ExecuteOnDispatcher(_cts.Token, ApplyOperations);
+				_ = _viewModel.Dispatcher.ExecuteOnDispatcher(_cts.Token, ApplyOperations);
 			}
 
 			void ApplyOperations()

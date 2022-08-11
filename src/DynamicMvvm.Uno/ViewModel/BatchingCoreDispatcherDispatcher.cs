@@ -9,39 +9,46 @@ using Windows.UI.Xaml;
 namespace Chinook.DynamicMvvm
 {
 	/// <summary>
-	/// This implementation of <see cref="IViewModelView"/> batches its operations to reduce the call count of <see cref="CoreDispatcher.RunAsync"/>.<br/>
+	/// This implementation of <see cref="IDispatcher"/> batches its operations to reduce the call count of <see cref="CoreDispatcher.RunAsync"/>.<br/>
 	/// When <see cref="ExecuteOnDispatcher"/> is invoked, the dispatcher operation is delayed by a small duration during which other <see cref="ExecuteOnDispatcher"/> invocations that may occur are accumulated.
 	/// After that short delay, all accumulated actions are executed within the same <see cref="CoreDispatcher.RunAsync"/>.
 	/// </summary>
-	public class BatchingViewModelView : IViewModelView
+	public class BatchingCoreDispatcherDispatcher : IDispatcher
 	{
-		private readonly FrameworkElement _frameworkElement;
+		private readonly CoreDispatcher _coreDispatcher;
 		private readonly int _throttleDurationMs;
 		private readonly object _mutex = new object();
 		private readonly Queue<Request> _requests = new Queue<Request>(capacity: 128);
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="BatchingViewModelView"/> class.
+		/// Initializes a new instance of the <see cref="BatchingCoreDispatcherDispatcher"/> class.
 		/// </summary>
-		/// <param name="frameworkElement">The <see cref="FrameworkElement"/>.</param>
+		/// <param name="frameworkElement">The <see cref="FrameworkElement"/> from which to retrieve the <see cref="CoreDispatcher"/>.</param>
 		/// <param name="throttleDurationMs">The amount of time during which the batching accumulation occurs.</param>
-		public BatchingViewModelView(FrameworkElement frameworkElement, int throttleDurationMs = 10)
+		public BatchingCoreDispatcherDispatcher(FrameworkElement frameworkElement, int throttleDurationMs = 10)
 		{
-			_frameworkElement = frameworkElement ?? throw new ArgumentNullException(nameof(frameworkElement));
-			_throttleDurationMs = throttleDurationMs;
+			if (frameworkElement is null)
+			{
+				throw new ArgumentNullException(nameof(frameworkElement));
+			}
 
-			_frameworkElement.Loaded += OnLoaded;
-			_frameworkElement.Unloaded += OnUnloaded;
+			_coreDispatcher = frameworkElement.Dispatcher;
+			_throttleDurationMs = throttleDurationMs;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="BatchingCoreDispatcherDispatcher"/> class.
+		/// </summary>
+		/// <param name="coreDispatcher">The <see cref="CoreDispatcher"/>.</param>
+		/// <param name="throttleDurationMs">The amount of time during which the batching accumulation occurs.</param>
+		public BatchingCoreDispatcherDispatcher(CoreDispatcher coreDispatcher, int throttleDurationMs = 10)
+		{
+			_coreDispatcher = coreDispatcher ?? throw new ArgumentNullException(nameof(coreDispatcher));
+			_throttleDurationMs = throttleDurationMs;
 		}
 
 		/// <inheritdoc />
-		public bool GetHasDispatcherAccess() => _frameworkElement.Dispatcher.HasThreadAccess;
-
-		/// <inheritdoc />
-		public event EventHandler Loaded;
-
-		/// <inheritdoc />
-		public event EventHandler Unloaded;
+		public bool GetHasDispatcherAccess() => _coreDispatcher.HasThreadAccess;
 
 		/// <inheritdoc />
 		public async Task ExecuteOnDispatcher(CancellationToken ct, Action action)
@@ -78,7 +85,7 @@ namespace Chinook.DynamicMvvm
 				return;
 			}
 
-			await _frameworkElement.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
+			await _coreDispatcher.RunAsync(CoreDispatcherPriority.High, () =>
 			{
 				foreach (var request in requests)
 				{
@@ -101,17 +108,7 @@ namespace Chinook.DynamicMvvm
 
 			this.Log().LogDebug($"Batched {requests.Length} dispatcher requests.");
 		}
-
-		private void OnLoaded(object sender, RoutedEventArgs e)
-		{
-			Loaded?.Invoke(sender, EventArgs.Empty);
-		}
-
-		private void OnUnloaded(object sender, RoutedEventArgs e)
-		{
-			Unloaded?.Invoke(sender, EventArgs.Empty);
-		}
-
+		
 		private class Request
 		{
 			public CancellationToken CT { get; set; }

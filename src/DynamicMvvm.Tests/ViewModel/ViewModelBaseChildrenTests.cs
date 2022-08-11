@@ -100,31 +100,31 @@ namespace Chinook.DynamicMvvm.Tests.ViewModel
 		}
 
 		[Fact]
-		public void It_Shares_View_When_Set_Before_Attached()
+		public void It_Shares_Dispatcher_When_Set_Before_Attached()
 		{
 			var parentViewModel = new ViewModelBase()
 			{
-				View = new TestViewModelView()
+				Dispatcher = new TestDispatcher()
 			};
 
 			var childViewModel = new TestViewModel();
 
 			parentViewModel.AttachChild(childViewModel);
 
-			childViewModel.View.Should().Be(parentViewModel.View);
+			childViewModel.Dispatcher.Should().Be(parentViewModel.Dispatcher);
 		}
 
 		[Fact]
-		public void It_Shares_View_When_Set_After_Attached()
+		public void It_Shares_Dispatcher_When_Set_After_Attached()
 		{
 			var parentViewModel = new ViewModelBase();
 			var childViewModel = new TestViewModel();
 
 			parentViewModel.AttachChild(childViewModel);
 
-			parentViewModel.View = new TestViewModelView();
+			parentViewModel.Dispatcher = new TestDispatcher();
 
-			childViewModel.View.Should().Be(parentViewModel.View);
+			childViewModel.Dispatcher.Should().Be(parentViewModel.Dispatcher);
 		}
 
 		[Fact]

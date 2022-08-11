@@ -109,7 +109,7 @@ namespace Chinook.DynamicMvvm.Tests.Integration
 			Assert.Throws<ObjectDisposedException>(() => viewModel.SetErrors(nameof(MyViewModel.Counter), Enumerable.Empty<object>()));
 			Assert.Throws<ObjectDisposedException>(() => viewModel.SetErrors(errors: new Dictionary<string, IEnumerable<object>>()));
 			Assert.Throws<ObjectDisposedException>(() => viewModel.ClearErrors(nameof(MyViewModel.Counter)));
-			Assert.Throws<ObjectDisposedException>(() => viewModel.View = new TestViewModelView());
+			Assert.Throws<ObjectDisposedException>(() => viewModel.Dispatcher = new TestDispatcher());
 			Assert.Throws<ObjectDisposedException>(() => viewModel.RaisePropertyChanged(nameof(MyViewModel.Counter)));
 		}
 

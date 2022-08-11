@@ -11,7 +11,7 @@ namespace Chinook.DynamicMvvm
 	/// The <see cref="IViewModel"/> has a life cycle. Disposing it will dispose all its attached objects.
 	/// It implements <see cref="INotifyPropertyChanged"/> to support property data binding.
 	/// It implements <see cref="INotifyDataErrorInfo"/> to support error data binding.
-	/// A <see cref="IViewModel"/> is coupled to a <see cref="IViewModelView"/> to raise its events on the right threads.
+	/// A <see cref="IViewModel"/> is coupled to a <see cref="IDispatcher"/> to raise its events on the right threads.
 	/// </summary>
 	public interface IViewModel : INotifyPropertyChanged, INotifyDataErrorInfo, IDisposable
 	{
@@ -57,14 +57,14 @@ namespace Chinook.DynamicMvvm
 		IEnumerable<KeyValuePair<string, IDisposable>> Disposables { get; }
 
 		/// <summary>
-		/// Gets or sets the view attached to this <see cref="IViewModel"/>.
+		/// Gets or sets the dispatcher attached to this <see cref="IViewModel"/>.
 		/// </summary>
-		IViewModelView View { get; set; }
+		IDispatcher Dispatcher { get; set; }
 
 		/// <summary>
-		/// Notifies when the <see cref="View"/> property changes.
+		/// Notifies when the <see cref="Dispatcher"/> property changes.
 		/// </summary>
-		event Action<IViewModelView> ViewChanged;
+		event Action<IDispatcher> DispatcherChanged;
 
 		/// <summary>
 		/// Gets the services available for this <see cref="IViewModel"/>.

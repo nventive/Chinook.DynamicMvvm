@@ -103,7 +103,7 @@ namespace Chinook.DynamicMvvm
 					}
 				}
 
-				_view.SetTarget(null);
+				_dispatcher.SetTarget(null);
 				_disposables.Clear();
 			}
 

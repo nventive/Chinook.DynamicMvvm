@@ -17,7 +17,7 @@ namespace Chinook.DynamicMvvm.Tests.Property
 		{
 			var vm = new ViewModelBase
 			{
-				View = new TestViewModelView()
+				Dispatcher = new TestDispatcher()
 				{
 					HasDispatcherAccess = true
 				}
@@ -50,7 +50,7 @@ namespace Chinook.DynamicMvvm.Tests.Property
 		{
 			var vm = new ViewModelBase
 			{
-				View = new TestViewModelView()
+				Dispatcher = new TestDispatcher()
 				{
 					HasDispatcherAccess = false
 				}
@@ -78,12 +78,9 @@ namespace Chinook.DynamicMvvm.Tests.Property
 			}
 		}
 
-		private class TestViewModelView : IViewModelView
+		private class TestDispatcher : IDispatcher
 		{
 			public bool HasDispatcherAccess { get; set; }
-
-			public event EventHandler Loaded;
-			public event EventHandler Unloaded;
 
 			public Task ExecuteOnDispatcher(CancellationToken ct, Action action)
 			{
