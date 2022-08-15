@@ -7,24 +7,17 @@ namespace Chinook.DynamicMvvm
 {
 	public partial class ViewModelBase
 	{
-		private readonly WeakReference<IDispatcher> _dispatcher = new WeakReference<IDispatcher>(default);
+		private IDispatcher _dispatcher;
 
 		/// <inheritdoc />
 		public IDispatcher Dispatcher
 		{
-			get => GetDispatcher();
+			get => _dispatcher;
 			set => SetDispatcher(value);
 		}
 
 		/// <inheritdoc />
 		public event Action<IDispatcher> DispatcherChanged;
-
-		private IDispatcher GetDispatcher()
-		{
-			return _dispatcher != null && _dispatcher.TryGetTarget(out var dispatcher)
-				? dispatcher
-				: (default);
-		}
 
 		private void SetDispatcher(IDispatcher dispatcher)
 		{
@@ -34,7 +27,7 @@ namespace Chinook.DynamicMvvm
 				ThrowIfDisposed();
 			}
 
-			_dispatcher.SetTarget(dispatcher);
+			_dispatcher = dispatcher;
 
 			if (_isDisposing)
 			{

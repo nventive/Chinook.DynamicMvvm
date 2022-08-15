@@ -26,11 +26,9 @@ namespace Chinook.DynamicMvvm
 				return;
 			}
 
-			var viewModelView = GetDispatcher();
-
-			if (viewModelView != null && !viewModelView.GetHasDispatcherAccess())
+			if (Dispatcher != null && !Dispatcher.GetHasDispatcherAccess())
 			{
-				_ = viewModelView.ExecuteOnDispatcher(CancellationToken, () => RaisePropertyChangedInner(propertyName));
+				_ = Dispatcher.ExecuteOnDispatcher(CancellationToken, () => RaisePropertyChangedInner(propertyName));
 			}
 			else
 			{
