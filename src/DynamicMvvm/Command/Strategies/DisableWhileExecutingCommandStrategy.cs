@@ -18,9 +18,9 @@ namespace Chinook.DynamicMvvm
 	}
 
 	/// <summary>
-	/// This <see cref="DecoratorCommandStrategy"/> will disable the command while it's executing.
+	/// This <see cref="DelegatingCommandStrategy"/> will disable the command while it's executing.
 	/// </summary>
-	public class DisableWhileExecutingCommandStrategy : DecoratorCommandStrategy
+	public class DisableWhileExecutingCommandStrategy : DelegatingCommandStrategy
 	{
 		public int _isExecuting;
 

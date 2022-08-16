@@ -19,10 +19,10 @@ namespace Chinook.DynamicMvvm
 	}
 
 	/// <summary>
-	/// This <see cref="DecoratorCommandStrategy"/> will attach
+	/// This <see cref="DelegatingCommandStrategy"/> will attach
 	/// its <see cref="ICommand.CanExecute(object)"/> to the value of a <see cref="IDynamicProperty"/>.
 	/// </summary>
-	public class CanExecuteCommandStrategy : DecoratorCommandStrategy
+	public class CanExecuteCommandStrategy : DelegatingCommandStrategy
 	{
 		private readonly IDynamicProperty<bool> _canExecute;
 

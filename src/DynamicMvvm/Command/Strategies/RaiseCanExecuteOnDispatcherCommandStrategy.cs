@@ -9,7 +9,7 @@ namespace Chinook.DynamicMvvm
 	/// <summary>
 	/// This <see cref="IDynamicCommandStrategy"/> ensures that the <see cref="CanExecuteChanged"/> event is raised using <see cref="IDispatcher.ExecuteOnDispatcher(CancellationToken, Action)"/>.
 	/// </summary>
-	public class RaiseCanExecuteOnDispatcherCommandStrategy : DecoratorCommandStrategy
+	public class RaiseCanExecuteOnDispatcherCommandStrategy : DelegatingCommandStrategy
 	{
 		private readonly WeakReference<IViewModel> _viewModel;
 		private readonly CancellationTokenSource _cts = new CancellationTokenSource();

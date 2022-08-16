@@ -20,9 +20,9 @@ namespace Chinook.DynamicMvvm
 	}
 
 	/// <summary>
-	/// This <see cref="DecoratorCommandStrategy"/> will log the execution of the command.
+	/// This <see cref="DelegatingCommandStrategy"/> will log the execution of the command.
 	/// </summary>
-	public class LoggerCommandStrategy : DecoratorCommandStrategy
+	public class LoggerCommandStrategy : DelegatingCommandStrategy
 	{
 		private readonly ILogger _logger;
 

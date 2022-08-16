@@ -28,10 +28,10 @@ namespace Chinook.DynamicMvvm
 	}
 
 	/// <summary>
-	/// This <see cref="DecoratorCommandStrategy"/> will catch any exception
+	/// This <see cref="DelegatingCommandStrategy"/> will catch any exception
 	/// that may be thrown during its execution and delegate the exception to an error handler.
 	/// </summary>
-	public class ErrorHandlerCommandStrategy : DecoratorCommandStrategy
+	public class ErrorHandlerCommandStrategy : DelegatingCommandStrategy
 	{
 		private readonly IDynamicCommandErrorHandler _errorHandler;
 

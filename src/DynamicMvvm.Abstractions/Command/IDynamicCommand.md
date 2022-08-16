@@ -89,11 +89,11 @@ var myCommand = new DynamicCommand("MyCommandFromTaskWithParameter", myCommandSt
 Task ExecuteCommand(CancellationToken ct, int parameter) => Task.CompletedTask;
 ```
 
-### Strategy Decorators
+### Delegating Strategies
 
 `IDynamicCommandStrategy` can be decorated in order to add new logic to it.
 
-Here is a list of some decorators provided.
+Here is a list of some delegating strategies provided.
 
 - [BackgroundCommandStrategy](Implementations/Strategies/BackgroundCommandStrategy.cs) : Executes the command on a background thread.
 - [CanExecuteCommandStrategy](Implementations/Strategies/CanExecuteCommandStrategy.cs) : Attaches the `CanExecute` to the value of a `IDynamicProperty`.
@@ -116,35 +116,35 @@ var myCommand = new DynamicCommand("MyCommand", myStrategyWithLogs);
 void ExecuteCommand() { }
 ```
 
-You can create your own decorators by inheriting from `DecoratorCommandStrategy`.
+You can create your own strategies by inheriting from `DelegatingCommandStrategy`.
 
 ```csharp
-public class MyCustomCommandDecorator : DecoratorCommandStrategy
+public class MyCustomCommandStrategy : DelegatingCommandStrategy
 {
-  public MyCustomCommandDecorator(IDynamicCommandStrategy innerStrategy) : base(innerStrategy)
+  public MyCustomCommandStrategy(IDynamicCommandStrategy innerStrategy) : base(innerStrategy)
   { }
 
   public override bool CanExecute(object parameter, IDynamicCommand command)
   {
-    // Implement your custom decorator logic here.
+    // Implement your custom logic here.
     return base.CanExecute(parameter, command);
   }
 
   public override async Task Execute(CancellationToken ct, object parameter, IDynamicCommand command)
   {
-    // Implement your custom decorator logic here.
+    // Implement your custom logic here.
     base.Execute(ct, parameter, command);
   }
 }
 
-public static class MyCustomCommandDecoratorExtensions
+public static class MyCustomCommandStrategyExtensions
 {
-  public static IDynamicCommandStrategy WithMyCustomDecorator(this IDynamicCommandStrategy strategy)
-    => new MyCustomCommandDecorator(strategy);
+  public static IDynamicCommandStrategy WithMyCustomStrategy(this IDynamicCommandStrategy strategy)
+    => new MyCustomCommandStrategy(strategy);
 }
 
-// This will decorate the strategy with your custom decorator
-var myCommandWithMyCustomDecorator = myCommandStrategy.WithMyCustomDecorator();
+// This will decorate the strategy with your custom one.
+var myCommandWithMyCustomStrategy = myCommandStrategy.WithMyCustomStrategy();
 ```
 
 ### Command builder and factory

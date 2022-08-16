@@ -7,14 +7,16 @@ using System.Threading.Tasks;
 namespace Chinook.DynamicMvvm
 {
 	/// <summary>
-	/// This is a base implementation for <see cref="IDynamicCommandStrategy"/> decorators.
+	/// This delegates the functionalities of <see cref="IDynamicCommandStrategy"/> to an inner strategy.
+	/// You may override any member add customization.
+	/// This class is an homologue to <see cref="System.Net.Http.DelegatingHandler"/>.
 	/// </summary>
-	public abstract class DecoratorCommandStrategy : IDynamicCommandStrategy
+	public abstract class DelegatingCommandStrategy : IDynamicCommandStrategy
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="DecoratorCommandStrategy"/> class.
+		/// Initializes a new instance of the <see cref="DelegatingCommandStrategy"/> class.
 		/// </summary>
-		public DecoratorCommandStrategy()
+		public DelegatingCommandStrategy()
 		{
 		}
 

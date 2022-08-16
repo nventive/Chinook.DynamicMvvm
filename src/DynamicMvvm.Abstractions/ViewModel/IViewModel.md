@@ -167,7 +167,7 @@ public class MyViewModel : ViewModelBase
 
 You can decorate a `IDynamicCommand` from its definition.
 
-[Refer to this documention for more information on IDynamicCommand decorators](../Command/IDynamicCommand.md#decorators).
+[Refer to this documention for more information on IDynamicCommand strategies](../Command/IDynamicCommand.md#Delegating-Strategies).
 
 ```csharp
 public class MyViewModel : ViewModelBase
