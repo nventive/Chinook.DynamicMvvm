@@ -48,7 +48,15 @@
       /p:PackageVersion=$(GitVersion.SemVer) 
       /p:ContinuousIntegrationBuild=true
 
-- script: dotnet test --no-build --configuration $(ApplicationConfiguration) --logger trx --collect "Code coverage"
+- script: >
+    dotnet test $(Build.SourcesDirectory)/$(SolutionFileName)
+    /p:Configuration=$(ApplicationConfiguration)
+    /p:CollectCoverage=true 
+    /p:CoverletOutputFormat=cobertura
+    /p:CoverletOutput=$(Build.SourcesDirectory)/coverage
+    /p:ExcludeByFile="**/*.g.cs"
+    --logger trx
+    --no-build
   displayName: 'Run tests'
   condition: and(succeeded(), eq(variables['ApplicationPlatform'], 'NuGet'))
 
@@ -58,6 +66,13 @@
   inputs:
     testRunner: VSTest
     testResultsFiles: '**/*.trx'
+
+- task: PublishCodeCoverageResults@1
+  displayName: Publish code coverage report
+  condition: and(succeededOrFailed(), eq(variables['ApplicationPlatform'], 'NuGet'))
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: "$(Build.SourcesDirectory)/coverage.cobertura.xml"
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish artifact $(ApplicationConfiguration)'
