@@ -18,9 +18,9 @@ namespace Chinook.DynamicMvvm
 	}
 
 	/// <summary>
-	/// This <see cref="DecoratorCommandStrategy"/> will cancel the previous command execution when executing the command.
+	/// This <see cref="DelegatingCommandStrategy"/> will cancel the previous command execution when executing the command.
 	/// </summary>
-	public class CancelPreviousCommandStrategy : DecoratorCommandStrategy
+	public class CancelPreviousCommandStrategy : DelegatingCommandStrategy
 	{
 		private CancellationTokenSource _cancellationTokenSource;
 

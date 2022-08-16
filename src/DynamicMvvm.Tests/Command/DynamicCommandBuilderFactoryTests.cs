@@ -71,7 +71,7 @@ namespace Chinook.DynamicMvvm.Tests.Command
 		[Fact]
 		public async Task It_Decorates_Using_Global()
 		{
-			var decoratorCalled = false;
+			var configurationCalled = false;
 
 			var factory = new DynamicCommandBuilderFactory(Configure);
 
@@ -79,11 +79,11 @@ namespace Chinook.DynamicMvvm.Tests.Command
 
 			await command.Execute();
 
-			decoratorCalled.Should().BeTrue();
+			configurationCalled.Should().BeTrue();
 
 			IDynamicCommandBuilder Configure(IDynamicCommandBuilder builder)
 			{
-				decoratorCalled = true;
+				configurationCalled = true;
 				return builder;
 			}
 		}
@@ -178,7 +178,7 @@ namespace Chinook.DynamicMvvm.Tests.Command
 
 		private class TestParameter { }
 
-		private class TestStrategy : DecoratorCommandStrategy
+		private class TestStrategy : DelegatingCommandStrategy
 		{
 			private readonly Action _testAction;
 

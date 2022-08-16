@@ -17,7 +17,7 @@ namespace Chinook.DynamicMvvm
 		/// <param name="strategy">The strategy to add.</param>
 		/// <param name="wrapExisting">When true, the <paramref name="strategy"/> is added at the start of the list, so that it wraps all existing strategies already present in the list.</param>
 		/// <returns><see cref="IDynamicCommandBuilder"/></returns>
-		public static IDynamicCommandBuilder WithStrategy(this IDynamicCommandBuilder builder, DecoratorCommandStrategy strategy, bool wrapExisting = false)
+		public static IDynamicCommandBuilder WithStrategy(this IDynamicCommandBuilder builder, DelegatingCommandStrategy strategy, bool wrapExisting = false)
 		{
 			if (wrapExisting)
 			{

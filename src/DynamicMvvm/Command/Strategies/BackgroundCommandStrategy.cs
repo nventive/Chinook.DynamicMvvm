@@ -18,9 +18,9 @@ namespace Chinook.DynamicMvvm
 	}
 
 	/// <summary>
-	/// This <see cref="DecoratorCommandStrategy"/> will execute the command on a background thread.
+	/// This <see cref="DelegatingCommandStrategy"/> will execute the command on a background thread.
 	/// </summary>
-	public class BackgroundCommandStrategy : DecoratorCommandStrategy
+	public class BackgroundCommandStrategy : DelegatingCommandStrategy
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="BackgroundCommandStrategy"/> class.

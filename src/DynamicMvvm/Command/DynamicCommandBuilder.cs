@@ -40,7 +40,7 @@ namespace Chinook.DynamicMvvm
 		public IDynamicCommandStrategy BaseStrategy { get; }
 
 		/// <inheritdoc/>
-		public IList<DecoratorCommandStrategy> Strategies { get; set; } = new List<DecoratorCommandStrategy>();
+		public IList<DelegatingCommandStrategy> Strategies { get; set; } = new List<DelegatingCommandStrategy>();
 
 		/// <inheritdoc/>
 		public IDynamicCommand Build()
@@ -56,7 +56,7 @@ namespace Chinook.DynamicMvvm
 			return _command;
 		}
 
-		private static IDynamicCommandStrategy GetStrategy(IDynamicCommandStrategy baseStrategy, IList<DecoratorCommandStrategy> delegatingStrategies)
+		private static IDynamicCommandStrategy GetStrategy(IDynamicCommandStrategy baseStrategy, IList<DelegatingCommandStrategy> delegatingStrategies)
 		{
 			var strategy = baseStrategy;
 

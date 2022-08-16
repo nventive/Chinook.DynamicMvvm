@@ -19,9 +19,9 @@ namespace Chinook.DynamicMvvm
 	}
 
 	/// <summary>
-	/// This <see cref="DecoratorCommandStrategy"/> will skip executions if the command is already executing.
+	/// This <see cref="DelegatingCommandStrategy"/> will skip executions if the command is already executing.
 	/// </summary>
-	public class SkipWhileExecutingCommandStrategy : DecoratorCommandStrategy
+	public class SkipWhileExecutingCommandStrategy : DelegatingCommandStrategy
 	{
 		public int _isExecuting;
 

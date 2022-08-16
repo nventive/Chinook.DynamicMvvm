@@ -33,7 +33,7 @@ namespace Chinook.DynamicMvvm
 		/// The list of strategies that will decorate the <see cref="BaseStrategy"/>.
 		/// The order is important: the first strategy wraps the second, which wraps the third and so on.
 		/// </summary>
-		IList<DecoratorCommandStrategy> Strategies { get; set; }
+		IList<DelegatingCommandStrategy> Strategies { get; set; }
 
 		/// <summary>
 		/// Creates a new instance of <see cref="IDynamicCommand"/>

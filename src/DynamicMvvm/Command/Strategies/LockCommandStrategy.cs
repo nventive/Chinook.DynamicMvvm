@@ -18,9 +18,9 @@ namespace Chinook.DynamicMvvm
 	}
 
 	/// <summary>
-	/// This <see cref="DecoratorCommandStrategy"/> will lock the command execution.
+	/// This <see cref="DelegatingCommandStrategy"/> will lock the command execution.
 	/// </summary>
-	public class LockCommandStrategy : DecoratorCommandStrategy
+	public class LockCommandStrategy : DelegatingCommandStrategy
 	{
 		private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
