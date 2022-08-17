@@ -1,6 +1,6 @@
 ﻿# The version is driven by conventional commits via xxx-version-bump-message.
 # Anything merged to master creates a new stable version.
-# Only builds from master and featre/* are pushed to nuget.org.
+# Only builds from master and feature/* are pushed to nuget.org.
 
 assembly-versioning-scheme: MajorMinorPatch
 mode: ContinuousDeployment

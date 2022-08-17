@@ -3,7 +3,7 @@ GitHub Issue: #
      All PRs should be associated with an issue -->
 
 ## Proposed Changes
-<!-- Please check on or more that apply to this PR. -->
+<!-- Please check one or more that apply to this PR. -->
 
  - [ ] Bug fix
  - [ ] Feature
@@ -21,7 +21,7 @@ GitHub Issue: #
 <!-- Please describe the new behavior after your modifications. -->
 
 ## Impact on version
-<!-- Please select on or more based on your commits. -->
+<!-- Please select one or more based on your commits. -->
 
 - [ ] **Major** (Public API was modified.)
   - Public constructs (class, struct, delegate, enum, etc.) were removed or renamed.
@@ -30,12 +30,12 @@ GitHub Issue: #
 - [ ] **Minor** (Public API was extended)
   - Public constructs, members, or overloads were added.
 - [ ] **Patch** (Public API was unchanged.)
-  - A bug in behavior was changed.
+  - A bug in behavior was fixed.
   - Documentation was changed.
 
 ## Checklist
 
-Please check if your PR fulfills the following requirements:
+Please check that your PR fulfills the following requirements:
 
 - [ ] Documentation has been added/updated.
 - [ ] Automated Unit / Integration tests for the changes have been added/updated.
