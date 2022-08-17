@@ -1,23 +1,21 @@
-﻿assembly-versioning-scheme: MajorMinorPatch
+﻿# The version is driven by conventional commits via xxx-version-bump-message.
+# Anything merged to master creates a new stable version.
+# Only builds from master and feature/* are pushed to nuget.org.
+
+assembly-versioning-scheme: MajorMinorPatch
 mode: ContinuousDeployment
-next-version: 0.11.0
+next-version: 0.12.0
 continuous-delivery-fallback-tag: ""
+commit-message-incrementing: Enabled
+major-version-bump-message: "^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\\([\\w\\s-]*\\))?(!:|:.*\\n\\n((.+\\n)+\\n)?BREAKING CHANGE:\\s.+)"
+minor-version-bump-message: "^(feat)(\\([\\w\\s-]*\\))?:"
+patch-version-bump-message: "^(build|chore|ci|docs|fix|perf|refactor|revert|style|test)(\\([\\w\\s-]*\\))?:"
 increment: none # Disabled as it is not used. Saves time on the GitVersion step
 branches:
   master:
-    regex: master
-    tag: dev
-    increment: none
-  beta:
-    regex: release/beta/
-    tag: beta
-    increment: none
-    source-branches: [master]
-  stable:
-    regex: release/stable/
+    regex: ^master$|^main$
     tag: ''
     increment: none
-    source-branches: [master]
   dev:
     regex: dev/.*?/(.*?)
     tag: dev.{BranchName}
@@ -25,7 +23,7 @@ branches:
   feature:
     tag: feature.{BranchName}
     regex: feature/(.*?)
-    source-branches: ['master']
+    source-branches: [master]
     increment: none
 ignore:
   sha: []
