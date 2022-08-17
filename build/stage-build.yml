@@ -1,34 +1,36 @@
 ﻿steps:
-## Install .netcore runtime required by GitVersion@5
-- task: UseDotNet@2
-  inputs:
-    packageType: 'runtime'
-    version: '2.1.0'
-    installationPath: '$(Agent.ToolsDirectory)/dotnet'
 
-- task: GitVersion@5
+- task: gitversion/setup@0
   inputs:
-    runtime: 'core'
+    versionSpec: '5.10.1'
+  displayName: 'Install GitVersion'
+
+- task: gitversion/execute@0
+  inputs:
     useConfigFile: true
-    configFilePath: build/gitversion.yml
+    configFilePath: $(Build.SourcesDirectory)/build/gitversion.yml
   displayName: 'Calculate version'
 
-- task: NuGetToolInstaller@1
-  displayName: 'Install NuGet $(NUGET_VERSION)'
+- task: NuGetAuthenticate@1
   inputs:
-    versionSpec: $(NUGET_VERSION)
-    checkLatest: false
-
-- task: NuGetCommand@2
+    forceReinstallCredentialProvider: true
+    
+- task: MSBuild@1
   displayName: 'Restore solution packages'
   inputs:
-    command: restore
     solution: $(Build.SourcesDirectory)/$(SolutionFileName)
-    selectOrConfig: select
-    feedRestore: nventive
-    includeNuGetOrg: true
-    verbosityRestore: Normal
-    noCache: true
+    msbuildLocationMethod: version
+    msbuildVersion: latest
+    msbuildArchitecture: x86
+    msbuildArguments: >
+      /t:restore
+    configuration: $(ApplicationConfiguration)
+    platform: $(ApplicationPlatform)
+    clean: false
+    maximumCpuCount: true
+    restoreNugetPackages: false
+    logProjectEvents: false
+    createLogFile: false
 
 - task: MSBuild@1
   displayName: 'Build solution in $(ApplicationConfiguration) | $(ApplicationPlatform)'
