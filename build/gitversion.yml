@@ -13,7 +13,7 @@ patch-version-bump-message: "^(build|chore|ci|docs|fix|perf|refactor|revert|styl
 increment: none # Disabled as it is not used. Saves time on the GitVersion step
 branches:
   master:
-    regex: master
+    regex: ^master$|^main$
     tag: ''
     increment: none
   dev:
@@ -23,7 +23,7 @@ branches:
   feature:
     tag: feature.{BranchName}
     regex: feature/(.*?)
-    source-branches: ['master']
+    source-branches: [master]
     increment: none
 ignore:
   sha: []
