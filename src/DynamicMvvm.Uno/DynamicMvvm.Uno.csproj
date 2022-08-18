@@ -10,15 +10,26 @@
 		<Company>nventive</Company>
 		<AssemblyName>Chinook.DynamicMvvm.Uno</AssemblyName>
 		<PackageId>Chinook.DynamicMvvm.Uno</PackageId>
-		<Description>Chinook.DynamicMvvm.Uno</Description>
+		<Description>Chinook.DynamicMvvm is a collection of extensible MVVM libraries for declarative ViewModels.</Description>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageTags>mvvm;xamarin;ios;android;uwp;chinook</PackageTags>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/nventive/Chinook.DynamicMvvm</PackageProjectUrl>
 
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-  </PropertyGroup>
+	</PropertyGroup>
 
+	<ItemGroup>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+	
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
     <DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
   </PropertyGroup>
