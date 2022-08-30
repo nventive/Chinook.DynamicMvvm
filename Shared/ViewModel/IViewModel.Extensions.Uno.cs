@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Windows.UI.Xaml;
+#if WINUI
+using Microsoft.UI.Xaml;
+#endif
 
 namespace Chinook.DynamicMvvm
 {
