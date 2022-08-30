@@ -4,6 +4,7 @@
 		<TargetFrameworks Condition="'$([MSBuild]::IsOsPlatform(OSX))'">netstandard2.0;xamarinios10;</TargetFrameworks>
 		<TargetFrameworks Condition="'!$([MSBuild]::IsOsPlatform(OSX))'">netstandard2.0;xamarinios10;monoandroid11.0;monoandroid12.0;uap10.0.19041</TargetFrameworks>
 		<LangVersion>10.0</LangVersion>
+		<TargetPlatformVersion>10.0.18362.0</TargetPlatformVersion>
     <!-- Ensures the .xr.xml files are generated in a proper layout folder -->
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>
 		<RootNamespace>Chinook.DynamicMvvm</RootNamespace>
@@ -23,6 +24,7 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<DefineConstants>$(DefineConstants);WINUI</DefineConstants>
+		<Platforms>AnyCPU;x86;x64</Platforms>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -46,7 +48,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DynamicMvvm.Abstractions\DynamicMvvm.Abstractions.csproj" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.UI.Xaml" Version="2.8.1" />
   </ItemGroup>
 
   <Import Project="..\..\Shared\Shared.projitems" Label="Shared" />

@@ -1,5 +1,8 @@
 ﻿using System;
 using Windows.UI.Xaml;
+#if WINUI
+using Microsoft.UI.Xaml;
+#endif
 
 namespace Chinook.DynamicMvvm
 {
