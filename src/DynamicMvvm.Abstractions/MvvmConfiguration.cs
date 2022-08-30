@@ -17,12 +17,12 @@ namespace Chinook.DynamicMvvm
 		/// </summary>
 		public static ILoggerFactory LoggerFactory { get; set; } = new NullLoggerFactory();
 
-		internal static ILogger<T> Log<T>(this T _)
+		public static ILogger<T> Log<T>(this T _)
 		{
 			return LoggerFactory.CreateLogger<T>();
 		}
 
-		internal static ILogger Log(this Type type)
+		public static ILogger Log(this Type type)
 		{
 			return LoggerFactory.CreateLogger(type);
 		}
