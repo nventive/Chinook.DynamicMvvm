@@ -10,9 +10,5 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)PreserveAttribute.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\BatchingCoreDispatcherDispatcher.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\CoreDispatcherDispatcher.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\DispatcherFactory.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\IViewModel.Extensions.Uno.cs" />
   </ItemGroup>
 </Project>

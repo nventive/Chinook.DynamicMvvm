@@ -1,14 +1,10 @@
-﻿using System;
-using Windows.UI.Xaml;
-#if WINUI
-using Microsoft.UI.Xaml;
-#endif
+﻿using Microsoft.UI.Xaml;
 
 namespace Chinook.DynamicMvvm
 {
 	/// <summary>
 	/// This is the default implementation of <see cref="IDispatcherFactory"/>.
-	/// It uses the <see cref="CoreDispatcherDispatcher"/> implementation by default.
+	/// It uses the <see cref="DispatcherQueueDispatcher"/> implementation by default.
 	/// </summary>
 	[Preserve(AllMembers = true)]
 	public class DispatcherFactory : IDispatcherFactory
@@ -20,11 +16,11 @@ namespace Chinook.DynamicMvvm
 		/// </summary>
 		/// <param name="createDispatcher">
 		/// The optional method to use to generate the <see cref="IDispatcher"/>.
-		/// When not provided, a method using the <see cref="CoreDispatcherDispatcher"/> implementation is used.
+		/// When not provided, a method using the <see cref="DispatcherQueueDispatcher"/> implementation is used.
 		/// </param>
 		public DispatcherFactory(CreateDispatcher createDispatcher = null)
 		{
-			_createDispatcher = createDispatcher ?? CreateFromCoreDispatcher;
+			_createDispatcher = createDispatcher ?? CreateFromDispatcherQueue;
 		}
 
 		/// <inheritdoc/>
@@ -33,9 +29,9 @@ namespace Chinook.DynamicMvvm
 			return _createDispatcher(view);
 		}
 
-		private IDispatcher CreateFromCoreDispatcher(object view)
+		private IDispatcher CreateFromDispatcherQueue(object view)
 		{
-			return new CoreDispatcherDispatcher((FrameworkElement)view);
+			return new DispatcherQueueDispatcher((FrameworkElement)view);
 		}
 	}
 
