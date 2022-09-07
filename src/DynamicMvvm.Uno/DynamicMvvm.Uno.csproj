@@ -4,7 +4,7 @@
 		<TargetFrameworks Condition="'$([MSBuild]::IsOsPlatform(OSX))'">netstandard2.0;xamarinios10;</TargetFrameworks>
 		<TargetFrameworks Condition="'!$([MSBuild]::IsOsPlatform(OSX))'">netstandard2.0;xamarinios10;monoandroid11.0;monoandroid12.0;uap10.0.19041</TargetFrameworks>
 		<LangVersion>10.0</LangVersion>
-    <!-- Ensures the .xr.xml files are generated in a proper layout folder -->
+		<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>
 		<RootNamespace>Chinook.DynamicMvvm</RootNamespace>
 		<Authors>nventive</Authors>
