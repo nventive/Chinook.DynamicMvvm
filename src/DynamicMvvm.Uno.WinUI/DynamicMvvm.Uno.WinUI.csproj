@@ -24,6 +24,13 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<DefineConstants>$(DefineConstants);WINUI</DefineConstants>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 	
 	<ItemGroup>
 		<PackageReference Include="MSBuild.Sdk.Extras" Version="3.0.44">
