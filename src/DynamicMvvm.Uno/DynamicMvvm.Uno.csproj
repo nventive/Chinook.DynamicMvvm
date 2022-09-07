@@ -46,12 +46,6 @@
     <ProjectReference Include="..\DynamicMvvm.Abstractions\DynamicMvvm.Abstractions.csproj" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Xamarin.iOS">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\Xamarin.iOS\v1.0\Xamarin.iOS.dll</HintPath>
-    </Reference>
-  </ItemGroup>
   
   <Import Project="..\..\Shared\Shared.projitems" Label="Shared" />
 </Project>
