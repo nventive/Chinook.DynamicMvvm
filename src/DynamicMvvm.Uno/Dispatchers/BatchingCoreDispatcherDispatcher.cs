@@ -5,9 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
-#if WINUI
-using Microsoft.UI.Xaml;
-#endif
 
 namespace Chinook.DynamicMvvm
 {

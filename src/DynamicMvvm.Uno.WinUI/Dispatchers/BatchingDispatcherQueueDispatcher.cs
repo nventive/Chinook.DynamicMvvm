@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Windows.UI.Core;
-using Windows.UI.Xaml;
 using Microsoft.UI.Dispatching;
-#if WINUI
 using Microsoft.UI.Xaml;
-#endif
 
 namespace Chinook.DynamicMvvm
 {
 	/// <summary>
-	/// This implementation of <see cref="IDispatcher"/> batches its operations to reduce the call count of <see cref="DispatcherQueue.RunAsync"/>.<br/>
+	/// This implementation of <see cref="IDispatcher"/> batches its operations to reduce the call count of <see cref="DispatcherQueue.TryEnqueue"/>.<br/>
 	/// When <see cref="ExecuteOnDispatcher"/> is invoked, the dispatcher operation is delayed by a small duration during which other <see cref="ExecuteOnDispatcher"/> invocations that may occur are accumulated.
-	/// After that short delay, all accumulated actions are executed within the same <see cref="DispatcherQueue.RunAsync"/>.
+	/// After that short delay, all accumulated actions are executed within the same <see cref="DispatcherQueue.TryEnqueue"/>.
 	/// </summary>
 	public class BatchingDispatcherQueueDispatcher : IDispatcher
 	{
@@ -27,7 +23,7 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Initializes a new instance of the <see cref="BatchingDispatcherQueueDispatcher"/> class.
 		/// </summary>
-		/// <param name="frameworkElement">The <see cref="FrameworkElement"/> from which to retrieve the <see cref="CoreDispatcher"/>.</param>
+		/// <param name="frameworkElement">The <see cref="FrameworkElement"/> from which to retrieve the <see cref="DispatcherQueue"/>.</param>
 		/// <param name="throttleDurationMs">The amount of time during which the batching accumulation occurs.</param>
 		public BatchingDispatcherQueueDispatcher(FrameworkElement frameworkElement, int throttleDurationMs = 10)
 		{
