@@ -27,11 +27,14 @@ GitHub Issue: #
   - Public constructs (class, struct, delegate, enum, etc.) were removed or renamed.
   - Public members were removed or renamed.
   - Public method signatures were changed or renamed.
-- [ ] **Minor** (Public API was extended)
+- [ ] **Minor** (Public API was extended.)
   - Public constructs, members, or overloads were added.
 - [ ] **Patch** (Public API was unchanged.)
   - A bug in behavior was fixed.
   - Documentation was changed.
+- [ ] **None** (The library is unchanged.)
+  - Only code under the `build` folder was changed.
+  - Only code under the `.github` folder was changed.
 
 ## Checklist
 
@@ -40,7 +43,7 @@ Please check that your PR fulfills the following requirements:
 - [ ] Documentation has been added/updated.
 - [ ] Automated Unit / Integration tests for the changes have been added/updated.
 - [ ] Updated [BREAKING_CHANGES.md](../BREAKING_CHANGES.md) (if you introduced a breaking change).
-- [ ] You conventional commit are aligned with the **Impact on version** section.
+- [ ] Your conventional commits are aligned with the **Impact on version** section.
 
 <!-- If this PR contains a breaking change, please describe the impact
      and migration path for existing applications below. -->
