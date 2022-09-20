@@ -20,8 +20,8 @@
   inputs:
     command: 'custom'
     custom: 'workload'
-    arguments: 'install android'
-
+    arguments: 'install android ios'
+    
 - task: MSBuild@1
   displayName: 'Restore solution packages'
   inputs:
