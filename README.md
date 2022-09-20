@@ -103,7 +103,7 @@ public MainPage()
 }
 ```
 #### Dispatcher Queue for WinUI
-When using the WinUI package, the Dispatcher given should be of type `DispatcherQueue`
+When using the WinUI package, the `CoreDispatcher` doesn't exist, so to answer this change, we are now using `DispatcherQueue` which is the equivalence of the dispatcher used prior. The implementation name has now been changed for the WinUI setup.
 ```csharp
 public MainPage()
 {
