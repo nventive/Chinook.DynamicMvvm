@@ -1,0 +1,55 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
+	<PropertyGroup>
+		<!-- Change the TargetFrameworks depending on which platform you are building on. This avoids errors as it is impossible to build UAP on OSX (MacOS) -->
+		<TargetFrameworks Condition="'$([MSBuild]::IsOsPlatform(OSX))'">netstandard2.0;net6.0-ios;net6.0-maccatalyst;net6.0-macos</TargetFrameworks>
+		<TargetFrameworks Condition="'!$([MSBuild]::IsOsPlatform(OSX))'">net6.0-windows10.0.18362;netstandard2.0;net6.0-android</TargetFrameworks>
+		<LangVersion>10.0</LangVersion>
+		<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
+		<GenerateLibraryLayout>true</GenerateLibraryLayout>
+		<RootNamespace>Chinook.DynamicMvvm</RootNamespace>
+		<Authors>nventive</Authors>
+		<Company>nventive</Company>
+		<AssemblyName>Chinook.DynamicMvvm.Uno.WinUI</AssemblyName>
+		<PackageId>Chinook.DynamicMvvm.Uno.WinUI</PackageId>
+		<Description>Chinook.DynamicMvvm is a collection of extensible MVVM libraries for declarative ViewModels.</Description>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageTags>mvvm;xamarin;ios;android;uwp;chinook</PackageTags>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/nventive/Chinook.DynamicMvvm</PackageProjectUrl>
+
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<DefineConstants>$(DefineConstants);WINUI</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="MSBuild.Sdk.Extras" Version="3.0.44">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Uno.WinUI" Version="4.0.7" />
+	</ItemGroup>
+	
+	<ItemGroup Condition="'$(TargetFramework)'=='net6.0-windows10.0.18362'">
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.0" />
+		<FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.22000.24" />
+		<FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" TargetingPackVersion="10.0.22000.24" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<ProjectReference Include="..\DynamicMvvm.Abstractions\DynamicMvvm.Abstractions.csproj" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+	</ItemGroup>
+	
+	<Import Project="..\..\Shared\Shared.projitems" Label="Shared" />
+</Project>

@@ -15,6 +15,13 @@
   inputs:
     forceReinstallCredentialProvider: true
     
+- task: DotNetCoreCLI@2
+  displayName: 'Install dotnet 6 workloads'
+  inputs:
+    command: 'custom'
+    custom: 'workload'
+    arguments: 'install android'
+
 - task: MSBuild@1
   displayName: 'Restore solution packages'
   inputs:
