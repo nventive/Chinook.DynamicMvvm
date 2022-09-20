@@ -102,6 +102,19 @@ public MainPage()
     };
 }
 ```
+#### Dispatcher Queue for WinUI
+When using the WinUI package, the Dispatcher given should be of type `DispatcherQueue`
+```csharp
+public MainPage()
+{
+    this.InitializeComponent();
+    DataContext = new MainPageViewModel()
+    {
+        Dispatcher = new DispatcherQueueDispatcher(this)
+    };
+}
+```
+
 ### Create simple properties
 Using `IViewModel.Get`, you can declare ViewModel properties that will raise the `INotifyPropertyChanged.PropertyChanged` event of the ViewModel when set.
 Under the hood, an `IDynamicProperty` is lazy-initialized.
