@@ -4,3 +4,4 @@
 [assembly: InternalsVisibleTo("Chinook.DynamicMvvm.FluentValidation")]
 [assembly: InternalsVisibleTo("Chinook.DynamicMvvm.Reactive")]
 [assembly: InternalsVisibleTo("Chinook.DynamicMvvm.Uno")]
+[assembly: InternalsVisibleTo("Chinook.DynamicMvvm.Uno.WinUI")]

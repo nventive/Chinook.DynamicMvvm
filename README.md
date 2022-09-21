@@ -102,6 +102,19 @@ public MainPage()
     };
 }
 ```
+#### Dispatcher Queue for WinUI
+When using the WinUI package, the `CoreDispatcher` doesn't exist, so to answer this change, we are now using `DispatcherQueue` which is the equivalence of the dispatcher used prior. The implementation name has now been changed for the WinUI setup.
+```csharp
+public MainPage()
+{
+    this.InitializeComponent();
+    DataContext = new MainPageViewModel()
+    {
+        Dispatcher = new DispatcherQueueDispatcher(this)
+    };
+}
+```
+
 ### Create simple properties
 Using `IViewModel.Get`, you can declare ViewModel properties that will raise the `INotifyPropertyChanged.PropertyChanged` event of the ViewModel when set.
 Under the hood, an `IDynamicProperty` is lazy-initialized.

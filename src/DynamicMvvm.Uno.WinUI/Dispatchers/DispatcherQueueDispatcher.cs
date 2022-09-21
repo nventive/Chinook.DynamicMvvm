@@ -1,51 +1,50 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Windows.UI.Xaml;
 using Windows.UI.Core;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System.Threading;
+using Microsoft.UI.Dispatching;
+using Microsoft.UI.Xaml;
 
 namespace Chinook.DynamicMvvm
 {
 	/// <summary>
-	/// This implementation of <see cref="IDispatcher"/> uses <see cref="CoreDispatcher"/>.
+	/// This implementation of <see cref="IDispatcher"/> uses <see cref="DispatcherQueue"/>.
 	/// </summary>
-	public class CoreDispatcherDispatcher : IDispatcher
+	public class DispatcherQueueDispatcher : IDispatcher
 	{
-		private readonly CoreDispatcher _coreDispatcher;
-
+		private readonly DispatcherQueue _dispatcherQueue;
+		
 		/// <summary>
-		/// Initializes a new instance of the <see cref="CoreDispatcherDispatcher"/> class.
+		/// Initializes a new instance of the <see cref="DispatcherQueueDispatcher"/> class.
 		/// </summary>
 		/// <param name="frameworkElement">The <see cref="FrameworkElement"/> from which to retrieve the <see cref="CoreDispatcher"/>.</param>
-		public CoreDispatcherDispatcher(FrameworkElement frameworkElement)
+		public DispatcherQueueDispatcher(FrameworkElement frameworkElement)
 		{
 			if (frameworkElement is null)
 			{
 				throw new ArgumentNullException(nameof(frameworkElement));
 			}
 
-			_coreDispatcher = frameworkElement.Dispatcher;
+			_dispatcherQueue = frameworkElement.DispatcherQueue;
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="CoreDispatcherDispatcher"/> class.
+		/// Initializes a new instance of the <see cref="DispatcherQueueDispatcher"/> class.
 		/// </summary>
-		/// <param name="coreDispatcher">The <see cref="CoreDispatcher"/>.</param>
-		public CoreDispatcherDispatcher(CoreDispatcher coreDispatcher)
+		/// <param name="dispatcherQueue">The <see cref="DispatcherQueue"/>.</param>
+		public DispatcherQueueDispatcher(DispatcherQueue dispatcherQueue)
 		{
-			if (coreDispatcher is null)
+			if (dispatcherQueue is null)
 			{
-				throw new ArgumentNullException(nameof(coreDispatcher));
+				throw new ArgumentNullException(nameof(dispatcherQueue));
 			}
 
-			_coreDispatcher = coreDispatcher;
+			_dispatcherQueue = dispatcherQueue;
 		}
 
 		/// <inheritdoc />
-		public bool GetHasDispatcherAccess() => _coreDispatcher.HasThreadAccess;
+		public bool GetHasDispatcherAccess() => _dispatcherQueue.HasThreadAccess;
 
 		/// <inheritdoc />
 		public async Task ExecuteOnDispatcher(CancellationToken ct, Action action)
@@ -56,7 +55,7 @@ namespace Chinook.DynamicMvvm
 				return;
 			}
 
-			await _coreDispatcher.RunAsync(CoreDispatcherPriority.High, () =>
+			_dispatcherQueue.TryEnqueue(DispatcherQueuePriority.High, () =>
 			{
 				try
 				{

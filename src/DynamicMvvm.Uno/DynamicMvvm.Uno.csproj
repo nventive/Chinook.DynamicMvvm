@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
+﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
   <PropertyGroup>
 		<!-- Change the TargetFrameworks depending on which platform you are building on. This avoids errors as it is impossible to build UAP on OSX (MacOS) -->
 		<TargetFrameworks Condition="'$([MSBuild]::IsOsPlatform(OSX))'">netstandard2.0;xamarinios10;</TargetFrameworks>
@@ -13,7 +13,7 @@
 		<Description>Chinook.DynamicMvvm is a collection of extensible MVVM libraries for declarative ViewModels.</Description>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageTags>mvvm;xamarin;ios;android;uwp;chinook</PackageTags>
+		<PackageTags>mvvm;xamarin;ios;android;uwp;chinook;maui;winui;</PackageTags>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/nventive/Chinook.DynamicMvvm</PackageProjectUrl>
 
@@ -35,11 +35,14 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='xamarinios10' or '$(TargetFramework)'=='monoandroid11.0' or '$(TargetFramework)'=='monoandroid12.0' or '$(TargetFramework)'=='netstandard2.0'">
-    <PackageReference Include="Uno.UI" Version="4.0.7" />
+	<PackageReference Include="Uno.UI" Version="4.0.7" />
+	<PackageReference Include="Uno.SourceGenerationTasks" Version="4.1.0-dev.9" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DynamicMvvm.Abstractions\DynamicMvvm.Abstractions.csproj" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
+  
+  <Import Project="..\..\Shared\Shared.projitems" Label="Shared" />
 </Project>
