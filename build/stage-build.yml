@@ -20,7 +20,7 @@
   inputs:
     command: 'custom'
     custom: 'workload'
-    arguments: 'install android ios'
+    arguments: 'install android ios macos maccatalyst'
     
 - task: MSBuild@1
   displayName: 'Restore solution packages'

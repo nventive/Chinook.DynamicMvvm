@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-windows10.0.18362;netstandard2.0;net6.0-android;net6.0-ios;</TargetFrameworks>
+		<TargetFrameworks>net6.0-windows10.0.18362;netstandard2.0;net6.0-android;net6.0-ios;net6.0-macos;net6.0-maccatalyst;</TargetFrameworks>
 		<LangVersion>10.0</LangVersion>
 		<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>
@@ -31,10 +31,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="MSBuild.Sdk.Extras" Version="3.0.44">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-		</PackageReference>
+		<PackageReference Include="MSBuild.Sdk.Extras" Version="3.0.44" />
 		<PackageReference Include="Uno.WinUI" Version="4.4.13" />
 		<PackageReference Include="Uno.SourceGenerationTasks" Version="4.1.0-dev.9" />
 	</ItemGroup>
