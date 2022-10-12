@@ -13,10 +13,11 @@
 		<Description>Chinook.DynamicMvvm is a collection of extensible MVVM libraries for declarative ViewModels.</Description>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageTags>mvvm;xamarin;ios;android;uwp;chinook;maui;winui;</PackageTags>
+		<PackageTags>mvvm;xamarin;ios;android;uwp;chinook;</PackageTags>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/nventive/Chinook.DynamicMvvm</PackageProjectUrl>
 
+		<!--Needed for Source Link support -->
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<IncludeSymbols>true</IncludeSymbols>
@@ -30,19 +31,23 @@
 		</None>
 	</ItemGroup>
 	
-  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-    <DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+		<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
+	</PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='xamarinios10' or '$(TargetFramework)'=='monoandroid11.0' or '$(TargetFramework)'=='monoandroid12.0' or '$(TargetFramework)'=='netstandard2.0'">
-	<PackageReference Include="Uno.UI" Version="4.0.7" />
-	<PackageReference Include="Uno.SourceGenerationTasks" Version="4.1.0-dev.9" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)'=='xamarinios10' or '$(TargetFramework)'=='monoandroid11.0' or '$(TargetFramework)'=='monoandroid12.0' or '$(TargetFramework)'=='netstandard2.0'">
+		<PackageReference Include="Uno.UI" Version="4.0.7" />
+		<PackageReference Include="Uno.SourceGenerationTasks" Version="4.1.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DynamicMvvm.Abstractions\DynamicMvvm.Abstractions.csproj" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\DynamicMvvm.Abstractions\DynamicMvvm.Abstractions.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!--Needed for Source Link support -->
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+	</ItemGroup>
   
-  <Import Project="..\..\Shared\Shared.projitems" Label="Shared" />
+	<Import Project="..\..\Shared\Shared.projitems" Label="Shared" />
 </Project>

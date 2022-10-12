@@ -15,12 +15,13 @@
 		<PackageTags>mvvm;ios;android;chinook;maui;winui;</PackageTags>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/nventive/Chinook.DynamicMvvm</PackageProjectUrl>
+		<DefineConstants>$(DefineConstants);WINUI</DefineConstants>
 
+		<!--Needed for Source Link support -->
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<DefineConstants>$(DefineConstants);WINUI</DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -32,7 +33,16 @@
 	
 	<ItemGroup>
 		<PackageReference Include="Uno.WinUI" Version="4.4.13" />
-		<PackageReference Include="Uno.SourceGenerationTasks" Version="4.1.0-dev.9" />
+		<PackageReference Include="Uno.SourceGenerationTasks" Version="4.1.0" />
+	</ItemGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+		<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!--Needed for Source Link support -->
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
 	
 	<ItemGroup Condition="'$(TargetFramework)'=='net6.0-windows10.0.18362'">
@@ -43,7 +53,6 @@
 	
 	<ItemGroup>
 		<ProjectReference Include="..\DynamicMvvm.Abstractions\DynamicMvvm.Abstractions.csproj" />
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
 	
 	<Import Project="..\..\Shared\Shared.projitems" Label="Shared" />
