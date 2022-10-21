@@ -1,11 +1,7 @@
 ﻿# Chinook.DynamicMvvm
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](LICENSE) ![Version](https://img.shields.io/nuget/v/Chinook.DynamicMvvm.Abstractions?style=flat-square) ![Downloads](https://img.shields.io/nuget/dt/Chinook.DynamicMvvm.Abstractions?style=flat-square)
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-
-The `Chinook.DynamicMvvm` packages assists in MVVM (Model - View - ViewModel) development.
+The `Chinook.DynamicMvvm` packages assists in .Net MVVM (Model - View - ViewModel) development.
 
 ## Cornerstones
 
@@ -15,11 +11,19 @@ The `Chinook.DynamicMvvm` packages assists in MVVM (Model - View - ViewModel) de
 - **Declarative Syntax**
   - We aim to understand the behavior of a property by glancing at its declaration.
 
+### More like this
+The Chinook namespace has other recipes for .Net MVVM applications.
+- [Chinook.DataLoader](https://github.com/nventive/Chinook.DataLoader): Customizable async data loading recipes.
+- [Chinook.Navigation](https://github.com/nventive/Chinook.Navigation): Navigators for ViewModel-first navigation.
+- [Chinook.BackButtonManager](https://github.com/nventive/Chinook.BackButtonManager): An abstraction to deal with hardware back buttons.
+
 ## Getting Started
 
 1. Add the `Chinook.DynamicMvvm` nuget package to your project.
 1. Create your first ViewModel. Here's one that covers the basics.
    ```csharp
+   using Chinook.DynamicMvvm;
+   // (...)
    public class MainPageViewModel : ViewModelBase
    {
      public string Content
@@ -92,18 +96,9 @@ The previous setup is pretty basic. Let's see what else we can do!
 Set an `IDispatcher` to allow setting properties from any thread.
 The `IDispatcher` ensures the `INotifyPropertyChanged.PropertyChanged` event is raised on the main thread.
 This is optional, but you'll likely need it.
-```csharp
-public MainPage()
-{
-    this.InitializeComponent();
-    DataContext = new MainPageViewModel()
-    {
-        Dispatcher = new CoreDispatcherDispatcher(this)
-    };
-}
-```
-#### Dispatcher Queue for WinUI
-When using the WinUI package, the `CoreDispatcher` doesn't exist, so to answer this change, we are now using `DispatcherQueue` which is the equivalence of the dispatcher used prior. The implementation name has now been changed for the WinUI setup.
+
+For WinUI or Uno.WinUI apps, install the `Chinook.DynamicMvvm.Uno.WinUI` nuget package.
+You can then use `DispatcherQueueDispatcher` or `BatchingDispatcherQueueDispatcher`.
 ```csharp
 public MainPage()
 {
@@ -111,6 +106,19 @@ public MainPage()
     DataContext = new MainPageViewModel()
     {
         Dispatcher = new DispatcherQueueDispatcher(this)
+    };
+}
+```
+
+For UWP or Uno.UI apps, install the `Chinook.DynamicMvvm.Uno` nuget package.
+You can then use `CoreDispatcherDispatcher` or `BatchingCoreDispatcherDispatcher`.
+```csharp
+public MainPage()
+{
+    this.InitializeComponent();
+    DataContext = new MainPageViewModel()
+    {
+        Dispatcher = new CoreDispatcherDispatcher(this)
     };
 }
 ```
@@ -151,7 +159,7 @@ public string Content
 ### Create properties from `IObservable<T>`
 If you're familiar with [System.Reactive](https://github.com/dotnet/reactive), you'll probably like this.
 Using `IViewModel.GetFromObservable`, you can declare a ViewModel property from an `IObservable<T>`.
-The property automatically update itself when the observable pushes a new value.
+The property automatically updates itself when the observable pushes a new value.
 ```csharp
 using System.Reactive.Linq;
 // (...)
@@ -328,7 +336,7 @@ public IDynamicCommand Submit => this.GetCommand(() =>
 
 ### Observe whether a command is executing
 `IDynamicCommand` adds an `IsExecuting` property and an `IsExecutingChanged` event to the classic `System.Windows.Input.ICommand`.
-`IDynamicCommand` also implements `INotifyPropertyChanged`, meaning that you can do a XAML binding on `IsExecuting`.
+`IDynamicCommand` and also implements `INotifyPropertyChanged`, meaning that you can do a XAML binding on `IsExecuting`.
 > 💡 This can be usefull if you want to add a loading indicator in your button's `ControlTemplate`.
 
 ### Add child ViewModels
@@ -444,10 +452,9 @@ public IDynamicCommand Submit => this.GetCommandFromTask(async ct =>
 ```
 <!-- TODO: Add doc about CollectionTracking -->
 
-## Changelog
+## Breaking Changes
 
-Please consult the [CHANGELOG](CHANGELOG.md) for more information about version
-history.
+Please consult [BREAKING_CHANGES.md](BREAKING_CHANGES.md) for more information about breaking changes and version history.
 
 ## License
 
@@ -460,22 +467,3 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on the process for
 contributing to this project.
 
 Be mindful of our [Code of Conduct](CODE_OF_CONDUCT.md).
-
-## Contributors
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/jeanplevesque"><img src="https://avatars3.githubusercontent.com/u/39710855?v=4" width="100px;" alt=""/><br /><sub><b>Jean-Philippe Lévesque</b></sub></a><br /><a href="https://github.com/nventive/Chinook.DynamicMvvm/commits?author=jeanplevesque" title="Code">💻</a> <a href="https://github.com/nventive/Chinook.DynamicMvvm/commits?author=jeanplevesque" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/jeremiethibeault"><img src="https://avatars3.githubusercontent.com/u/5444226?v=4" width="100px;" alt=""/><br /><sub><b>Jérémie Thibeault</b></sub></a><br /><a href="https://github.com/nventive/Chinook.DynamicMvvm/commits?author=jeremiethibeault" title="Tests">⚠️</a> <a href="https://github.com/nventive/Chinook.DynamicMvvm/commits?author=jeremiethibeault" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/MatFillion"><img src="https://avatars0.githubusercontent.com/u/7029537?v=4" width="100px;" alt=""/><br /><sub><b>Mathieu Fillion</b></sub></a><br /><a href="https://github.com/nventive/Chinook.DynamicMvvm/commits?author=MatFillion" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/jcantin-nventive"><img src="https://avatars0.githubusercontent.com/u/43351943?v=4" width="100px;" alt=""/><br /><sub><b>Julie Cantin</b></sub></a><br /><a href="https://github.com/nventive/Chinook.DynamicMvvm/commits?author=jcantin-nventive" title="doc">📖</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-enable -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
