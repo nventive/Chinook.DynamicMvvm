@@ -41,6 +41,12 @@ namespace Chinook.DynamicMvvm
 
 			ThrowIfDisposed();
 
+			if (_isDisposing)
+			{
+				_logger.LogDebug("Skipped '{MethodName}' for key '{DisposableKey}' on ViewModel '{ViewModelName}' because it's disposing.", nameof(AddDisposable), key, Name);
+				return;
+			}
+
 			_disposables.Add(key, disposable);
 		}
 
@@ -51,7 +57,7 @@ namespace Chinook.DynamicMvvm
 
 			if (_isDisposing)
 			{
-				// No need to remove the disposable if the VM is disposing because the disposables will be cleared.
+				// No need to remove the disposable while the VM is disposing because the disposables will be cleared.
 				return;
 			}
 

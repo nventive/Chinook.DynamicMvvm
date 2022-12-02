@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Chinook.DynamicMvvm.Tests.Helpers;
 using Xunit;
+using System.Threading;
 
 namespace Chinook.DynamicMvvm.Tests.ViewModel
 {
@@ -151,6 +152,52 @@ namespace Chinook.DynamicMvvm.Tests.ViewModel
 
 			viewModel.Dispose();
 			viewModel.CancellationToken.IsCancellationRequested.Should().BeTrue();
+		}
+
+		[Fact]
+		public async void It_doesnt_throw_when_adding_disposables_while_disposing()
+		{
+			// Here we test a concurrency issue.
+			// When disposing, we iterate over the disposables so we want to make sure that trying to change those disposables don't create the following exception.
+			// System.InvalidOperationException: Collection was modified; enumeration operation may not execute.
+			// To validate this scenario, this test forces the race condition by manipulating the viewModel from two threads:
+			// - Dispose the viewModel slowly (using disposables that take time to dispose).
+			// - Add more disposables after the dispose operation has been started.
+
+			// Arrange
+			var viewModel = new ViewModelBase();
+			for (int j = 0; j < 10; j++)
+			{
+				viewModel.AddDisposable(new TestDisposable(() =>
+				{
+					Thread.Sleep(10);
+				}));
+			}
+
+			// Act
+			var task = Task.Run(async () =>
+			{
+				await Task.Yield();
+				viewModel.Dispose();
+				await Task.Yield();
+			});
+
+			for (int j = 0; j < 100; j++)
+			{
+				Thread.Sleep(1);
+				try
+				{
+					viewModel.AddDisposable(new TestDisposable());
+				}
+				catch (ObjectDisposedException)
+				{
+					// When the VM is fully disposed, adding a disposable should throw an ObjectDisposedException.
+					// This is the correct behavior.
+				}
+			}
+
+			// Assert
+			await task;
 		}
 	}
 }
