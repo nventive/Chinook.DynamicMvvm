@@ -121,7 +121,6 @@ namespace Chinook.DynamicMvvm
 				throw new ArgumentNullException(nameof(childViewModel));
 			}
 
-			childViewModel.Dispatcher = null;
 			if (childViewModel.TryGetDisposable(ParentDispatcherChangedSubscriptionKey, out var subscription))
 			{
 				subscription.Dispose();
@@ -168,9 +167,9 @@ namespace Chinook.DynamicMvvm
 				_parentViewModel.DispatcherChanged += OnParentDispatcherChanged;
 			}
 
-			private void OnParentDispatcherChanged(IDispatcher view)
+			private void OnParentDispatcherChanged(IDispatcher dispatcher)
 			{
-				_childViewModel.Dispatcher = view;
+				_childViewModel.Dispatcher = dispatcher;
 			}
 
 			public void Dispose()
