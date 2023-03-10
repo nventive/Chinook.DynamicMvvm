@@ -128,6 +128,24 @@ namespace Chinook.DynamicMvvm.Tests.ViewModel
 		}
 
 		[Fact]
+		public void It_Keeps_The_Dispatcher_When_Detached()
+		{
+			// We can't assume that the dispatcher is no longer relevant when detaching children.
+			// For example, if a view is still subscribed to PropertyChanged, the property changes must still happen on the dispatcher, even if the child is detached.
+
+			var parentViewModel = new ViewModelBase();
+			var childViewModel = new TestViewModel();
+
+			parentViewModel.AttachChild(childViewModel);
+
+			parentViewModel.Dispatcher = new TestDispatcher();
+
+			parentViewModel.DetachChild(childViewModel);
+
+			childViewModel.Dispatcher.Should().Be(parentViewModel.Dispatcher);
+		}
+
+		[Fact]
 		public void It_Attaches_Multiple_Children()
 		{
 			var parentViewModel = new ViewModelBase();
