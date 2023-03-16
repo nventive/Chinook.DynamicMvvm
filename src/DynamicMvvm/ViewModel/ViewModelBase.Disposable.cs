@@ -93,7 +93,7 @@ namespace Chinook.DynamicMvvm
 			if (isDisposing)
 			{
 				_logger.LogDebug($"Disposing ViewModel '{Name}'.");
-
+				var toRemove = new List<string>();
 				_isDisposing = true;
 				_cts.Cancel();
 				_cts.Dispose();
@@ -101,6 +101,10 @@ namespace Chinook.DynamicMvvm
 				{
 					try
 					{
+						if (pair.Value is not IDynamicProperty)
+						{
+							toRemove.Add(pair.Key);
+						}
 						pair.Value.Dispose();
 					}
 					catch (Exception e)
@@ -110,7 +114,11 @@ namespace Chinook.DynamicMvvm
 				}
 
 				_dispatcher = null;
-				_disposables.Clear();
+				foreach (var key in toRemove)
+				{
+					_disposables.Remove(key);
+				}
+				toRemove.Clear();
 			}
 
 			_isDisposing = false;

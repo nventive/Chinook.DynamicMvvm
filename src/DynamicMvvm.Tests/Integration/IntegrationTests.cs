@@ -114,16 +114,36 @@ namespace Chinook.DynamicMvvm.Tests.Integration
 		}
 
 		[Fact]
-		public void A_disposed_VM_returns_default_property_values()
+		public void A_disposed_VM_returns_default_value_for_children()
 		{
 			var viewModel = new MyViewModel(_serviceProvider);
 			viewModel.Counter = 1;
 
 			viewModel.Dispose();
 
-			viewModel.Counter.Should().Be(default(int));
 			viewModel.Child.Should().Be(null);
+		}
+
+		[Fact]
+		public void A_disposed_VM_returns_default_value_for_commands()
+		{
+			var viewModel = new MyViewModel(_serviceProvider);
+			viewModel.Counter = 1;
+
+			viewModel.Dispose();
+
 			viewModel.IncrementCounter.Should().Be(null);
+		}
+
+		[Fact]
+		public void A_disposed_VM_returns_last_value_for_properties()
+		{
+			var viewModel = new MyViewModel(_serviceProvider);
+			viewModel.Counter = 1;
+
+			viewModel.Dispose();
+
+			viewModel.Counter.Should().Be(1);
 		}
 
 		[Fact]

@@ -225,5 +225,22 @@ namespace Chinook.DynamicMvvm.Tests.ViewModel
 
 			isAdded.Should().BeTrue();
 		}
+
+		[Fact]
+		public void It_Keeps_Properties_When_Disposed()
+		{
+			var viewModel = new ViewModelBase(serviceProvider: _serviceProvider);
+
+			var myValue = "test";
+			var propertyName = "Prop";
+			var value = viewModel.Get(() => myValue, propertyName);
+
+			viewModel.Dispose();
+
+			var property = viewModel.GetProperty(propertyName);
+
+			property.Should().NotBeNull();
+			property.Value.Should().Be(myValue);
+		}
 	}
 }

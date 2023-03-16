@@ -26,12 +26,12 @@ namespace Chinook.DynamicMvvm
 			this IViewModel viewModel,
 			IDynamicProperty property)
 		{
-			if (viewModel.IsDisposed)
+			if (property is null)
 			{
 				return default(T);
 			}
 
-			return (T)property?.Value;
+			return (T)property.Value;
 		}
 
 		/// <summary>
@@ -45,7 +45,7 @@ namespace Chinook.DynamicMvvm
 			this IViewModel viewModel,
 			IDynamicProperty<T> property)
 		{
-			if (viewModel.IsDisposed || property == null)
+			if (property is null)
 			{
 				return default(T);
 			}
@@ -207,13 +207,13 @@ namespace Chinook.DynamicMvvm
 		/// <returns>The <see cref="IDynamicProperty"/> matching the specified <paramref name="name"/>. Null is returned if the <see cref="IViewModel"/> is disposed.</returns>
 		public static IDynamicProperty GetOrCreateDynamicProperty(this IViewModel viewModel, string name, Func<string, IDynamicProperty> factory)
 		{
-			if (viewModel.IsDisposed)
-			{
-				return null;
-			}
-
 			if (!viewModel.TryGetDisposable<IDynamicProperty>(name, out var property))
 			{
+				if (viewModel.IsDisposed)
+				{
+					return null;
+				}
+				
 				property = factory(name);
 				property.ValueChanged += OnDynamicPropertyChanged;
 
@@ -241,11 +241,6 @@ namespace Chinook.DynamicMvvm
 		/// <returns>The <see cref="IDynamicProperty"/> matching the specified <paramref name="name"/>. Null is returned if the <see cref="IViewModel"/> is disposed.</returns>
 		public static IDynamicProperty GetOrResolveProperty(this IViewModel viewModel, string name)
 		{
-			if (viewModel.IsDisposed)
-			{
-				return null;
-			}
-
 			if (!viewModel.TryGetDisposable<IDynamicProperty>(name, out var property))
 			{
 				typeof(IViewModel).Log().LogWarning($"Resolving property '{viewModel.GetType().Name}.{name}' using reflection on '{viewModel.Name}'.");
