@@ -55,5 +55,5 @@
 		<ProjectReference Include="..\DynamicMvvm.Abstractions\DynamicMvvm.Abstractions.csproj" />
 	</ItemGroup>
 	
-	<Import Project="..\..\Shared\Shared.projitems" Label="Shared" />
+	<Import Project="..\DynamicMvvm.Shared\DynamicMvvm.Shared.projitems" Label="Shared" />
 </Project>

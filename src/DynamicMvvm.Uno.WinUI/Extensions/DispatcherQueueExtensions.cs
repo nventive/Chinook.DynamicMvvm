@@ -19,29 +19,6 @@ namespace Chinook.DynamicMvvm.Extensions
 		/// Invokes a given function on the target <see cref="DispatcherQueue"/> and returns a
 		/// <see cref="Task"/> that completes when the invocation of the function is completed.
 		/// </summary>
-		/// <param name="taskCompletionSource">The <see cref="TaskCompletionSource"/> that will set the result or Exception depending on the result of the invocation</param>
-		/// <param name="handler">The <see cref="DispatcherQueueHandler"/> to invoke.</param>
-		/// <returns>A <see cref="DispatcherQueueHandler"/> that completes when the invocation of <paramref name="handler"/> is over.</returns>
-		internal static DispatcherQueueHandler InvokeHandler(DispatcherQueueHandler handler, TaskCompletionSource<object?> taskCompletionSource)
-		{
-			try
-			{
-				handler.Invoke();
-
-				taskCompletionSource.SetResult(null);
-			}
-			catch (Exception e)
-			{
-				taskCompletionSource.SetException(e);
-			}
-
-			return handler;
-		}
-
-		/// <summary>
-		/// Invokes a given function on the target <see cref="DispatcherQueue"/> and returns a
-		/// <see cref="Task"/> that completes when the invocation of the function is completed.
-		/// </summary>
 		/// <param name="dispatcher">The target <see cref="DispatcherQueue"/> to invoke the code on.</param>
 		/// <param name="handler">The <see cref="DispatcherQueueHandler"/> to invoke.</param>
 		/// <param name="priority">The priority level for the function to invoke.</param>
@@ -72,9 +49,20 @@ namespace Chinook.DynamicMvvm.Extensions
 		internal static Task TryEnqueueAsync(DispatcherQueue dispatcher, DispatcherQueueHandler handler, DispatcherQueuePriority priority)
 		{
 			var taskCompletionSource = new TaskCompletionSource<object>();
-			DispatcherQueueHandler callback = InvokeHandler(handler, taskCompletionSource);
 
-			if (!dispatcher.TryEnqueue(priority, callback))
+			if (!dispatcher.TryEnqueue(priority, () =>
+			{
+				try
+				{
+					handler();
+
+					taskCompletionSource.SetResult(null);
+				}
+				catch (Exception e)
+				{
+					taskCompletionSource.SetException(e);
+				}
+			}))
 			{
 				taskCompletionSource.SetException(GetEnqueueException("Failed to enqueue the operation"));
 			}

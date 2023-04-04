@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicMvvm.FluentValidatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicMvvm.CollectionTracking", "src\DynamicMvvm.CollectionTracking\DynamicMvvm.CollectionTracking.csproj", "{143F2C3E-1241-4D44-939F-8ED5556C982E}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "Shared\Shared.shproj", "{8BCF881B-035B-4572-A0B5-27C379DEBEE8}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicMvvm.Uno.WinUI", "src\DynamicMvvm.Uno.WinUI\DynamicMvvm.Uno.WinUI.csproj", "{1E13272A-4270-4F68-88B7-A54375866640}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DynamicMvvm.Shared", "src\DynamicMvvm.Shared\DynamicMvvm.Shared.shproj", "{8BCF881B-035B-4572-A0B5-27C379DEBEE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -297,8 +297,7 @@ Global
 		SolutionGuid = {5BA7DD68-E008-4F53-8F51-83D42D3877B9}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Shared\Shared.projitems*{1e13272a-4270-4f68-88b7-a54375866640}*SharedItemsImports = 5
-		Shared\Shared.projitems*{8bcf881b-035b-4572-a0b5-27c379debee8}*SharedItemsImports = 13
-		Shared\Shared.projitems*{955b4011-fbb9-4b71-87ae-5ce114d10f02}*SharedItemsImports = 5
+		src\DynamicMvvm.Shared\DynamicMvvm.Shared.projitems*{1e13272a-4270-4f68-88b7-a54375866640}*SharedItemsImports = 5
+		src\DynamicMvvm.Shared\DynamicMvvm.Shared.projitems*{955b4011-fbb9-4b71-87ae-5ce114d10f02}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
