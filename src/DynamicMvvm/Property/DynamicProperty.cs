@@ -9,12 +9,17 @@ namespace Chinook.DynamicMvvm
 	public class DynamicProperty : IDynamicProperty
 	{
 		private static readonly DiagnosticSource _diagnostics = new DiagnosticListener("Chinook.DynamicMvvm.IDynamicProperty");
+		private readonly bool _throwOnDisposed;
+
 		private object _value;
 		private bool _isDisposed;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DynamicProperty"/> class.
 		/// </summary>
+		/// <remarks>
+		/// When setting <see cref="Value"/> after being disposed, <see cref="ObjectDisposedException"/> will be thrown.
+		/// </remarks>
 		/// <param name="name">Name</param>
 		/// <param name="value">Initial value</param>
 		public DynamicProperty(string name, object value = default)
@@ -26,20 +31,46 @@ namespace Chinook.DynamicMvvm
 			{
 				_diagnostics.Write("Created", Name);
 			}
+			_throwOnDisposed = true;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="DynamicProperty"/> class.
+		/// </summary>
+		/// <param name="name">Name</param>
+		/// <param name="value">Initial value</param>
+		/// <param name="throwOnDisposed">Whether a <see cref="ObjectDisposedException"/> should be thrown when <see cref="Value"/> is changed after being disposed.</param>
+		public DynamicProperty(string name, bool throwOnDisposed, object value = default)
+		{
+			Name = name;
+			_value = value;
+
+			if (_diagnostics.IsEnabled("Created"))
+			{
+				_diagnostics.Write("Created", Name);
+			}
+			_throwOnDisposed = throwOnDisposed;
 		}
 
 		/// <inheritdoc />
 		public string Name { get; }
 
 		/// <inheritdoc />
-		public object Value 
-		{ 
+		public object Value
+		{
 			get => _value;
 			set
 			{
 				if (_isDisposed)
 				{
-					throw new ObjectDisposedException(Name);
+					if (_throwOnDisposed)
+					{
+						throw new ObjectDisposedException(Name);
+					}
+					else
+					{
+						return;
+					}
 				}
 
 				if (!Equals(value, _value))
