@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
-using Chinook.DynamicMvvm;
 using Xunit;
 
 namespace Chinook.DynamicMvvm.Tests.Property
@@ -78,6 +75,32 @@ namespace Chinook.DynamicMvvm.Tests.Property
 			void OnValueChanged(IDynamicProperty p)
 			{
 				receivedValues.Add(p);
+			}
+		}
+
+		[Theory]
+		[InlineData(true)]
+		[InlineData(false)]
+		public void It_Throws_When_Value_Set_After_Disposed_Only_If_ThrowOnDisposed_Is_True(bool throwOnDisposed)
+		{
+			// Arrange
+			var property = new DynamicProperty(DefaultPropertyName, throwOnDisposed: throwOnDisposed);
+
+			// Act
+			property.Dispose();
+			Action act = () =>
+			{
+				property.Value = new object();
+			};
+
+			// Assert
+			if (throwOnDisposed)
+			{
+				act.Should().Throw<ObjectDisposedException>();
+			}
+			else
+			{
+				act.Should().NotThrow();
 			}
 		}
 
