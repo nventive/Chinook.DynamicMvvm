@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -19,12 +17,36 @@ namespace Chinook.DynamicMvvm.Implementations
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ValueChangedOnBackgroundTaskDynamicPropertyFromTask{T}"/> class.
 		/// </summary>
+		/// <remarks>
+		/// When setting <see cref="IDynamicProperty.Value"/> after being disposed, <see cref="ObjectDisposedException"/> will be thrown.
+		/// </remarks>
 		/// <param name="name">The name of the this property.</param>
 		/// <param name="source">The task source for this property.</param>
 		/// <param name="viewModel">The <see cref="IViewModel"/> used to determine dispatcher access.</param>
 		/// <param name="initialValue">The initial value of this property.</param>
 		public ValueChangedOnBackgroundTaskDynamicPropertyFromTask(string name, Func<CancellationToken, Task<T>> source, IViewModel viewModel, T initialValue = default)
 			: base(name, viewModel, initialValue)
+		{
+			if (source is null)
+			{
+				throw new ArgumentNullException(nameof(source));
+			}
+
+			_cancellationTokenSource = new CancellationTokenSource();
+
+			_ = SetValueFromSource(_cancellationTokenSource.Token, source);
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ValueChangedOnBackgroundTaskDynamicPropertyFromTask{T}"/> class.
+		/// </summary>
+		/// <param name="name">The name of the this property.</param>
+		/// <param name="source">The task source for this property.</param>
+		/// <param name="viewModel">The <see cref="IViewModel"/> used to determine dispatcher access.</param>
+		/// <param name="initialValue">The initial value of this property.</param>
+		/// <param name="throwOnDisposed">Whether a <see cref="ObjectDisposedException"/> should be thrown when <see cref="IDynamicProperty.Value"/> is changed after being disposed.</param>
+		public ValueChangedOnBackgroundTaskDynamicPropertyFromTask(string name, Func<CancellationToken, Task<T>> source, IViewModel viewModel, bool throwOnDisposed, T initialValue = default)
+			: base(name, viewModel, throwOnDisposed, initialValue)
 		{
 			if (source is null)
 			{
