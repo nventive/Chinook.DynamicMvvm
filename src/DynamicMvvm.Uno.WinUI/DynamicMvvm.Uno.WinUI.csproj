@@ -56,4 +56,5 @@
 	</ItemGroup>
 	
 	<Import Project="..\DynamicMvvm.Shared\DynamicMvvm.Shared.projitems" Label="Shared" />
+	<Import Project="winappsdk-workaround.targets" />
 </Project>
