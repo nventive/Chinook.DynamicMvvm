@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicMvvm.Tests", "src\Dy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicMvvm", "src\DynamicMvvm\DynamicMvvm.csproj", "{B78A5229-FF24-483E-BB4E-9BC1200C262A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicMvvm.Uno", "src\DynamicMvvm.Uno\DynamicMvvm.Uno.csproj", "{955B4011-FBB9-4B71-87AE-5CE114D10F02}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicMvvm.Reactive", "src\DynamicMvvm.Reactive\DynamicMvvm.Reactive.csproj", "{9D94D67C-B58B-498E-B6F3-BE8FB4BB7802}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicMvvm.FluentValidation", "src\DynamicMvvm.FluentValidation\DynamicMvvm.FluentValidation.csproj", "{4EED6C41-468A-436F-B95F-9F6371090815}"
@@ -129,38 +127,6 @@ Global
 		{B78A5229-FF24-483E-BB4E-9BC1200C262A}.Release|x64.Build.0 = Release|Any CPU
 		{B78A5229-FF24-483E-BB4E-9BC1200C262A}.Release|x86.ActiveCfg = Release|Any CPU
 		{B78A5229-FF24-483E-BB4E-9BC1200C262A}.Release|x86.Build.0 = Release|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Debug|Android.ActiveCfg = Debug|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Debug|Android.Build.0 = Debug|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Debug|iOS.ActiveCfg = Debug|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Debug|iOS.Build.0 = Debug|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Debug|NuGet.ActiveCfg = Debug|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Debug|NuGet.Build.0 = Debug|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Debug|Simulator.ActiveCfg = Debug|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Debug|Simulator.Build.0 = Debug|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Debug|UAP.ActiveCfg = Debug|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Debug|UAP.Build.0 = Debug|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Debug|x64.Build.0 = Debug|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Debug|x86.Build.0 = Debug|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Release|Android.ActiveCfg = Release|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Release|Android.Build.0 = Release|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Release|Any CPU.Build.0 = Release|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Release|iOS.ActiveCfg = Release|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Release|iOS.Build.0 = Release|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Release|NuGet.ActiveCfg = Release|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Release|NuGet.Build.0 = Release|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Release|Simulator.ActiveCfg = Release|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Release|Simulator.Build.0 = Release|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Release|UAP.ActiveCfg = Release|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Release|UAP.Build.0 = Release|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Release|x64.ActiveCfg = Release|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Release|x64.Build.0 = Release|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Release|x86.ActiveCfg = Release|Any CPU
-		{955B4011-FBB9-4B71-87AE-5CE114D10F02}.Release|x86.Build.0 = Release|Any CPU
 		{9D94D67C-B58B-498E-B6F3-BE8FB4BB7802}.Debug|Android.ActiveCfg = Debug|Any CPU
 		{9D94D67C-B58B-498E-B6F3-BE8FB4BB7802}.Debug|Android.Build.0 = Debug|Any CPU
 		{9D94D67C-B58B-498E-B6F3-BE8FB4BB7802}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -298,6 +264,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\DynamicMvvm.Shared\DynamicMvvm.Shared.projitems*{1e13272a-4270-4f68-88b7-a54375866640}*SharedItemsImports = 5
-		src\DynamicMvvm.Shared\DynamicMvvm.Shared.projitems*{955b4011-fbb9-4b71-87ae-5ce114d10f02}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

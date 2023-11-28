@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-windows10.0.18362;netstandard2.0;net6.0-android;net6.0-ios;net6.0-macos;net6.0-maccatalyst;</TargetFrameworks>
-		<LangVersion>10.0</LangVersion>
+		<TargetFrameworks>net7.0-windows10.0.19041;net7.0-android;net7.0-ios;net7.0-macos;net7.0-maccatalyst;</TargetFrameworks>
+		<LangVersion>11.0</LangVersion>
 		<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>
 		<RootNamespace>Chinook.DynamicMvvm</RootNamespace>
@@ -32,20 +32,16 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="Uno.WinUI" Version="4.4.13" />
+		<PackageReference Include="Uno.WinUI" Version="5.0.19" />
 		<PackageReference Include="Uno.SourceGenerationTasks" Version="4.1.0" />
 	</ItemGroup>
-
-	<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-		<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
-	</PropertyGroup>
 
 	<ItemGroup>
 		<!--Needed for Source Link support -->
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
 	
-	<ItemGroup Condition="'$(TargetFramework)'=='net6.0-windows10.0.18362'">
+	<ItemGroup Condition="'$(TargetFramework)'=='net7.0-windows10.0.19041'">
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.0" />
 		<FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.22000.24" />
 		<FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" TargetingPackVersion="10.0.22000.24" />
