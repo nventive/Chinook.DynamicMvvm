@@ -31,7 +31,7 @@ namespace Chinook.DynamicMvvm
 
 			if (_isDisposing)
 			{
-				_logger.LogDebug($"Skipped invocation of '{nameof(DispatcherChanged)}' on ViewModel '{Name}' because it's disposing.");
+				_logger.LogViewModelSkippedMethodBecauseDisposing(nameof(DispatcherChanged), Name);
 				return;
 			}
 

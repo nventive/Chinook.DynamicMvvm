@@ -43,7 +43,7 @@ namespace Chinook.DynamicMvvm
 
 			if (_isDisposing)
 			{
-				_logger.LogDebug("Skipped '{MethodName}' for key '{DisposableKey}' on ViewModel '{ViewModelName}' because it's disposing.", nameof(AddDisposable), key, Name);
+				_logger.LogViewModelSkippedMethodBecauseDisposing_DisposableKey(nameof(AddDisposable), key, Name);
 				return;
 			}
 
@@ -92,7 +92,7 @@ namespace Chinook.DynamicMvvm
 
 			if (isDisposing)
 			{
-				_logger.LogDebug($"Disposing ViewModel '{Name}'.");
+				_logger.LogViewModelDisposing(Name);
 
 				_isDisposing = true;
 				_cts.Cancel();
@@ -105,7 +105,7 @@ namespace Chinook.DynamicMvvm
 					}
 					catch (Exception e)
 					{
-						_logger.LogError(e, $"Failed to dispose disposable '{pair.Key}' of ViewModel '{Name}'.");
+						_logger.LogViewModelFailedToDisposeDisposable(pair.Key, Name, e);
 					}
 				}
 
@@ -121,7 +121,7 @@ namespace Chinook.DynamicMvvm
 				_diagnostics.Write("Disposed", Name);
 			}
 
-			_logger.LogInformation($"Disposed ViewModel '{Name}'.");
+			_logger.LogViewModelDisposed(Name);
 		}
 
 		/// <inheritdoc />
@@ -147,7 +147,7 @@ namespace Chinook.DynamicMvvm
 				_diagnostics.Write("Destroyed", Name);
 			}
 
-			_logger.LogInformation($"ViewModel '{Name}' destroyed.");
+			_logger.LogViewModelDestroyed(Name);
 		}
 	}
 }

@@ -68,7 +68,7 @@ namespace Chinook.DynamicMvvm.Implementations
 			}
 			catch (Exception e)
 			{
-				this.Log().LogError(e, $"Source task failed for property '{Name}'.");
+				this.Log().LogDynamicPropertySourceTaskFailed(Name, e);
 			}
 		}
 

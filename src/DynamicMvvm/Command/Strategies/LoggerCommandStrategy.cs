@@ -40,15 +40,15 @@ namespace Chinook.DynamicMvvm
 		{
 			try
 			{
-				_logger.LogDebug($"Executing command '{command.Name}'.");
+				_logger.LogCommandExecuting(command.Name);
 
 				await base.Execute(ct, parameter, command);
 
-				_logger.LogInformation($"Executed command '{command.Name}'.");
+				_logger.LogCommandExecuted(command.Name);
 			}
 			catch (Exception e)
 			{
-				_logger.LogError(e, $"Failed to execute command '{command.Name}'.");
+				_logger.LogCommandFailed(command.Name, e);
 
 				throw;
 			}

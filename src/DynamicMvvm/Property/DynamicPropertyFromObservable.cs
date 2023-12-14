@@ -88,7 +88,7 @@ namespace Chinook.DynamicMvvm
 
 			public void OnError(Exception e)
 			{
-				this.Log().LogError(e, $"Source observable subscription failed for property '{_owner.Name}'. The property will no longer be updated by the observable.");
+				this.Log().LogDynamicPropertySourceObservableSubscriptionFailed(_owner.Name, e);
 			}
 
 			public void OnNext(T value)

@@ -72,7 +72,7 @@ namespace Chinook.DynamicMvvm.Deactivation
 
 			IsDeactivated = true;
 
-			typeof(IDeactivatable).Log().LogDebug($"Deactivated observable source of property '{Name}'.");
+			typeof(IDeactivatable).Log().LogDeactivatedObservableSource(Name);
 		}
 
 		/// <inheritdoc/>
@@ -87,7 +87,7 @@ namespace Chinook.DynamicMvvm.Deactivation
 
 			_subscription = _source.Subscribe(_propertyObserver);
 
-			typeof(IDeactivatable).Log().LogDebug($"Reactivated observable source of property '{Name}'.");
+			typeof(IDeactivatable).Log().LogReactivatedObservableSource(Name);
 		}
 	}
 }
