@@ -45,7 +45,7 @@ namespace Chinook.DynamicMvvm
 
 			if (_isDisposing)
 			{
-				_logger.LogDebug($"Skipped '{nameof(SetErrors)}' for '{GetType().Name}.{propertyName}' on ViewModel '{Name}' because it's disposing.");
+				_logger.LogViewModelSkippedMethodBecauseDisposing_PropertyName(nameof(SetErrors), GetType().Name, propertyName, Name);
 				return;
 			}
 
@@ -61,7 +61,7 @@ namespace Chinook.DynamicMvvm
 
 			if (_isDisposing)
 			{
-				_logger.LogDebug($"Skipped '{nameof(SetErrors)}' for ViewModel '{Name}' because it's disposing.");
+				_logger.LogViewModelSkippedMethodBecauseDisposing(nameof(SetErrors), Name);
 				return;
 			}
 
@@ -77,7 +77,7 @@ namespace Chinook.DynamicMvvm
 
 			if (_isDisposing)
 			{
-				_logger.LogDebug($"Skipped '{nameof(ClearErrors)}' for '{GetType().Name}.{propertyName}' on ViewModel '{Name}' because it's disposing.");
+				_logger.LogViewModelSkippedMethodBecauseDisposing_PropertyName(nameof(ClearErrors), GetType().Name, propertyName, Name);
 				return;
 			}
 

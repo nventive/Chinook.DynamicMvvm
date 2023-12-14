@@ -9,10 +9,15 @@ namespace DynamicMvvm.Benchmarks;
 
 public class ViewModel : ViewModelBase
 {
-	public ViewModel(IServiceProvider serviceProvider)
-		: base(serviceProvider: serviceProvider)
+	public ViewModel(string? name, IServiceProvider serviceProvider)
+		: base(name, serviceProvider)
 	{
 		var value = NumberResolved;
+	}
+
+	public ViewModel(IServiceProvider serviceProvider)
+		: this(name: default, serviceProvider: serviceProvider)
+	{
 	}
 
 	public int Number

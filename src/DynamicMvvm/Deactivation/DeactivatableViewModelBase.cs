@@ -84,7 +84,7 @@ namespace Chinook.DynamicMvvm.Deactivation
 				child.Deactivate();
 			}
 
-			typeof(IDeactivatable).Log().LogDebug($"Deactivated ViewModel '{Name}'.");
+			typeof(IDeactivatable).Log().LogDeactivatedViewModel(Name);
 		}
 
 		/// <summary>
@@ -116,7 +116,7 @@ namespace Chinook.DynamicMvvm.Deactivation
 				child.Reactivate();
 			}
 
-			typeof(IDeactivatable).Log().LogDebug($"Reactivated ViewModel '{Name}' and raised {toRaise.Length} property changes.");
+			typeof(IDeactivatable).Log().LogReactivatedViewModel(Name, toRaise.Length);
 		}
 	}
 }

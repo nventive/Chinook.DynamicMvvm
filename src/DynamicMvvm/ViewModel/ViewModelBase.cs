@@ -33,7 +33,7 @@ namespace Chinook.DynamicMvvm
 				_diagnostics.Write("Created", Name);
 			}
 
-			_logger.LogInformation($"ViewModel '{Name}' created.");
+			_logger.LogViewModelCreated(Name);
 		}
 
 		/// <inheritdoc />

@@ -30,6 +30,12 @@ public class Benchmark
 		var vm = new ViewModel(_serviceProvider);
 	}
 
+	[Benchmark]
+	public void CreateViewModel_WithExplicitName()
+	{
+		var vm = new ViewModel("ViewModel", _serviceProvider);
+	}
+
 	[IterationSetup(Targets = new[]
 	{
 		nameof(ReadProperty_Unresolved),
@@ -40,7 +46,7 @@ public class Benchmark
 	})]
 	public void SetupViewModel()
 	{
-		_viewModel1 = new ViewModel(_serviceProvider);
+		_viewModel1 = new ViewModel("ViewModel", _serviceProvider);
 	}
 
 	[IterationSetup(Targets = new[]
@@ -51,7 +57,7 @@ public class Benchmark
 	})]
 	public void SetupViewModelWithListener()
 	{
-		_viewModel2 = new ViewModel(_serviceProvider);
+		_viewModel2 = new ViewModel("ViewModel", _serviceProvider);
 		_viewModel2.PropertyChanged += (s, e) => { };
 	}
 
@@ -101,5 +107,5 @@ public class Benchmark
 	public void DisposeViewModel_WithListener()
 	{
 		_viewModel2!.Dispose();
-	}	
+	}
 }
