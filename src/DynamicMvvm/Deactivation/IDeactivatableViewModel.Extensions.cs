@@ -25,5 +25,21 @@ namespace Chinook.DynamicMvvm
 		{
 			return viewModel.Get<T>(viewModel.GetOrCreateDynamicProperty(name, n => new DeactivatableDynamicPropertyFromObservable<T>(name, source, viewModel, initialValue)));
 		}
+
+		/// <summary>
+		/// Gets or creates a <see cref="IDynamicProperty"/> attached to this <see cref="IViewModel"/>.<br/>
+		/// The underlying <see cref="IDynamicProperty"/> implements <see cref="IDeactivatable"/> so the observation can be deactivated.
+		/// This overload uses a <see cref="Func{TResult}"/> to avoid evaluating the observable sequence more than once (which can avoid memory allocations).
+		/// </summary>
+		/// <typeparam name="T">The property type.</typeparam>
+		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
+		/// <param name="sourceProvider">The provider of the observable of values that feeds the property.</param>
+		/// <param name="initialValue">The property's initial value.</param>
+		/// <param name="name">The property's name.</param>
+		/// <returns>The property's value.</returns>
+		public static T GetFromDeactivatableObservable<T>(this IDeactivatableViewModel viewModel, Func<IObservable<T>> sourceProvider, T initialValue = default, [CallerMemberName] string name = null)
+		{
+			return viewModel.Get<T>(viewModel.GetOrCreateDynamicProperty(name, n => new DeactivatableDynamicPropertyFromObservable<T>(name, sourceProvider(), viewModel, initialValue)));
+		}
 	}
 }
