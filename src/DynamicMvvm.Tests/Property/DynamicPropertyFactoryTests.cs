@@ -80,50 +80,5 @@ namespace Chinook.DynamicMvvm.Tests.Property
 
 			property.Value.Should().Be(myValue);
 		}
-
-		[Theory]
-		[InlineData(true)]
-		[InlineData(false)]
-		public void It_Creates_Property_That_Throws_On_Set_When_Disposed_Only_If_ThrowOnDisposed_Is_True(bool throwOnDisposed)
-		{
-			// Arrange
-			var factory = new DynamicPropertyFactory(throwOnDisposed);
-
-			var taskProperty = factory.CreateFromTask(DefaultPropertyName, _ => Task.FromResult(new TestEntity()), new TestEntity());
-			var obProperty = factory.CreateFromObservable(DefaultPropertyName, new Subject<TestEntity>(), new TestEntity());
-			var property = factory.Create(DefaultPropertyName, new TestEntity());
-
-			// Act
-			taskProperty.Dispose();
-			obProperty.Dispose();
-			property.Dispose();
-
-			Action actTask = () =>
-			{
-				taskProperty.Value = new TestEntity();
-			};
-			Action actOb = () =>
-			{
-				obProperty.Value = new TestEntity();
-			};
-			Action actP = () =>
-			{
-				property.Value = new TestEntity();
-			};
-
-			// Assert
-			if (throwOnDisposed)
-			{
-				actTask.Should().Throw<InvalidOperationException>();
-				actOb.Should().Throw<InvalidOperationException>();
-				actP.Should().Throw<InvalidOperationException>();
-			}
-			else
-			{
-				actTask.Should().NotThrow();
-				actOb.Should().NotThrow();
-				actP.Should().NotThrow();
-			}
-		}
 	}
 }

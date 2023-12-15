@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Chinook.DynamicMvvm.Tests.Helpers;
 using FluentAssertions;
 using Xunit;
 
@@ -78,13 +79,12 @@ namespace Chinook.DynamicMvvm.Tests.Property
 			}
 		}
 
-		[Theory]
-		[InlineData(true)]
-		[InlineData(false)]
-		public void It_Throws_When_Value_Set_After_Disposed_Only_If_ThrowOnDisposed_Is_True(bool throwOnDisposed)
+		[Fact]
+		public void It_Doesnt_Throw_ObjectDisposedException_Upon_Setting_Value_While_Disposed()
 		{
 			// Arrange
-			var property = new DynamicProperty(DefaultPropertyName, throwOnDisposed: throwOnDisposed);
+			var receivedValues = new List<IDynamicProperty>();
+			var property = new DynamicProperty(DefaultPropertyName);
 
 			// Act
 			property.Dispose();
@@ -94,24 +94,22 @@ namespace Chinook.DynamicMvvm.Tests.Property
 			};
 
 			// Assert
-			if (throwOnDisposed)
-			{
-				act.Should().Throw<ObjectDisposedException>();
-			}
-			else
-			{
-				act.Should().NotThrow();
-			}
+			act.Should().NotThrow();
 		}
 
 		[Fact]
-		public void It_Throws_When_Value_Set_After_Disposed()
+		public void It_Doesnt_Change_Value_When_Disposed()
 		{
-			var property = new DynamicProperty(DefaultPropertyName);
+			// Arrange
+			var myValue = new object();
+			var property = new DynamicProperty(DefaultPropertyName, myValue);
 
+			// Act
 			property.Dispose();
+			property.Value = new object();
 
-			Assert.Throws<ObjectDisposedException>(() => property.Value = new object());
+			// Assert
+			property.Value.Should().Be(myValue);
 		}
 
 		[Fact]

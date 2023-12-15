@@ -42,16 +42,10 @@ namespace Chinook.DynamicMvvm.Implementations
 		/// <param name="viewModel">The <see cref="IViewModel"/> used to determine dispatcher access.</param>
 		/// <param name="initialValue">The initial value of this property.</param>
 		/// <param name="throwOnDisposed">Whether a <see cref="ObjectDisposedException"/> should be thrown when <see cref="IDynamicProperty.Value"/> is changed after being disposed.</param>
+		[Obsolete("This constructor is obsolete. The throwOnDisposed parameter is no longer used.", error: false)]
 		public ValueChangedOnBackgroundTaskDynamicPropertyFromObservable(string name, IObservable<T> source, IViewModel viewModel, bool throwOnDisposed, T initialValue = default)
-			: base(name, viewModel, throwOnDisposed, initialValue)
+			: this(name, source, viewModel, initialValue)
 		{
-			if (source is null)
-			{
-				throw new ArgumentNullException(nameof(source));
-			}
-
-			_propertyObserver = new DynamicPropertyFromObservable<T>.DynamicPropertyObserver(this);
-			_subscription = source.Subscribe(_propertyObserver);
 		}
 
 		/// <inheritdoc />
