@@ -11,13 +11,13 @@ namespace Chinook.DynamicMvvm
 {
 	public partial class ViewModelBase
 	{
-		private ConcurrentDictionary<string, IEnumerable<object>> _errors = new ConcurrentDictionary<string, IEnumerable<object>>();
+		private Dictionary<string, IEnumerable<object>> _errors;
 
 		/// <inheritdoc />
 		public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
 		/// <inheritdoc />
-		public bool HasErrors => _errors.Values.SelectMany(x => x).Any();
+		public bool HasErrors => _errors is null ? false : _errors.Values.SelectMany(x => x).Any();
 
 		/// <inheritdoc />
 		public IEnumerable GetErrors(string propertyName)
@@ -27,12 +27,12 @@ namespace Chinook.DynamicMvvm
 			if (string.IsNullOrEmpty(propertyName))
 			{
 				// Entity level errors.
-				errors = _errors.Values.SelectMany(s => s);
+				errors = _errors?.Values.SelectMany(s => s);
 			}
 			else
 			{
 				// Property level errors.
-				_errors.TryGetValue(propertyName, out errors);
+				_errors?.TryGetValue(propertyName, out errors);
 			}
 
 			return errors ?? Enumerable.Empty<object>();
@@ -49,6 +49,7 @@ namespace Chinook.DynamicMvvm
 				return;
 			}
 
+			EnsureErrorsAreInitialized();
 			_errors[propertyName] = errors;
 
 			ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
@@ -65,7 +66,7 @@ namespace Chinook.DynamicMvvm
 				return;
 			}
 
-			_errors = new ConcurrentDictionary<string, IEnumerable<object>>(errors);
+			_errors = new Dictionary<string, IEnumerable<object>>(errors);
 
 			ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName: null));
 		}
@@ -81,6 +82,12 @@ namespace Chinook.DynamicMvvm
 				return;
 			}
 
+			if (_errors is null)
+			{
+				// No errors to clear.
+				return;
+			}
+
 			if (string.IsNullOrEmpty(propertyName))
 			{
 				_errors.Clear();
@@ -91,6 +98,14 @@ namespace Chinook.DynamicMvvm
 			}
 
 			ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+		}
+
+		private void EnsureErrorsAreInitialized()
+		{
+			if (_errors is null)
+			{
+				_errors = new Dictionary<string, IEnumerable<object>>();
+			}
 		}
 	}
 }
