@@ -79,14 +79,12 @@ namespace Chinook.DynamicMvvm.Tests.Property
 			}
 		}
 
-		[Theory]
-		[InlineData(true)]
-		[InlineData(false)]
-		public void It_Throws_When_Value_Set_After_Disposed_Only_If_ThrowOnDisposed_Is_True(bool throwOnDisposed)
+		[Fact]
+		public void It_Doesnt_Throw_ObjectDisposedException_Upon_Setting_Value_While_Disposed()
 		{
 			// Arrange
 			var receivedValues = new List<IDynamicProperty>();
-			var property = new DynamicProperty<TestEntity>(DefaultPropertyName, throwOnDisposed: throwOnDisposed);
+			var property = new DynamicProperty<TestEntity>(DefaultPropertyName);
 
 			// Act
 			property.Dispose();
@@ -96,14 +94,22 @@ namespace Chinook.DynamicMvvm.Tests.Property
 			};
 
 			// Assert
-			if (throwOnDisposed)
-			{
-				act.Should().Throw<ObjectDisposedException>();
-			}
-			else
-			{
-				act.Should().NotThrow();
-			}
+			act.Should().NotThrow();			
+		}
+
+		[Fact]
+		public void It_Doesnt_Change_Value_When_Disposed()
+		{
+			// Arrange
+			var myValue = new TestEntity();
+			var property = new DynamicProperty<TestEntity>(DefaultPropertyName, myValue);
+
+			// Act
+			property.Dispose();
+			property.Value = new TestEntity();
+
+			// Assert
+			property.Value.Should().Be(myValue);
 		}
 
 		[Fact]

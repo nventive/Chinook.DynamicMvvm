@@ -61,6 +61,9 @@ namespace Chinook.DynamicMvvm
 		[LoggerMessage(31, LogLevel.Error, "Source task failed for property '{PropertyName}'.")]
 		public static partial void LogDynamicPropertySourceTaskFailed(this ILogger logger, string propertyName, Exception exception);
 
+		[LoggerMessage(32, LogLevel.Debug, "Skipped value setter on the property '{PropertyName}' because it's disposed.")]
+		public static partial void LogDynamicPropertySkippedValueSetterBecauseDisposed(this ILogger logger, string propertyName);
+
 		[LoggerMessage(40, LogLevel.Debug, "Deactivated observable source of property '{PropertyName}'.")]
 		public static partial void LogDeactivatedObservableSource(this ILogger logger, string propertyName);
 

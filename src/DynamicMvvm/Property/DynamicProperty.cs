@@ -9,7 +9,6 @@ namespace Chinook.DynamicMvvm
 	public class DynamicProperty : IDynamicProperty
 	{
 		private static readonly DiagnosticSource _diagnostics = new DiagnosticListener("Chinook.DynamicMvvm.IDynamicProperty");
-		private readonly bool _throwOnDisposed;
 
 		private object _value;
 		private bool _isDisposed;
@@ -31,7 +30,6 @@ namespace Chinook.DynamicMvvm
 			{
 				_diagnostics.Write("Created", Name);
 			}
-			_throwOnDisposed = true;
 		}
 
 		/// <summary>
@@ -40,16 +38,10 @@ namespace Chinook.DynamicMvvm
 		/// <param name="name">Name</param>
 		/// <param name="value">Initial value</param>
 		/// <param name="throwOnDisposed">Whether a <see cref="ObjectDisposedException"/> should be thrown when <see cref="Value"/> is changed after being disposed.</param>
+		[Obsolete("This constructor is obsolete. The throwOnDisposed parameter is no longer used.", error: false)]
 		public DynamicProperty(string name, bool throwOnDisposed, object value = default)
+			: this(name, value)
 		{
-			Name = name;
-			_value = value;
-
-			if (_diagnostics.IsEnabled("Created"))
-			{
-				_diagnostics.Write("Created", Name);
-			}
-			_throwOnDisposed = throwOnDisposed;
 		}
 
 		/// <inheritdoc />
@@ -63,14 +55,8 @@ namespace Chinook.DynamicMvvm
 			{
 				if (_isDisposed)
 				{
-					if (_throwOnDisposed)
-					{
-						throw new ObjectDisposedException(Name);
-					}
-					else
-					{
-						return;
-					}
+					this.Log().LogDynamicPropertySkippedValueSetterBecauseDisposed(Name);
+					return;					
 				}
 
 				if (!Equals(value, _value))

@@ -43,17 +43,10 @@ namespace Chinook.DynamicMvvm
 		/// <param name="source">Source</param>
 		/// <param name="initialValue">Initial value</param>
 		/// <param name="throwOnDisposed">Whether a <see cref="ObjectDisposedException"/> should be thrown when <see cref="IDynamicProperty.Value"/> is changed after being disposed.</param>
+		[Obsolete("This constructor is obsolete. The throwOnDisposed parameter is no longer used.", error: false)]
 		public DynamicPropertyFromTask(string name, Func<CancellationToken, Task<T>> source, bool throwOnDisposed, T initialValue = default)
-			: base(name, throwOnDisposed, initialValue)
+			: this(name, source, initialValue)
 		{
-			if (source is null)
-			{
-				throw new ArgumentNullException(nameof(source));
-			}
-
-			_cancellationTokenSource = new CancellationTokenSource();
-
-			_ = SetValueFromSource(_cancellationTokenSource.Token, source);
 		}
 
 		private async Task SetValueFromSource(CancellationToken ct, Func<CancellationToken, Task<T>> source)
