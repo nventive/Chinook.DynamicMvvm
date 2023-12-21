@@ -248,7 +248,7 @@ namespace Chinook.DynamicMvvm
 
 			if (!viewModel.TryGetDisposable<IDynamicProperty>(name, out var property))
 			{
-				typeof(IViewModel).Log().LogWarning($"Resolving property '{viewModel.GetType().Name}.{name}' using reflection on '{viewModel.Name}'.");
+				typeof(IViewModel).Log().LogViewModelResolvingPropertyUsingReflection(viewModel.GetType().Name, name, viewModel.Name);
 
 				// This is a rare case where the property was resolved before being created.
 				// We simply resolve it manually on the type.

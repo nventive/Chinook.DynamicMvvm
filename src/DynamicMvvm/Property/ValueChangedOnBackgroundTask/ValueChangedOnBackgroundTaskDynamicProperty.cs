@@ -11,7 +11,6 @@ namespace Chinook.DynamicMvvm.Implementations
 	{
 		private static readonly DiagnosticSource _diagnostics = new DiagnosticListener("Chinook.DynamicMvvm.IDynamicProperty");
 		private readonly WeakReference<IViewModel> _viewModel;
-		private readonly bool _throwOnDisposed;
 
 		private object _value;
 		private bool _isDisposed;
@@ -35,7 +34,6 @@ namespace Chinook.DynamicMvvm.Implementations
 			{
 				_diagnostics.Write("Created", Name);
 			}
-			_throwOnDisposed = true;
 		}
 
 		/// <summary>
@@ -45,17 +43,10 @@ namespace Chinook.DynamicMvvm.Implementations
 		/// <param name="viewModel">The <see cref="IViewModel"/> used to determine dispatcher access.</param>
 		/// <param name="value">The initial value of this property.</param>
 		/// <param name="throwOnDisposed">Whether a <see cref="ObjectDisposedException"/> should be thrown when <see cref="Value"/> is changed after being disposed.</param>
+		[Obsolete("This constructor is obsolete. The throwOnDisposed parameter is no longer used.", error: false)]
 		public ValueChangedOnBackgroundTaskDynamicProperty(string name, IViewModel viewModel, bool throwOnDisposed, object value = default)
+			: this(name, viewModel, value)
 		{
-			Name = name;
-			_viewModel = new WeakReference<IViewModel>(viewModel);
-			_value = value;
-
-			if (_diagnostics.IsEnabled("Created"))
-			{
-				_diagnostics.Write("Created", Name);
-			}
-			_throwOnDisposed = throwOnDisposed;
 		}
 
 		protected bool IsOnDispatcher => _viewModel.TryGetTarget(out var vm) && (vm.Dispatcher?.GetHasDispatcherAccess() ?? false);
@@ -71,14 +62,8 @@ namespace Chinook.DynamicMvvm.Implementations
 			{
 				if (_isDisposed)
 				{
-					if (_throwOnDisposed)
-					{
-						throw new ObjectDisposedException(Name);
-					}
-					else
-					{
-						return;
-					}
+					this.Log().LogDynamicPropertySkippedValueSetterBecauseDisposed(Name);
+					return;					
 				}
 
 				if (!Equals(value, _value))
@@ -174,8 +159,9 @@ namespace Chinook.DynamicMvvm.Implementations
 		/// <param name="viewModel">The <see cref="IViewModel"/> used to determine dispatcher access.</param>
 		/// <param name="value">The initial value of this property.</param>
 		/// <param name="throwOnDisposed">Whether a <see cref="ObjectDisposedException"/> should be thrown when <see cref="Value"/> is changed after being disposed.</param>
+		[Obsolete("This constructor is obsolete. The throwOnDisposed parameter is no longer used.", error: false)]
 		public ValueChangedOnBackgroundTaskDynamicProperty(string name, IViewModel viewModel, bool throwOnDisposed, T value = default)
-			: base(name, viewModel, throwOnDisposed, value)
+			: base(name, viewModel, value)
 		{
 		}
 

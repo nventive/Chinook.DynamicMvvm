@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0</TargetFrameworks>
+		<LangVersion>10</LangVersion>
 		<RootNamespace>Chinook.DynamicMvvm</RootNamespace>
 		<Authors>nventive</Authors>
 		<Company>nventive</Company>

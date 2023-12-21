@@ -51,7 +51,7 @@ namespace Chinook.DynamicMvvm
 		{
 			if (ct.IsCancellationRequested)
 			{
-				this.Log().LogDebug($"Cancelled 'ExecuteOnDispatcher' because of the cancellation token.");
+				this.Log().LogCancelledExecuteOnDispatcherBecauseOfCancellationToken();
 				return;
 			}
 
@@ -61,7 +61,7 @@ namespace Chinook.DynamicMvvm
 				{
 					if (ct.IsCancellationRequested)
 					{
-						this.Log().LogDebug($"Cancelled 'ExecuteOnDispatcher' because of the cancellation token.");
+						this.Log().LogCancelledExecuteOnDispatcherBecauseOfCancellationToken();
 						return;
 					}
 
@@ -69,7 +69,7 @@ namespace Chinook.DynamicMvvm
 				}
 				catch (Exception e)
 				{
-					this.Log().LogError(e, "Failed 'ExecuteOnDispatcher'.");
+					this.Log().LogFailedExecuteOnDispatcher(e);
 				}
 			});
 		}

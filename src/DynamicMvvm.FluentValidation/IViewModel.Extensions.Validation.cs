@@ -168,7 +168,7 @@ namespace Chinook.DynamicMvvm
 					}
 					catch (Exception e)
 					{
-						this.Log().LogError(e, $"Validation failed for property '{property.Name}'.");
+						this.Log().LogValidationFailed(property.Name, e);
 					}
 				});
 			}

@@ -61,7 +61,7 @@ namespace Chinook.DynamicMvvm.Deactivation
 
 			IsDeactivated = true;
 
-			typeof(IDeactivatable).Log().LogDebug($"Deactivated observable of type '{typeof(T).Name}'.");
+			typeof(IDeactivatable).Log().LogDeactivatedObservable(typeof(T).Name);
 		}
 
 		/// <inheritdoc/>
@@ -79,7 +79,7 @@ namespace Chinook.DynamicMvvm.Deactivation
 				_subscription = _source.Subscribe(_observer);
 			}
 
-			typeof(IDeactivatable).Log().LogDebug($"Reactivated observable of type '{typeof(T).Name}'.");
+			typeof(IDeactivatable).Log().LogReactivatedObservable(typeof(T).Name);
 		}
 
 		/// <inheritdoc/>

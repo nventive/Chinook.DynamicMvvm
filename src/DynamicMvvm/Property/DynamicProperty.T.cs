@@ -26,8 +26,9 @@ namespace Chinook.DynamicMvvm
 		/// <param name="name">Name</param>
 		/// <param name="value">Initial value</param>
 		/// <param name="throwOnDisposed">Whether a <see cref="ObjectDisposedException"/> should be thrown when <see cref="Value"/> is changed after being disposed.</param>
+		[Obsolete("This constructor is obsolete. The throwOnDisposed parameter is no longer used.", error: false)]
 		public DynamicProperty(string name, bool throwOnDisposed, T value = default)
-			: base(name, throwOnDisposed, value)
+			: base(name, value)
 		{
 		}
 
