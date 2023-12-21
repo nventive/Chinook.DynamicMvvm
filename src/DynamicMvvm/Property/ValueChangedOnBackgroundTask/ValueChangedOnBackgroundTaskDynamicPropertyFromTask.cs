@@ -45,17 +45,10 @@ namespace Chinook.DynamicMvvm.Implementations
 		/// <param name="viewModel">The <see cref="IViewModel"/> used to determine dispatcher access.</param>
 		/// <param name="initialValue">The initial value of this property.</param>
 		/// <param name="throwOnDisposed">Whether a <see cref="ObjectDisposedException"/> should be thrown when <see cref="IDynamicProperty.Value"/> is changed after being disposed.</param>
+		[Obsolete("This constructor is obsolete. The throwOnDisposed parameter is no longer used.", error: false)]
 		public ValueChangedOnBackgroundTaskDynamicPropertyFromTask(string name, Func<CancellationToken, Task<T>> source, IViewModel viewModel, bool throwOnDisposed, T initialValue = default)
-			: base(name, viewModel, throwOnDisposed, initialValue)
+			: this(name, source, viewModel, initialValue)
 		{
-			if (source is null)
-			{
-				throw new ArgumentNullException(nameof(source));
-			}
-
-			_cancellationTokenSource = new CancellationTokenSource();
-
-			_ = SetValueFromSource(_cancellationTokenSource.Token, source);
 		}
 
 		private async Task SetValueFromSource(CancellationToken ct, Func<CancellationToken, Task<T>> source)
@@ -68,7 +61,7 @@ namespace Chinook.DynamicMvvm.Implementations
 			}
 			catch (Exception e)
 			{
-				this.Log().LogError(e, $"Source task failed for property '{Name}'.");
+				this.Log().LogDynamicPropertySourceTaskFailed(Name, e);
 			}
 		}
 

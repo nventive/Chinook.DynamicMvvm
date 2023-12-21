@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicMvvm.Uno.WinUI", "sr
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DynamicMvvm.Shared", "src\DynamicMvvm.Shared\DynamicMvvm.Shared.shproj", "{8BCF881B-035B-4572-A0B5-27C379DEBEE8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicMvvm.Benchmarks", "src\DynamicMvvm.Benchmarks\DynamicMvvm.Benchmarks.csproj", "{8494F013-2C55-4B51-98E1-6006807C2D4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Android = Debug|Android
@@ -255,6 +257,38 @@ Global
 		{1E13272A-4270-4F68-88B7-A54375866640}.Release|x64.Build.0 = Release|x64
 		{1E13272A-4270-4F68-88B7-A54375866640}.Release|x86.ActiveCfg = Release|x86
 		{1E13272A-4270-4F68-88B7-A54375866640}.Release|x86.Build.0 = Release|x86
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Debug|Android.ActiveCfg = Debug|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Debug|Android.Build.0 = Debug|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Debug|iOS.ActiveCfg = Debug|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Debug|iOS.Build.0 = Debug|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Debug|NuGet.ActiveCfg = Debug|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Debug|NuGet.Build.0 = Debug|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Debug|Simulator.ActiveCfg = Debug|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Debug|Simulator.Build.0 = Debug|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Debug|UAP.ActiveCfg = Debug|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Debug|UAP.Build.0 = Debug|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Debug|x64.Build.0 = Debug|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Debug|x86.Build.0 = Debug|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Release|Android.ActiveCfg = Release|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Release|Android.Build.0 = Release|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Release|iOS.ActiveCfg = Release|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Release|iOS.Build.0 = Release|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Release|NuGet.ActiveCfg = Release|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Release|NuGet.Build.0 = Release|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Release|Simulator.ActiveCfg = Release|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Release|Simulator.Build.0 = Release|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Release|UAP.ActiveCfg = Release|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Release|UAP.Build.0 = Release|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Release|x64.ActiveCfg = Release|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Release|x64.Build.0 = Release|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Release|x86.ActiveCfg = Release|Any CPU
+		{8494F013-2C55-4B51-98E1-6006807C2D4C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

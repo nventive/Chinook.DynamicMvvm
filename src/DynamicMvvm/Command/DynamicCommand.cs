@@ -75,7 +75,7 @@ namespace Chinook.DynamicMvvm
 				if (_isDisposed)
 				{
 					// Note that we don't throw an ObjectDisposedException here because we're likely on a UI thread.
-					this.Log().LogError("Failed to execute command '{Name}' because it's disposed.", Name);
+					this.Log().LogCommandFailedBecauseDisposed(Name);
 					return;
 				}
 
@@ -99,7 +99,7 @@ namespace Chinook.DynamicMvvm
 			{
 				// This will run on a UI thread, so we want to make sure
 				// this task doesn't throw otherwise it could lead to a crash.
-				this.Log().LogError(e, $"Command execution of '{Name}' failed. Consider using {nameof(ErrorHandlerCommandStrategy)}.");
+				this.Log().LogCommandFailedConsiderUsingErrorHandlerCommandStrategy(Name, e);
 			}
 		}
 

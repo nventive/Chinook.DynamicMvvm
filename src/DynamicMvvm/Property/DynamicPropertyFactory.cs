@@ -13,8 +13,6 @@ namespace Chinook.DynamicMvvm
 	[Preserve(AllMembers = true)]
 	public class DynamicPropertyFactory : IDynamicPropertyFactory
 	{
-		private readonly bool _throwOnDisposed;
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DynamicPropertyFactory"/> class.
 		/// </summary>
@@ -23,28 +21,27 @@ namespace Chinook.DynamicMvvm
 		/// </remarks>
 		public DynamicPropertyFactory()
 		{
-			_throwOnDisposed = true;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DynamicPropertyFactory"/> class.
 		/// </summary>
 		/// <param name="throwOnDisposed">Whether a <see cref="ObjectDisposedException"/> should be thrown when <see cref="IDynamicProperty.Value"/> is changed after being disposed.</param>
+		[Obsolete("This constructor is obsolete. The throwOnDisposed parameter is no longer used.", error: false)]
 		public DynamicPropertyFactory(bool throwOnDisposed)
 		{
-			_throwOnDisposed = throwOnDisposed;
 		}
 
 		/// <inheritdoc />
 		public virtual IDynamicProperty Create<T>(string name, T initialValue = default, IViewModel viewModel = null)
-			=> new DynamicProperty<T>(name, _throwOnDisposed, initialValue);
+			=> new DynamicProperty<T>(name, initialValue);
 
 		/// <inheritdoc />
 		public virtual IDynamicProperty CreateFromTask<T>(string name, Func<CancellationToken, Task<T>> source, T initialValue = default, IViewModel viewModel = null)
-			=> new DynamicPropertyFromTask<T>(name, source, _throwOnDisposed, initialValue);
+			=> new DynamicPropertyFromTask<T>(name, source, initialValue);
 
 		/// <inheritdoc />
 		public virtual IDynamicProperty CreateFromObservable<T>(string name, IObservable<T> source, T initialValue = default, IViewModel viewModel = null)
-			=> new DynamicPropertyFromObservable<T>(name, source, _throwOnDisposed, initialValue);
+			=> new DynamicPropertyFromObservable<T>(name, source, initialValue);
 	}
 }

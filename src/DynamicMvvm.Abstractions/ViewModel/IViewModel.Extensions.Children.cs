@@ -121,12 +121,15 @@ namespace Chinook.DynamicMvvm
 				throw new ArgumentNullException(nameof(childViewModel));
 			}
 
-			if (childViewModel.TryGetDisposable(ParentDispatcherChangedSubscriptionKey, out var subscription))
+			if (!childViewModel.IsDisposed)
 			{
-				subscription.Dispose();
-				childViewModel.RemoveDisposable(ParentDispatcherChangedSubscriptionKey);
+				if (childViewModel.TryGetDisposable(ParentDispatcherChangedSubscriptionKey, out var subscription))
+				{
+					subscription.Dispose();
+					childViewModel.RemoveDisposable(ParentDispatcherChangedSubscriptionKey);
+				}
+				childViewModel.RemoveDisposable(RemoveSelfFromParentSubscriptionKey);
 			}
-			childViewModel.RemoveDisposable(RemoveSelfFromParentSubscriptionKey);
 
 			viewModel.RemoveDisposable(name ?? childViewModel.Name);
 		}
@@ -174,7 +177,15 @@ namespace Chinook.DynamicMvvm
 
 			public void Dispose()
 			{
-				_parentViewModel.DispatcherChanged -= OnParentDispatcherChanged;
+				// We capture _parentViewModel in a variable for more thread safety in case this runs concurrently (because _parentViewModel gets set to null).
+				var parentViewModel = _parentViewModel;
+				if (parentViewModel is null)
+				{
+					// Avoid throwing an exception if this object was already disposed.
+					return;
+				}
+
+				parentViewModel.DispatcherChanged -= OnParentDispatcherChanged;
 				_parentViewModel = null;
 				_childViewModel = null;
 			}

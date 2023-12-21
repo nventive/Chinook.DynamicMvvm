@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,11 +62,41 @@ namespace Chinook.DynamicMvvm.Tests.Integration
 			}
 		}
 
+		[Fact]
+		public void GetFromDeactivatableObservable_WithFuncOverload_doesnt_build_observable_more_than_once()
+		{
+			var sut = new TestVM2();
+
+			// InvocationCount should be 0 because the observable is not built until the first time it is accessed.
+			sut.InvocationCount.Should().Be(0);
+			sut.Count.Should().Be(0);
+
+			// InvocationCount should be 1 because the observable is built the first time it is accessed.
+			sut.InvocationCount.Should().Be(1);
+			sut.Count.Should().Be(0);
+
+			// InvocationCount should still be 1 because the property is cached.
+			sut.InvocationCount.Should().Be(1);
+		}
+
 		public class TestVM : DeactivatableViewModelBase
 		{
 			public ReplaySubject<int> CountSubject = new ReplaySubject<int>(bufferSize: 1);
 
 			public int Count => this.GetFromDeactivatableObservable<int>(CountSubject, initialValue: 0);
+		}
+
+		public class TestVM2 : DeactivatableViewModelBase
+		{
+			public int InvocationCount { get; private set; }
+
+			public int Count => this.GetFromDeactivatableObservable<int>(GetObservable, initialValue: 0);
+
+			private IObservable<int> GetObservable()
+			{
+				++InvocationCount;
+				return Observable.Never<int>();
+			}
 		}
 	}
 }

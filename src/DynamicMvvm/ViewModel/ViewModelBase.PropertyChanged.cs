@@ -17,7 +17,7 @@ namespace Chinook.DynamicMvvm
 
 			if (_isDisposing)
 			{
-				_logger.LogDebug($"Skipped '{nameof(RaisePropertyChanged)}' for '{GetType().Name}.{propertyName}' on ViewModel '{Name}' because it's disposing.");
+				_logger.LogViewModelSkippedMethodBecauseDisposing_PropertyName(nameof(RaisePropertyChanged), GetType().Name, propertyName, Name);
 				return;
 			}
 
@@ -40,13 +40,13 @@ namespace Chinook.DynamicMvvm
 		{
 			if (_isDisposing)
 			{
-				_logger.LogDebug($"Skipped '{nameof(RaisePropertyChangedInner)}' for '{GetType().Name}.{propertyName}' on ViewModel '{Name}' because it's disposing.");
+				_logger.LogViewModelSkippedMethodBecauseDisposing_PropertyName(nameof(RaisePropertyChangedInner), GetType().Name, propertyName, Name);
 				return;
 			}
 
 			if (_isDisposed)
 			{
-				_logger.LogDebug($"Skipped '{nameof(RaisePropertyChangedInner)}' for '{GetType().Name}.{propertyName}' on ViewModel '{Name}' because it's disposed.");
+				_logger.LogViewModelSkippedMethodBecauseDisposed_PropertyName(nameof(RaisePropertyChangedInner), GetType().Name, propertyName, Name);
 				return;
 			}
 
@@ -57,11 +57,11 @@ namespace Chinook.DynamicMvvm
 			catch (Exception exception) when (Dispatcher is null)
 			{
 				// Give some details and tips on how to fix the issue.
-				_logger.LogError(exception, "Failed to raise PropertyChanged. Your IVewModel.Dispatcher is null. Make sure you set it. Make sure you link child viewmodels to their parent by using one of the following IViewModel extension method: AttachChild, GetChild, AttachOrReplaceChild.");
+				_logger.LogViewModelFailedToRaisePropertyChangedWhenDispatcherIsNull(exception);
 				throw;
 			}
 
-			_logger.LogDebug($"Raised property changed for '{propertyName}' from ViewModel '{Name}'.");
+			_logger.LogViewModelRaisedPropertyChanged(propertyName, Name);
 		}
 	}
 }

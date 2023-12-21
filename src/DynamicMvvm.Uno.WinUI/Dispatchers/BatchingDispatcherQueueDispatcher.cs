@@ -56,13 +56,13 @@ namespace Chinook.DynamicMvvm
 		{
 			if (ct.IsCancellationRequested)
 			{
-				this.Log().LogDebug($"Cancelled 'ExecuteOnDispatcher' because of the cancellation token.");
+				this.Log().LogCancelledExecuteOnDispatcherBecauseOfCancellationToken();
 				return;
 			}
 
 			if (GetHasDispatcherAccess())
 			{
-				this.Log().LogDebug($"Executed action immediately because already on dispatcher.");
+				this.Log().LogExecutedActionImmediatelyBecauseAlreadyOnDispatcher();
 				action();
 				return;
 			}
@@ -94,7 +94,8 @@ namespace Chinook.DynamicMvvm
 					{
 						if (request.CT.IsCancellationRequested)
 						{
-							this.Log().LogDebug($"Cancelled 'ExecuteOnDispatcher' because of the cancellation token.");
+							this.Log().LogCancelledExecuteOnDispatcherBecauseOfCancellationToken();
+							
 							continue;
 						}
 
@@ -102,12 +103,12 @@ namespace Chinook.DynamicMvvm
 					}
 					catch (Exception e)
 					{
-						this.Log().LogError(e, "Failed 'ExecuteOnDispatcher'.");
+						this.Log().LogFailedExecuteOnDispatcher(e);
 					}
 				}
 			});
 
-			this.Log().LogDebug($"Batched {requests.Length} dispatcher requests.");
+			this.Log().LogBatchedDispatcherRequests(requests.Length);
 		}
 
 		private class Request

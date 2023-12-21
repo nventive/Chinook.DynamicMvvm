@@ -58,6 +58,20 @@ namespace Chinook.DynamicMvvm.Tests.ViewModel
 		}
 
 		[Fact]
+		public void It_Doesnt_Throw_When_Calling_Detach_With_A_Disposed_Child()
+		{
+			var parentViewModel = new ViewModelBase();
+			var childViewModel = new ViewModelBase();
+
+			parentViewModel.AttachChild(childViewModel);
+
+			childViewModel.Dispose();
+			parentViewModel.DetachChild(childViewModel);
+
+			parentViewModel.GetChildren().Should().NotContain(childViewModel);
+		}
+
+		[Fact]
 		public void It_Gets_Child_On_Attach()
 		{
 			var parentViewModel = new ViewModelBase();
