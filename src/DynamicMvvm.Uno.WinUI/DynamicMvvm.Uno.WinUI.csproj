@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-windows10.0.19041;net7.0-android;net7.0-ios;net7.0-macos;net7.0-maccatalyst;</TargetFrameworks>
+		<TargetFrameworks>net7.0;net7.0-windows10.0.19041;net7.0-android;net7.0-ios;net7.0-macos;net7.0-maccatalyst;</TargetFrameworks>
 		<LangVersion>11.0</LangVersion>
 		<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>
@@ -35,6 +35,10 @@
 		<PackageReference Include="Uno.WinUI" Version="5.0.19" />
 		<PackageReference Include="Uno.SourceGenerationTasks" Version="4.1.0" />
 	</ItemGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)'=='net7.0'">
+		<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<!--Needed for Source Link support -->
