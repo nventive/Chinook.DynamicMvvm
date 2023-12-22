@@ -11,7 +11,7 @@
 		<Description>Chinook.DynamicMvvm is a collection of extensible MVVM libraries for declarative ViewModels.</Description>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageTags>mvvm;xamarin;ios;android;uwp;chinook;maui;winui;</PackageTags>
+		<PackageTags>mvvm;ios;android;chinook;maui;winui;</PackageTags>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/nventive/Chinook.DynamicMvvm</PackageProjectUrl>
 

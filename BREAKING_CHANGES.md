@@ -1,5 +1,13 @@
 # Breaking Changes
 
+## 2.0.0
+- Added support for .NET 7.
+- Updated Uno.WinUI to 5.0.19.
+- Updated Windows SDK version from 18362 to 19041.
+- Removed support for Xamarin.
+- Removed support for .NET 6.
+- Removed support for NetStandard2.0 in DynamicMvvm.Uno.WinUI.
+
 ## 1.4.1
 - Dynamic properties no longer throw an `ObjectDisposedException` when we set their `Value` while they're disposed.
   - We've discovered that this safeguard is not needed and was causing unjustified issues when using dynamic properties in a multi-threaded environment. This is especially true with the _DynamicPropertyFromObservable_ variant, which can easily be disposed from a different thread than the one the observable source uses.

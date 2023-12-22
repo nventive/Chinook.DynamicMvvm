@@ -1,4 +1,9 @@
-﻿steps:
+﻿parameters:
+  DotNetVersion: '7.0.102'
+  UnoCheck_Version: '1.11.0'
+  UnoCheck_Manifest: 'https://raw.githubusercontent.com/unoplatform/uno.check/146b0b4b23d866bef455494a12ad7ffd2f6f2d20/manifests/uno.ui.manifest.json'
+
+steps:
 - task: gitversion/setup@0
   inputs:
     versionSpec: '5.10.1'
@@ -10,12 +15,21 @@
     configFilePath: $(Build.SourcesDirectory)/build/gitversion.yml
   displayName: 'Calculate version'
     
-- task: DotNetCoreCLI@2
-  displayName: 'Install dotnet 6 workloads'
+- task: UseDotNet@2
+  displayName: 'Use .NET SDK ${{ parameters.DotNetVersion }}'
+  retryCountOnTaskFailure: 3
   inputs:
-    command: 'custom'
-    custom: 'workload'
-    arguments: 'install android ios macos maccatalyst'
+    packageType: sdk
+    version: ${{ parameters.DotNetVersion }}
+    includePreviewVersions: true
+
+- powershell: |
+    & dotnet tool update --global uno.check --version ${{ parameters.UnoCheck_Version }} --add-source https://api.nuget.org/v3/index.json
+    & uno-check -v --ci --non-interactive --fix --skip xcode --skip gtk3 --skip vswin --skip vsmac --skip androidsdk --skip androidemulator --manifest ${{ parameters.UnoCheck_Manifest }}
+  displayName: Install .NET Workloads | Uno-check
+  errorActionPreference: continue
+  ignoreLASTEXITCODE: true
+  retryCountOnTaskFailure: 3
     
 - task: MSBuild@1
   displayName: 'Restore solution packages'
