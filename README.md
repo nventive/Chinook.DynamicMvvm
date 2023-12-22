@@ -110,7 +110,7 @@ public MainPage()
 }
 ```
 
-### Legacy
+#### Legacy
 For UWP or Uno.UI apps, install the `Chinook.DynamicMvvm.Uno` nuget package.
 You can then use `CoreDispatcherDispatcher` or `BatchingCoreDispatcherDispatcher`.
 ```csharp
