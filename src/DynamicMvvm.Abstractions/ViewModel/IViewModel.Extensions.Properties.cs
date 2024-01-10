@@ -5,8 +5,6 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Chinook.DynamicMvvm
 {
@@ -65,7 +63,40 @@ namespace Chinook.DynamicMvvm
 			this IViewModel viewModel,
 			T initialValue = default,
 			[CallerMemberName] string name = null
-		) => viewModel.Get<T>(viewModel.GetOrCreateDynamicProperty(name, n => viewModel.GetDynamicPropertyFactory().Create(n, initialValue, viewModel)));
+		)
+		{
+			// We don't use GetOrCreateDynamicProperty internally to avoid the performance costs of the lambda and closure.
+			if (viewModel.IsDisposed)
+			{
+				return default(T);
+			}
+
+			if (viewModel.TryGetDisposable<IDynamicProperty>(name, out var property))
+			{
+				return viewModel.Get<T>(property);
+			}
+			else
+			{
+				property = AddDynamicPropertyFromValue(viewModel, initialValue, name);
+
+				return (T)property.Value;
+			}
+		}
+
+		private static IDynamicProperty AddDynamicPropertyFromValue<T>(IViewModel viewModel, T initialValue, string name)
+		{
+			var property = viewModel.GetDynamicPropertyFactory().Create(name, initialValue, viewModel);
+			property.ValueChanged += OnDynamicPropertyChanged;
+
+			viewModel.AddDisposable(name, property);
+
+			return property;
+
+			void OnDynamicPropertyChanged(IDynamicProperty dynamicProperty)
+			{
+				viewModel.RaisePropertyChanged(dynamicProperty.Name);
+			}
+		}
 
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicProperty"/> attached to this <see cref="IViewModel"/>.
@@ -79,7 +110,40 @@ namespace Chinook.DynamicMvvm
 			this IViewModel viewModel,
 			Func<T> initialValue,
 			[CallerMemberName] string name = null
-		) => viewModel.Get<T>(viewModel.GetOrCreateDynamicProperty(name, n => viewModel.GetDynamicPropertyFactory().Create(n, initialValue(), viewModel)));
+		)
+		{
+			// We don't use GetOrCreateDynamicProperty internally to avoid the performance costs of the lambda and closure.
+			if (viewModel.IsDisposed)
+			{
+				return default(T);
+			}
+
+			if (viewModel.TryGetDisposable<IDynamicProperty>(name, out var property))
+			{
+				return viewModel.Get<T>(property);
+			}
+			else
+			{
+				property = AddDynamicPropertyFromValue(viewModel, initialValue, name);
+
+				return (T)property.Value;
+			}
+		}
+
+		private static IDynamicProperty AddDynamicPropertyFromValue<T>(IViewModel viewModel, Func<T> initialValue, string name)
+		{
+			var property = viewModel.GetDynamicPropertyFactory().Create(name, initialValue(), viewModel);
+			property.ValueChanged += OnDynamicPropertyChanged;
+
+			viewModel.AddDisposable(name, property);
+
+			return property;
+
+			void OnDynamicPropertyChanged(IDynamicProperty dynamicProperty)
+			{
+				viewModel.RaisePropertyChanged(dynamicProperty.Name);
+			}
+		}
 
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicProperty"/> attached to this <see cref="IViewModel"/>.
@@ -95,7 +159,40 @@ namespace Chinook.DynamicMvvm
 			Func<CancellationToken, Task<T>> source,
 			T initialValue = default,
 			[CallerMemberName] string name = null
-		) => viewModel.Get<T>(viewModel.GetOrCreateDynamicProperty(name, n => viewModel.GetDynamicPropertyFactory().CreateFromTask(n, source, initialValue, viewModel)));
+		)
+		{
+			// We don't use GetOrCreateDynamicProperty internally to avoid the performance costs of the lambda and closure.
+			if (viewModel.IsDisposed)
+			{
+				return default(T);
+			}
+
+			if (viewModel.TryGetDisposable<IDynamicProperty>(name, out var property))
+			{
+				return viewModel.Get<T>(property);
+			}
+			else
+			{
+				property = AddDynamicPropertyTask(viewModel, source, initialValue, name);
+
+				return (T)property.Value;
+			}
+		}
+
+		private static IDynamicProperty AddDynamicPropertyTask<T>(IViewModel viewModel, Func<CancellationToken, Task<T>> source, T initialValue, string name)
+		{
+			var property = viewModel.GetDynamicPropertyFactory().CreateFromTask(name, source, initialValue, viewModel);
+			property.ValueChanged += OnDynamicPropertyChanged;
+
+			viewModel.AddDisposable(name, property);
+
+			return property;
+
+			void OnDynamicPropertyChanged(IDynamicProperty dynamicProperty)
+			{
+				viewModel.RaisePropertyChanged(dynamicProperty.Name);
+			}
+		}
 
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicProperty"/> attached to this <see cref="IViewModel"/>.
@@ -111,7 +208,40 @@ namespace Chinook.DynamicMvvm
 			IObservable<T> source,
 			T initialValue = default,
 			[CallerMemberName] string name = null
-		) => viewModel.Get<T>(viewModel.GetOrCreateDynamicProperty(name, n => viewModel.GetDynamicPropertyFactory().CreateFromObservable(n, source, initialValue, viewModel)));
+		)
+		{
+			// We don't use GetOrCreateDynamicProperty internally to avoid the performance costs of the lambda and closure.
+			if (viewModel.IsDisposed)
+			{
+				return default(T);
+			}
+
+			if (viewModel.TryGetDisposable<IDynamicProperty>(name, out var property))
+			{
+				return viewModel.Get<T>(property);
+			}
+			else
+			{
+				property = AddDynamicPropertyFromObservable(viewModel, source, initialValue, name);
+
+				return (T)property.Value;
+			}
+		}
+
+		private static IDynamicProperty AddDynamicPropertyFromObservable<T>(IViewModel viewModel, IObservable<T> source, T initialValue, string name)
+		{
+			var property = viewModel.GetDynamicPropertyFactory().CreateFromObservable(name, source, initialValue, viewModel);
+			property.ValueChanged += OnDynamicPropertyChanged;
+
+			viewModel.AddDisposable(name, property);
+
+			return property;
+
+			void OnDynamicPropertyChanged(IDynamicProperty dynamicProperty)
+			{
+				viewModel.RaisePropertyChanged(dynamicProperty.Name);
+			}
+		}
 
 		/// <summary>
 		/// Sets the value of a property.
