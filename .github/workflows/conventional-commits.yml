@@ -13,3 +13,5 @@ jobs:
         uses: actions/checkout@v1
       - name: Commitsar check
         uses: docker://aevea/commitsar
+        env:
+          COMMITSAR_CONFIG_PATH : ./.github

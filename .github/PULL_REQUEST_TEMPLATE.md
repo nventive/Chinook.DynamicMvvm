@@ -35,6 +35,7 @@ GitHub Issue: #
 - [ ] **None** (The library is unchanged.)
   - Only code under the `build` folder was changed.
   - Only code under the `.github` folder was changed.
+  - Only code in the Benchmarks project was changed.
 
 ## Checklist
 
