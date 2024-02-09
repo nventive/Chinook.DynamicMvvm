@@ -171,6 +171,8 @@ public long Counter => this.GetFromObservable(Observable.Timer(
 ```
 > 💡 If you use [Chinook Snippets](https://marketplace.visualstudio.com/items?itemName=nventivecorp.ChinookSnippets), you can quickly generate a property from observable using the snippets `"ckpropo"` (**c**hinoo**k** **prop**erty from **o**bservable) or `"ckpropog"` (**c**hinoo**k** **prop**erty from **o**bservable **g**et-only).
 
+> 💡 Consider using the overload that takes a `Func<IObservable<T>>` to avoid evaluating the observable every time the property is read and potentially save some memory allocations.
+
 ### Create properties from `Task<T>`
 Using `IViewModel.GetFromTask`, you can create a property that updates itself based on a `Task<T>` result.
 ```csharp

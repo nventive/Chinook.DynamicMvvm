@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Chinook.DynamicMvvm;
 using Chinook.DynamicMvvm.Tests.Helpers;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
@@ -137,6 +137,23 @@ namespace Chinook.DynamicMvvm.Tests.Integration
 			viewModel.TryGetDisposable(nameof(viewModel.Child), out var _).Should().BeFalse();
 		}
 
+		[Fact]
+		public void GetFromObservable_WithFuncOverload_doesnt_build_observable_more_than_once()
+		{
+			var sut = new TestVM2(_serviceProvider);
+
+			// InvocationCount should be 0 because the observable is not built until the first time it is accessed.
+			sut.InvocationCount.Should().Be(0);
+			sut.Count.Should().Be(0);
+
+			// InvocationCount should be 1 because the observable is built the first time it is accessed.
+			sut.InvocationCount.Should().Be(1);
+			sut.Count.Should().Be(0);
+
+			// InvocationCount should still be 1 because the property is cached.
+			sut.InvocationCount.Should().Be(1);
+		}
+
 		private class MyViewModel : ViewModelBase
 		{
 			public MyViewModel(IServiceProvider serviceProvider)
@@ -224,6 +241,24 @@ namespace Chinook.DynamicMvvm.Tests.Integration
 			{
 				get => this.Get<int>(initialValue: 0);
 				set => this.Set(value);
+			}
+		}
+
+		public class TestVM2 : ViewModelBase
+		{
+			public TestVM2(IServiceProvider serviceProvider)
+				: base(serviceProvider: serviceProvider)
+			{
+			}
+
+			public int InvocationCount { get; private set; }
+
+			public int Count => this.GetFromObservable<int>(GetObservable, initialValue: 0);
+
+			private IObservable<int> GetObservable()
+			{
+				++InvocationCount;
+				return Observable.Never<int>();
 			}
 		}
 	}
