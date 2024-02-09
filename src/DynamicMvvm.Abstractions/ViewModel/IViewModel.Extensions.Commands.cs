@@ -80,6 +80,37 @@ namespace Chinook.DynamicMvvm
 		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandBuilderFactory().CreateFromTask(n, execute, viewModel), configure);
 
 		/// <summary>
+		/// Gets or creates a unique instance of <see cref="IDynamicCommand"/> configured for every items in a list
+		/// with base name + guid.
+		/// </summary>
+		/// <param name="viewModel">The ViewModel.</param>
+		/// <param name="execute">The execute method.</param>
+		/// <param name="configure">The optional function to configure the command builder.</param>
+		/// <param name="name">The command name.</param>
+		/// <returns><see cref="IDynamicCommand"/></returns>
+		public static IDynamicCommand GetItemCommandFromTask(
+			this IViewModel viewModel, Func<CancellationToken, Task> execute,
+			Func<IDynamicCommandBuilder, IDynamicCommandBuilder> configure = null,
+			[CallerMemberName] string name = null
+			) => viewModel.GetCommandFromTask(execute, configure: c => c, name: (name + Guid.NewGuid()));
+
+		/// <summary>
+		/// Gets or creates a unique instance of <see cref="IDynamicCommand"/> configured for every items in a list.
+		/// with base name + guid.
+		/// </summary>
+		/// <typeparam name="TParameter">The type of the command parameter.</typeparam>
+		/// <param name="viewModel">The ViewModel.</param>
+		/// <param name="execute">The execute method.</param>
+		/// <param name="configure">The optional function to configure the command builder.</param>
+		/// <param name="name">The command name.</param>
+		/// <returns><see cref="IDynamicCommand"/></returns>
+		public static IDynamicCommand GetItemCommandFromTask<TParameter>(
+			this IViewModel viewModel, Func<CancellationToken, TParameter, Task> execute,
+			Func<IDynamicCommandBuilder, IDynamicCommandBuilder> configure = null,
+			[CallerMemberName] string name = null
+			) => viewModel.GetCommandFromTask<TParameter>(execute, configure: c => c, name: (name + Guid.NewGuid()));
+
+		/// <summary>
 		/// Gets or creates a <see cref="IDynamicCommand"/> that will be attached to the <paramref name="viewModel"/>.
 		/// </summary>
 		/// <param name="viewModel">This <see cref="IViewModel"/>.</param>
