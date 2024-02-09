@@ -244,6 +244,41 @@ namespace Chinook.DynamicMvvm
 		}
 
 		/// <summary>
+		/// Gets or creates a <see cref="IDynamicProperty"/> attached to this <see cref="IViewModel"/>.
+		/// This overload uses a <see cref="Func{TResult}"/> to avoid evaluating the observable sequence more than once (which can avoid memory allocations).
+		/// </summary>
+		/// <typeparam name="T">The property type.</typeparam>
+		/// <param name="viewModel">The <see cref="IViewModel"/> owning the property.</param>
+		/// <param name="sourceProvider">The function to provide the observable of values that feeds the property.</param>
+		/// <param name="initialValue">The property's initial value.</param>
+		/// <param name="name">The property's name.</param>
+		/// <returns>The property's value.</returns>
+		public static T GetFromObservable<T>(
+			this IViewModel viewModel,
+			Func<IObservable<T>> sourceProvider,
+			T initialValue = default,
+			[CallerMemberName] string name = null
+		)
+		{
+			// We don't use GetOrCreateDynamicProperty internally to avoid the performance costs of the lambda and closure.
+			if (viewModel.IsDisposed)
+			{
+				return default(T);
+			}
+
+			if (viewModel.TryGetDisposable<IDynamicProperty>(name, out var property))
+			{
+				return viewModel.Get<T>(property);
+			}
+			else
+			{
+				property = AddDynamicPropertyFromObservable(viewModel, sourceProvider(), initialValue, name);
+
+				return (T)property.Value;
+			}
+		}
+
+		/// <summary>
 		/// Sets the value of a property.
 		/// </summary>
 		/// <remarks>
