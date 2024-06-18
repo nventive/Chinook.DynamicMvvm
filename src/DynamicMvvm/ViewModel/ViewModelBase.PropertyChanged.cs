@@ -13,11 +13,15 @@ namespace Chinook.DynamicMvvm
 		/// <inheritdoc />
 		public virtual void RaisePropertyChanged(string propertyName)
 		{
-			ThrowIfDisposed();
-
 			if (_isDisposing)
 			{
 				_logger.LogViewModelSkippedMethodBecauseDisposing_PropertyName(nameof(RaisePropertyChanged), GetType().Name, propertyName, Name);
+				return;
+			}
+
+			if (_isDisposed)
+			{
+				_logger.LogViewModelSkippedMethodBecauseDisposed_PropertyName(nameof(RaisePropertyChanged), GetType().Name, propertyName, Name);
 				return;
 			}
 

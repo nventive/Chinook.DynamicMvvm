@@ -110,7 +110,23 @@ namespace Chinook.DynamicMvvm.Tests.Integration
 			Assert.Throws<ObjectDisposedException>(() => viewModel.SetErrors(errors: new Dictionary<string, IEnumerable<object>>()));
 			Assert.Throws<ObjectDisposedException>(() => viewModel.ClearErrors(nameof(MyViewModel.Counter)));
 			Assert.Throws<ObjectDisposedException>(() => viewModel.Dispatcher = new TestDispatcher());
-			Assert.Throws<ObjectDisposedException>(() => viewModel.RaisePropertyChanged(nameof(MyViewModel.Counter)));
+		}
+
+		[Fact]
+		public void A_disposed_VM_does_not_raise_PropertyChanged()
+		{
+			// Arrange
+			var viewModel = new MyViewModel(_serviceProvider);
+
+			var raised = false;
+			viewModel.PropertyChanged += (s, e) => raised = true;
+
+			// Act
+			viewModel.Dispose();
+			viewModel.Counter++;
+
+			// Assert
+			raised.Should().BeFalse();
 		}
 
 		[Fact]
