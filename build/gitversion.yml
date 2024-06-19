@@ -13,7 +13,7 @@ patch-version-bump-message: "^(build|chore|docs|fix|perf|refactor|revert|style|t
 no-bump-message: "^(ci)(\\([\\w\\s-]*\\))?:" # You can use the "ci" type to avoid bumping the version when your changes are limited to the build or .github folders.
 branches:
   main:
-    regex: ^master$|^main$
+    regex: ^master$|^main$|^hotfix-v1$
     tag: ''
   dev:
     regex: dev/.*?/(.*?)
