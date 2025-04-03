@@ -1,16 +1,14 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using Microsoft.Extensions.Logging;
 
 namespace Chinook.DynamicMvvm
 {
 	public partial class ViewModelBase
 	{
-		private readonly Dictionary<string, IDisposable> _disposables = new Dictionary<string, IDisposable>();
-		private readonly CancellationTokenSource _cts = new CancellationTokenSource();
+		private readonly ConcurrentDictionary<string, IDisposable> _disposables = new();
+		private readonly CancellationTokenSource _cts = new();
 
 		private bool _isDisposing;
 		private bool _isDisposed;
@@ -47,7 +45,7 @@ namespace Chinook.DynamicMvvm
 				return;
 			}
 
-			_disposables.Add(key, disposable);
+			_disposables.TryAdd(key, disposable);
 		}
 
 		/// <inheritdoc />
@@ -63,7 +61,7 @@ namespace Chinook.DynamicMvvm
 
 			ThrowIfDisposed();
 
-			_disposables.Remove(key);
+			_disposables.TryRemove(key, out _);
 		}
 
 		/// <inheritdoc />
