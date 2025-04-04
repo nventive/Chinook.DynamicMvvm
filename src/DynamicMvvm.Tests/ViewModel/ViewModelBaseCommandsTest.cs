@@ -77,6 +77,20 @@ namespace Chinook.DynamicMvvm.Tests.ViewModel
 		}
 
 		[Fact]
+		public async Task It_Get_From_Item_Task()
+		{
+			var receivedParameter = default(TestEntity);
+			var viewModel = new ViewModelBase(serviceProvider: _serviceProvider);
+
+			var command = viewModel.GetItemCommandFromTask<TestEntity>(async (ct, p) => receivedParameter = p);
+
+			var parameter = new TestEntity();
+			await command.Execute(parameter);
+
+			receivedParameter.Should().Be(parameter);
+		}
+
+		[Fact]
 		public void It_Adds_Disposable()
 		{
 			var viewModel = new ViewModelBase(serviceProvider: _serviceProvider);
