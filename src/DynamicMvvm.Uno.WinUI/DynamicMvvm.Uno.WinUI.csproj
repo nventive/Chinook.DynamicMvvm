@@ -33,7 +33,6 @@
 	
 	<ItemGroup>
 		<PackageReference Include="Uno.WinUI" Version="5.0.19" />
-		<PackageReference Include="Uno.SourceGenerationTasks" Version="4.1.0" />
 	</ItemGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net8.0'">
