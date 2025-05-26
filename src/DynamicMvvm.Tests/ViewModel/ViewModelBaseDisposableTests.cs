@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
-using Chinook.DynamicMvvm.Tests.Helpers;
-using Xunit;
 using System.Threading;
+using System.Threading.Tasks;
+using Chinook.DynamicMvvm.Tests.Helpers;
+using FluentAssertions;
+using Xunit;
 
 namespace Chinook.DynamicMvvm.Tests.ViewModel
 {
@@ -53,6 +51,57 @@ namespace Chinook.DynamicMvvm.Tests.ViewModel
 		}
 
 		[Fact]
+		public void It_Adds_Disposables_With_Same_Key_Only_Once()
+		{
+			// Arrange
+			var viewModel = new ViewModelBase();
+			var disposable1 = new TestDisposable();
+			var disposable2 = new TestDisposable();
+
+			// Act
+			viewModel.AddDisposable(DefaultDisposableKey, disposable1);
+			viewModel.AddDisposable(DefaultDisposableKey, disposable2);
+
+			// Assert
+			var firstDisposable = viewModel.Disposables.SingleOrDefault(s => s.Key == DefaultDisposableKey);
+			firstDisposable.Value.Should().Be(disposable1);
+			viewModel.Disposables.Should().HaveCount(1);
+		}
+
+		[Fact]
+		public async Task It_Adds_Disposables_In_A_Multithreaded_Context()
+		{
+			// Arrange
+			var viewModel = new ViewModelBase();
+			const int itemCount = 10;
+
+			// Act
+			var addTask = Task.Run(async () =>
+			{
+				for (var i = 0; i < itemCount; i++)
+				{
+					viewModel.AddDisposable($"Disposable_{i}", new TestDisposable());
+					await Task.Delay(1);
+				}
+			});
+
+			// Act
+			var enumerationTask = Task.Run(async () =>
+			{
+				await Task.Delay(5);
+				foreach (var disposable in viewModel.Disposables)
+				{
+					await Task.Delay(1);
+				}
+			});
+
+			await Task.WhenAll(addTask, enumerationTask);
+
+			// Assert
+			viewModel.Disposables.Count().Should().Be(itemCount);
+		}
+
+		[Fact]
 		public void It_Removes_Disposable()
 		{
 			var viewModel = new ViewModelBase();
@@ -66,6 +115,41 @@ namespace Chinook.DynamicMvvm.Tests.ViewModel
 
 			storedDisposable.Key.Should().BeNull();
 			storedDisposable.Value.Should().BeNull();
+		}
+
+		[Fact]
+		public async Task It_Removes_Disposables_In_A_Multithreaded_Context()
+		{
+			// Arrange
+			var viewModel = new ViewModelBase();
+
+			for (var i = 0; i < 10; i++)
+			{
+				viewModel.AddDisposable($"Disposable_{i}", new TestDisposable());
+			}
+
+			// Act
+			var enumerationTask = Task.Run(async () =>
+			{
+				foreach (var disposable in viewModel.Disposables)
+				{
+					await Task.Delay(1);
+				}
+			});
+
+			var removalTask = Task.Run(async () =>
+			{
+				foreach (var disposable in viewModel.Disposables)
+				{
+					viewModel.RemoveDisposable(disposable.Key);
+					await Task.Delay(1);
+				}
+			});
+
+			await Task.WhenAll(enumerationTask, removalTask);
+
+			// Assert
+			viewModel.Disposables.Should().BeEmpty();
 		}
 
 		[Fact]
