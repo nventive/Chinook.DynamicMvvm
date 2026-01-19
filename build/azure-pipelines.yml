@@ -16,7 +16,7 @@ variables:
   value: $[or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/'))]
 # Pool names
 - name: windowsHostedAgentImage
-  value: 'windows-2022'
+  value: 'windows-2025'
 
 stages:
 - stage: Build
