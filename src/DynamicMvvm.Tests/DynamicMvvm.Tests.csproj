@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-		<LangVersion>12.0</LangVersion>
+    <TargetFramework>net10.0</TargetFramework>
+		<LangVersion>14.0</LangVersion>
     <IsPackable>false</IsPackable>
 	<AssemblyName>Chinook.DynamicMvvm.Tests</AssemblyName>
     <RootNamespace>Chinook.DynamicMvvm.Tests</RootNamespace>
@@ -18,16 +18,16 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageReference Include="Moq" Version="4.18.2" />
 	<PackageReference Include="FluentAssertions" Version="5.9.0" />
-	<PackageReference Include="System.Collections.Immutable" Version="6.0.0" />
+	<PackageReference Include="System.Collections.Immutable" Version="10.0.1" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-	<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.0" />
+	<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.1" />
   </ItemGroup>
 
   <ItemGroup>

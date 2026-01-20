@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0</TargetFrameworks>
-		<LangVersion>12</LangVersion>
+		<LangVersion>14</LangVersion>
 		<RootNamespace>Chinook.DynamicMvvm</RootNamespace>
 		<Authors>nventive</Authors>
 		<Company>nventive</Company>
@@ -30,7 +30,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.Diagnostics.DiagnosticSource" Version="4.7.0" />
+		<PackageReference Include="System.Diagnostics.DiagnosticSource" Version="10.0.1" />
 		<PackageReference Include="System.Reactive" Version="4.4.1" />
 	</ItemGroup>
 
